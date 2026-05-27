@@ -1,0 +1,24 @@
+{
+  "name": "windows-autounattend-xml-generator",
+  "version": "0.1.0",
+  "description": "Windows Autounattend.xml-Generator für unbeaufsichtigte Installationen von Windows 11 und Server 2022 (reine Browser-App, keine Laufzeit-Abhängigkeiten).",
+  "type": "module",
+  "scripts": {
+    "test": "node test/run-all.mjs",
+    "build": "node build-standalone.mjs"
+  },
+  "author": "CallMeTechie",
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CallMeTechie/Windows-Unattend-XML-Generator.git"
+  },
+  "homepage": "https://github.com/CallMeTechie/Windows-Unattend-XML-Generator#readme",
+  "bugs": {
+    "url": "https://github.com/CallMeTechie/Windows-Unattend-XML-Generator/issues"
+  },
+  "devDependencies": {
+    "jsdom": "^29.1.1"
+  }
+}

@@ -1,0 +1,20 @@
+# Abhängigkeiten
+node_modules/
+
+# Build-Artefakt (regenerierbar via `npm run build`)
+autounattend-generator.standalone.html
+
+# Interne Projektdokumente (gehören nicht ins Repository)
+BUGS.md
+ROADMAP.md
+
+# Logs / temporäre Dateien
+*.log
+npm-debug.log*
+
+# Betriebssystem / Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Defense-in-depth gegen XSS: nur eigene Skripte erlauben, injizierte
+         Inline-/Event-Handler-Skripte werden blockiert. 'unsafe-inline' nur für
+         style (vorhandene Inline-Styles), nicht für script. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'">
+    <meta name="description" content="Professional Windows Autounattend.xml Generator for unattended Windows installations">
+    <meta name="author" content="CallMeTechie">
+    <title>Windows Autounattend.xml Generator - Professional Edition</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <h1 data-i18n="header.title">Windows Autounattend.xml Generator</h1>
+            <div class="header-subtitle" data-i18n="header.subtitle">Create unattended installation configurations for Windows 11 and Server 2022</div>
+        </header>
+
+        <!-- Mode Selector -->
+        <nav class="mode-selector" role="navigation">
+            <button class="mode-btn active" data-mode="wizard" data-i18n-aria="modes.wizard">
+                <span>🧙</span> <span data-i18n="modes.wizard">Wizard Mode</span>
+            </button>
+            <button class="mode-btn" data-mode="pro" data-i18n-aria="modes.pro">
+                <span>⚡</span> <span data-i18n="modes.pro">Pro Mode</span>
+            </button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Wizard Mode -->
+            <section class="wizard-container active" aria-label="Wizard Mode">
+                <div class="wizard-steps" role="progressbar">
+                    <div class="wizard-step active" role="button" tabindex="0" data-i18n-aria="wizard.steps.basic.title">
+                        <div class="wizard-step-number">1</div>
+                        <div class="wizard-step-title" data-i18n="wizard.steps.basic.title">Basic Settings</div>
+                    </div>
+                    <div class="wizard-step" role="button" tabindex="0" data-i18n-aria="wizard.steps.partitioning.title">
+                        <div class="wizard-step-number">2</div>
+                        <div class="wizard-step-title" data-i18n="wizard.steps.partitioning.title">Partitioning</div>
+                    </div>
+                    <div class="wizard-step" role="button" tabindex="0" data-i18n-aria="wizard.steps.users.title">
+                        <div class="wizard-step-number">3</div>
+                        <div class="wizard-step-title" data-i18n="wizard.steps.users.title">User Accounts</div>
+                    </div>
+                    <div class="wizard-step" role="button" tabindex="0" data-i18n-aria="wizard.steps.network.title">
+                        <div class="wizard-step-number">4</div>
+                        <div class="wizard-step-title" data-i18n="wizard.steps.network.title">Network</div>
+                    </div>
+                    <div class="wizard-step" role="button" tabindex="0" data-i18n-aria="wizard.steps.software.title">
+                        <div class="wizard-step-number">5</div>
+                        <div class="wizard-step-title" data-i18n="wizard.steps.software.title">Software</div>
+                    </div>
+                    <div class="wizard-step" role="button" tabindex="0" data-i18n-aria="wizard.steps.finish.title">
+                        <div class="wizard-step-number">6</div>
+                        <div class="wizard-step-title" data-i18n="wizard.steps.finish.title">Finish</div>
+                    </div>
+                </div>
+
+                <div class="wizard-content" id="wizard-content">
+                    <!-- Content will be loaded dynamically by JavaScript -->
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-secondary" id="prevBtn" style="display:none;" data-i18n="buttons.previous">← Back</button>
+                    <button class="btn btn-primary" id="nextBtn" data-i18n="buttons.next">Next →</button>
+                    <button class="btn btn-success" id="finishBtn" style="display:none;" data-i18n="buttons.finish">Generate XML</button>
+                </div>
+            </section>
+
+            <!-- Pro Mode -->
+            <section class="pro-container" aria-label="Professional Mode">
+                <nav class="pro-tabs" role="tablist">
+                    <button class="pro-tab active" data-tab="basic" role="tab" aria-selected="true" data-i18n="pro.tabs.basic">Basic Settings</button>
+                    <button class="pro-tab" data-tab="disk" role="tab" data-i18n="pro.tabs.disk">Disk</button>
+                    <button class="pro-tab" data-tab="users" role="tab" data-i18n="pro.tabs.users">Users</button>
+                    <button class="pro-tab" data-tab="network" role="tab" data-i18n="pro.tabs.network">Network</button>
+                    <button class="pro-tab" data-tab="software" role="tab" data-i18n="pro.tabs.software">Software</button>
+                    <button class="pro-tab" data-tab="domain" role="tab" data-i18n="pro.tabs.domain">Domain</button>
+                    <button class="pro-tab" data-tab="features" role="tab" data-i18n="pro.tabs.features">Features</button>
+                    <button class="pro-tab" data-tab="oobe" role="tab" data-i18n="pro.tabs.oobe">OOBE</button>
+                    <button class="pro-tab" data-tab="scripts" role="tab" data-i18n="pro.tabs.scripts">Scripts</button>
+                    <button class="pro-tab" data-tab="drivers" role="tab" data-i18n="pro.tabs.drivers">Drivers</button>
+                    <button class="pro-tab" data-tab="preview" role="tab" data-i18n="pro.tabs.preview">Preview</button>
+                </nav>
+
+                <div class="pro-content" id="pro-content" role="tabpanel">
+                    <!-- Content will be loaded dynamically by JavaScript -->
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn btn-secondary" data-action="import">📥 <span data-i18n="buttons.import">Import XML</span></button>
+                    <button class="btn btn-secondary" data-action="save-template">💾 <span data-i18n="buttons.saveTemplate">Save as Template</span></button>
+                    <button class="btn btn-primary" data-action="validate">✔ <span data-i18n="buttons.validate">Validate Configuration</span></button>
+                    <button class="btn btn-success" data-action="generate">⬇ <span data-i18n="buttons.generate">Generate XML</span></button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Action Bar -->
+        <div class="action-bar">
+            <button class="fab fab-primary" data-action="help" data-i18n-title="buttons.help" data-i18n-aria="buttons.help">
+                ?
+            </button>
+        </div>
+
+        <!-- Modal for XML Preview -->
+        <div class="modal" id="xmlModal" role="dialog" aria-modal="true" aria-labelledby="xmlModalTitle">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="xmlModalTitle" data-i18n="modals.xmlPreview.title">Generated autounattend.xml</h2>
+                    <button class="modal-close" data-i18n-aria="buttons.close">✕</button>
+                </div>
+                <div class="xml-preview" id="xmlPreview"></div>
+                <div class="btn-group">
+                    <button class="btn btn-secondary" data-action="copy-xml">📋 <span data-i18n="buttons.copy">Copy</span></button>
+                    <button class="btn btn-primary" data-action="download-xml">⬇ <span data-i18n="buttons.download">Download</span></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Modal -->
+        <div class="modal" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpModalTitle">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="helpModalTitle" data-i18n="help.title">Help & Documentation</h2>
+                    <button class="modal-close" data-i18n-aria="buttons.close">✕</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Content will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Modules -->
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
