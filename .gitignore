@@ -8,6 +8,11 @@ autounattend-generator.standalone.html
 BUGS.md
 ROADMAP.md
 
+# Tauri-Build-Artefakte (regenerierbar)
+src-tauri/target/
+src-tauri/gen/
+dist/
+
 # Logs / temporäre Dateien
 *.log
 npm-debug.log*

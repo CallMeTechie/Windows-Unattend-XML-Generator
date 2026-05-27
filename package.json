@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "test": "node test/run-all.mjs",
-    "build": "node build-standalone.mjs"
+    "build": "node build-standalone.mjs",
+    "build:app": "node build-tauri-frontend.mjs",
+    "tauri": "tauri"
   },
   "author": "CallMeTechie",
   "license": "MIT",
@@ -19,6 +21,7 @@
     "url": "https://github.com/CallMeTechie/Windows-Unattend-XML-Generator/issues"
   },
   "devDependencies": {
+    "@tauri-apps/cli": "^2.11.2",
     "jsdom": "^29.1.1"
   }
 }
