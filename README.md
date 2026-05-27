@@ -18,7 +18,7 @@ Browser-App (Vanilla JS, keine Laufzeit-Abhängigkeiten), mit mehrsprachiger Obe
 ## Nutzung
 
 Die App nutzt ES-Module und lädt Sprachen per `fetch`. Browser blockieren beides bei `file://`
-(CORS, Origin „null"). Es gibt daher zwei Wege:
+(CORS, Origin „null"). Es gibt daher folgende Wege:
 
 ### 1. Über einen lokalen Webserver (Entwicklung & normaler Betrieb)
 
@@ -39,6 +39,31 @@ ohne Server per Doppelklick funktioniert:
 ```bash
 npm run build
 # erzeugt: autounattend-generator.standalone.html  ->  einfach im Browser öffnen
+```
+
+### 3. Als Windows-Desktop-App (Installer)
+
+Für Windows gibt es fertige Installer als Anhang jedes
+[Releases](https://github.com/CallMeTechie/Windows-Unattend-XML-Generator/releases):
+
+- `…_x64-setup.exe` – Setup-Assistent (NSIS)
+- `…_x64_en-US.msi` – MSI-Paket (für unbeaufsichtigte Verteilung, z. B. per GPO)
+
+Die Desktop-App basiert auf [Tauri](https://tauri.app/) und nutzt das unter Windows 11
+vorinstallierte **WebView2**; sie bündelt kein eigenes Chromium und bleibt daher klein. Eine
+Internetverbindung wird nicht benötigt.
+
+> **Hinweis:** Die Installer sind nicht code-signiert. Windows SmartScreen meldet daher beim ersten
+> Start einen unbekannten Herausgeber – über *Weitere Informationen → Trotzdem ausführen* startet
+> die App.
+
+Selbst bauen (erfordert [Rust](https://www.rust-lang.org/tools/install), unter Linux zusätzlich die
+WebKitGTK-Entwicklungspakete):
+
+```bash
+npm install
+npm run tauri -- build
+# erzeugt die Installer unter src-tauri/target/release/bundle/
 ```
 
 ## Entwicklung
