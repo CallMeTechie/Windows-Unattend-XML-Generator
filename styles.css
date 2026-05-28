@@ -386,32 +386,34 @@ body {
     line-height: 1.5;
 }
 
-/* ----- Grid-Layout (für Spalten) ------------------------- */
+/* ----- Grid-Layout (im Settings-Stil: alles untereinander) -
+   Statt mehrerer Spalten zeigt das Settings-Mockup eine vertikale
+   Liste über die volle Breite. Wir kollabieren die Mehr-Spalten-Grids
+   bewusst auf eine Spalte. */
 .grid {
     display: grid;
-    gap: 12px;
+    gap: 8px;
     margin-bottom: 8px;
+    grid-template-columns: 1fr;
 }
-.grid-1 { grid-template-columns: 1fr; }
-.grid-2 { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-.grid-3 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-.grid-4 { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+.grid-1, .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
 
-/* ----- Cards (Mockup-Stil: Surface-Box mit Border) -------- */
+/* ----- Cards (Mockup-Stil: Surface-Box mit Border, volle Breite) -- */
 .card {
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: 6px;
-    padding: 16px 20px;
+    padding: 0;            /* Padding kommt aus den Karten-Zeilen */
     margin-bottom: 12px;
+    overflow: hidden;
 }
 .card-title {
     font-size: 14px;
     font-weight: 600;
     color: var(--text);
-    margin-bottom: 14px;
-    padding-bottom: 8px;
+    padding: 14px 18px 10px;
     border-bottom: 1px solid var(--border);
+    background: var(--surface-2);
 }
 
 /* ----- Form-Group (zwei Modi) ---------------------------- */
@@ -423,16 +425,80 @@ body {
     padding: 14px 18px;
     margin-bottom: 8px;
 }
-/* In Card eingebettet: kein doppelter Hintergrund */
-.card .form-group,
-.grid .form-group {
+/* In Card eingebettet: horizontale Mockup-Card-Zeilen
+   (Label links, Control rechts; Trennlinie zwischen Einträgen) */
+.card .form-group {
     background: transparent;
     border: 0;
-    padding: 0;
-    margin-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
+    padding: 12px 18px;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
 }
-.card .form-group:last-child,
-.grid .form-group:last-child { margin-bottom: 0; }
+.card .form-group:last-child {
+    border-bottom: 0;
+}
+.card .form-group > .form-label {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    font-weight: 600;
+}
+.card .form-group > .form-control {
+    flex: 0 0 260px;
+    width: 260px;
+}
+.card .form-group > .form-hint {
+    flex-basis: 100%;
+    margin-top: 0;
+    order: 99;
+    color: var(--muted);
+}
+
+/* Außerhalb von .card (Wizard): jede form-group ist eine eigene Mockup-Card */
+.wizard-page > .form-group,
+.wizard-page .grid > .form-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px 18px;
+    margin-bottom: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
+}
+.wizard-page > .form-group > .form-label,
+.wizard-page .grid > .form-group > .form-label {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+}
+.wizard-page > .form-group > .form-control,
+.wizard-page .grid > .form-group > .form-control {
+    flex: 0 0 260px;
+    width: 260px;
+}
+.wizard-page > .form-group > .form-hint,
+.wizard-page .grid > .form-group > .form-hint {
+    flex-basis: 100%;
+    margin-top: 0;
+    order: 99;
+}
+
+/* Auf schmalen Bildschirmen: zurück auf vertikal */
+@media (max-width: 720px) {
+    .card .form-group,
+    .wizard-page > .form-group,
+    .wizard-page .grid > .form-group { flex-direction: column; align-items: stretch; }
+    .card .form-group > .form-control,
+    .wizard-page > .form-group > .form-control,
+    .wizard-page .grid > .form-group > .form-control { flex-basis: auto; width: 100%; }
+}
 
 .form-section {
     background: var(--surface);
