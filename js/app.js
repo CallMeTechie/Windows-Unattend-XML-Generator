@@ -728,6 +728,16 @@ const App = {
                 'https://api.github.com/repos/CallMeTechie/Windows-Unattend-XML-Generator/releases/latest',
                 { headers: { 'Accept': 'application/vnd.github+json' } }
             );
+            // GitHub-API für anonyme Aufrufe ist auf 60 Anfragen/Stunde
+            // beschränkt – statt eines nichtssagenden "HTTP 403" lieber eine
+            // konkrete Meldung anzeigen.
+            if (res.status === 403 || res.status === 429) {
+                UIHelpers.showNotification(
+                    'GitHub-API-Limit erreicht (60 Anfragen/Stunde für anonyme Aufrufe). Bitte später erneut versuchen.',
+                    'warning'
+                );
+                return;
+            }
             if (!res.ok) throw new Error('HTTP ' + res.status);
             const data = await res.json();
             const latest = String(data.tag_name || '').replace(/^v/, '').trim();
