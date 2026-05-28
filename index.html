@@ -6,7 +6,7 @@
     <!-- Defense-in-depth gegen XSS: nur eigene Skripte erlauben, injizierte
          Inline-/Event-Handler-Skripte werden blockiert. 'unsafe-inline' nur für
          style (vorhandene Inline-Styles), nicht für script. -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.github.com; object-src 'none'; base-uri 'self'">
     <meta name="description" content="Windows Autounattend.xml Generator for unattended Windows installations">
     <meta name="author" content="CallMeTechie">
     <title>Windows Autounattend.xml Generator</title>
@@ -21,14 +21,6 @@
          Träger der Klasse .header, damit der LanguageManager hier die
          Sprachauswahl anhängt. -->
     <header class="titlebar header">
-        <svg class="app-icon" viewBox="0 0 16 16" aria-hidden="true">
-            <rect x="1" y="1" width="14" height="14" rx="3" fill="#0067c0"/>
-            <rect x="4.5" y="4" width="7" height="1" fill="#fff"/>
-            <rect x="4.5" y="6.5" width="7" height="1" fill="#fff"/>
-            <rect x="4.5" y="9" width="4.5" height="1" fill="#fff"/>
-        </svg>
-        <h1 class="app-name" data-i18n="header.title">Windows Autounattend.xml Generator</h1>
-
         <nav class="mode-selector" role="navigation" aria-label="Modus">
             <button class="mode-btn active" data-mode="wizard" data-i18n-aria="modes.wizard">
                 <span data-i18n="modes.wizard">Wizard</span>
@@ -40,13 +32,24 @@
 
         <!-- LanguageManager hängt hier <div class="language-selector-container"> an -->
 
-        <button class="title-btn" data-action="help" title="Über &amp; Hilfe" aria-label="Über und Hilfe">
-            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
-                <circle cx="8" cy="8" r="6.5"/>
-                <circle cx="8" cy="5" r=".7" fill="currentColor" stroke="none"/>
-                <path d="M8 7.5v4" stroke-linecap="round"/>
-            </svg>
-        </button>
+        <div class="title-menu">
+            <button class="title-btn" data-action="toggle-info-menu" title="Über &amp; Hilfe" aria-label="Über und Hilfe" aria-haspopup="menu" aria-expanded="false">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+                    <circle cx="8" cy="8" r="6.5"/>
+                    <circle cx="8" cy="5" r=".7" fill="currentColor" stroke="none"/>
+                    <path d="M8 7.5v4" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <div class="title-menu-dropdown" role="menu" hidden>
+                <button class="dropdown-item" role="menuitem" data-action="show-about">Über die Anwendung</button>
+                <button class="dropdown-item" role="menuitem" data-action="check-updates">Auf Updates prüfen</button>
+                <div class="dropdown-sep"></div>
+                <a class="dropdown-item" role="menuitem" href="https://github.com/CallMeTechie/Windows-Unattend-XML-Generator/releases" target="_blank" rel="noopener">Release-Notes</a>
+                <a class="dropdown-item" role="menuitem" href="https://github.com/CallMeTechie/Windows-Unattend-XML-Generator#readme" target="_blank" rel="noopener">Dokumentation</a>
+                <a class="dropdown-item" role="menuitem" href="https://github.com/CallMeTechie/Windows-Unattend-XML-Generator/issues" target="_blank" rel="noopener">Problem melden</a>
+                <a class="dropdown-item" role="menuitem" href="https://callmetechie.de" target="_blank" rel="noopener">Hersteller-Website</a>
+            </div>
+        </div>
 
         <label for="theme-dark" class="theme-toggle" title="Theme wechseln" aria-label="Theme wechseln">
             <svg class="sun" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
@@ -67,11 +70,6 @@
             </svg>
         </label>
 
-        <div class="win-controls" aria-hidden="true">
-            <button class="win-btn" tabindex="-1" title="Minimieren">&#x2014;</button>
-            <button class="win-btn" tabindex="-1" title="Maximieren">&#x25A1;</button>
-            <button class="win-btn close" tabindex="-1" title="Schließen">&#x2715;</button>
-        </div>
     </header>
 
     <div class="app-container">
@@ -148,13 +146,6 @@
             </section>
         </main>
 
-        <!-- Action Bar -->
-        <div class="action-bar">
-            <button class="fab fab-primary" data-action="help" data-i18n-title="buttons.help" data-i18n-aria="buttons.help">
-                ?
-            </button>
-        </div>
-
         <!-- Modal for XML Preview -->
         <div class="modal" id="xmlModal" role="dialog" aria-modal="true" aria-labelledby="xmlModalTitle">
             <div class="modal-content">
@@ -170,11 +161,11 @@
             </div>
         </div>
 
-        <!-- Help / About Modal -->
+        <!-- About Modal -->
         <div class="modal" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpModalTitle">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title" id="helpModalTitle">Über &amp; Hilfe</h2>
+                    <h2 class="modal-title" id="helpModalTitle">Über die Anwendung</h2>
                     <button class="modal-close" data-i18n-aria="buttons.close">✕</button>
                 </div>
                 <div class="modal-body about-body">

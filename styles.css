@@ -142,6 +142,7 @@ body {
 }
 
 /* Titelleisten-Button (Info/Über) */
+.title-menu { position: relative; display: inline-flex; }
 .title-btn {
     width: 46px; height: 40px;
     background: none; border: 0;
@@ -149,6 +150,44 @@ body {
     display: inline-flex; align-items: center; justify-content: center;
 }
 .title-btn:hover { background: var(--hover); }
+.title-btn[aria-expanded="true"] { background: var(--hover); }
+
+/* Dropdown-Menü (Über & Hilfe) */
+.title-menu-dropdown {
+    position: absolute;
+    top: 100%; right: 0;
+    min-width: 240px;
+    padding: 4px;
+    margin-top: 2px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    box-shadow: var(--shadow-md);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+}
+.title-menu-dropdown[hidden] { display: none; }
+.dropdown-item {
+    display: block;
+    padding: 8px 12px;
+    color: var(--text);
+    text-decoration: none;
+    font: inherit;
+    font-size: 13px;
+    background: transparent;
+    border: 0;
+    border-radius: 4px;
+    text-align: left;
+    cursor: pointer;
+    line-height: 1.5;
+}
+.dropdown-item:hover { background: var(--hover); }
+.dropdown-sep {
+    height: 1px;
+    background: var(--border);
+    margin: 4px 4px;
+}
 
 /* Pro Setting-Zeile: bestimmtes Icon (gesetzt per data-icon) */
 .card .form-group::before {
@@ -635,8 +674,13 @@ textarea.form-control {
 .collapsible-content {
     padding: 14px 18px 16px;
     border-top: 1px solid var(--border);
+    display: none;
 }
-.collapsible:not(.expanded):not([aria-expanded="true"]) .collapsible-content { display: none; }
+.collapsible.expanded .collapsible-content,
+.collapsible.active .collapsible-content,
+.collapsible[aria-expanded="true"] .collapsible-content,
+.collapsible-header.active + .collapsible-content,
+.collapsible-content.active { display: block; }
 
 /* ----- Statische Notification (im Content) -------------- */
 .static-notification {

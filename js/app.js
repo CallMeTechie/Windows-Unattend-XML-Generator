@@ -212,8 +212,19 @@ const App = {
                 const action = button.dataset.action;
                 
                 switch(action) {
+                    case 'toggle-info-menu':
+                        this.toggleInfoMenu(button);
+                        break;
+                    case 'show-about':
+                        this.closeInfoMenu();
+                        this.showAbout();
+                        break;
+                    case 'check-updates':
+                        this.closeInfoMenu();
+                        this.checkUpdates();
+                        break;
                     case 'help':
-                        this.showHelp();
+                        this.showAbout();
                         break;
                     case 'import':
                         this.importXML();
@@ -651,7 +662,113 @@ const App = {
     },
 
     /**
-     * Show help modal
+     * Öffnet/schließt das Über-&-Hilfe-Dropdown in der Titelleiste.
+     * Registriert beim ersten Öffnen einen einmaligen Document-Click-Listener,
+     * der das Menü schließt, sobald außerhalb geklickt wird (oder Escape gedrückt).
+     */
+    toggleInfoMenu(triggerBtn) {
+        const menu = document.querySelector('.title-menu-dropdown');
+        if (!menu) return;
+        const isOpen = !menu.hasAttribute('hidden');
+        if (isOpen) {
+            this.closeInfoMenu();
+        } else {
+            menu.removeAttribute('hidden');
+            if (triggerBtn) triggerBtn.setAttribute('aria-expanded', 'true');
+            const closer = (e) => {
+                if (!e.target.closest('.title-menu')) {
+                    this.closeInfoMenu();
+                    document.removeEventListener('click', closer, true);
+                    document.removeEventListener('keydown', escCloser, true);
+                }
+            };
+            const escCloser = (e) => {
+                if (e.key === 'Escape') {
+                    this.closeInfoMenu();
+                    document.removeEventListener('click', closer, true);
+                    document.removeEventListener('keydown', escCloser, true);
+                }
+            };
+            // setTimeout, damit der aktuelle Klick das Menü nicht sofort wieder schließt.
+            setTimeout(() => {
+                document.addEventListener('click', closer, true);
+                document.addEventListener('keydown', escCloser, true);
+            }, 0);
+        }
+    },
+
+    /** Schließt das Info-Dropdown sicher. */
+    closeInfoMenu() {
+        const menu = document.querySelector('.title-menu-dropdown');
+        if (menu) menu.setAttribute('hidden', '');
+        const btn = document.querySelector('[data-action="toggle-info-menu"]');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+    },
+
+    /**
+     * Liest die App-Version aus dem statischen About-Modal-Markup.
+     * Sauberer als eine vierte Konstanten-Stelle: die Version steht ohnehin im DOM.
+     */
+    getAppVersion() {
+        const el = document.querySelector('#helpModal .about-section code');
+        return el ? el.textContent.trim() : '0.0.0';
+    },
+
+    /**
+     * Prüft per GitHub-Releases-API, ob eine neuere Version verfügbar ist.
+     * Vergleich erfolgt nach SemVer (numerisch); kein eval, kein Markup-Inject.
+     */
+    async checkUpdates() {
+        const current = this.getAppVersion();
+        if (typeof UIHelpers !== 'undefined' && UIHelpers.showNotification) {
+            UIHelpers.showNotification('Prüfe auf Updates …', 'info');
+        }
+        try {
+            const res = await fetch(
+                'https://api.github.com/repos/CallMeTechie/Windows-Unattend-XML-Generator/releases/latest',
+                { headers: { 'Accept': 'application/vnd.github+json' } }
+            );
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const data = await res.json();
+            const latest = String(data.tag_name || '').replace(/^v/, '').trim();
+            if (!latest) throw new Error('Keine Version gefunden');
+            const cmp = this._compareSemver(latest, current);
+            if (cmp > 0) {
+                if (confirm(`Eine neue Version ist verfügbar:\n\nAktuell: v${current}\nNeu:     v${latest}\n\nMöchtest du die Release-Seite öffnen?`)) {
+                    window.open(data.html_url || 'https://github.com/CallMeTechie/Windows-Unattend-XML-Generator/releases/latest', '_blank', 'noopener');
+                }
+            } else if (cmp === 0) {
+                UIHelpers.showNotification(`Du nutzt die aktuelle Version (v${current}).`, 'success');
+            } else {
+                UIHelpers.showNotification(`Du nutzt eine Vorschau-Version (v${current}, veröffentlicht: v${latest}).`, 'info');
+            }
+        } catch (e) {
+            UIHelpers.showNotification('Update-Prüfung fehlgeschlagen: ' + e.message, 'error');
+        }
+    },
+
+    /** SemVer-Vergleich (Patch-genau, ohne Pre-Release-Behandlung). */
+    _compareSemver(a, b) {
+        const pa = a.split('.').map(n => parseInt(n, 10) || 0);
+        const pb = b.split('.').map(n => parseInt(n, 10) || 0);
+        for (let i = 0; i < 3; i++) {
+            if ((pa[i] || 0) > (pb[i] || 0)) return 1;
+            if ((pa[i] || 0) < (pb[i] || 0)) return -1;
+        }
+        return 0;
+    },
+
+    /**
+     * Alias auf showAbout() – das Über-Modal liegt jetzt statisch in index.html.
+     */
+    showAbout() {
+        if (typeof UIHelpers !== 'undefined' && UIHelpers.showModal) {
+            UIHelpers.showModal('helpModal');
+        }
+    },
+
+    /**
+     * (Deprecated) Behält die alte Help-Modal-API; öffnet das About-Modal.
      */
     showHelp() {
         const helpModal = document.getElementById('helpModal');

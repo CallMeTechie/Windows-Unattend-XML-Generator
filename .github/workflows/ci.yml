@@ -34,6 +34,94 @@ jobs:
       - name: Build standalone bundle
         run: npm run build
 
+  # Auto-Release auf main:
+  # Analysiert Commits seit dem letzten Tag, bumpt die Version nach Conventional
+  # Commits (feat → minor, fix/perf/refactor → patch, reine chore/docs/test/ci/
+  # style → kein Release) und pusht Tag vX.Y.Z. Der Tag-Push triggert den
+  # bestehenden release- + windows-app-Job (siehe unten) automatisch.
+  auto-release:
+    name: Auto Release on main
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && !startsWith(github.event.head_commit.message, 'chore(release):')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+
+      - name: Configure git
+        run: |
+          git config user.name "CallMeTechie"
+          git config user.email "ma.backes@outlook.com"
+
+      - name: Determine bump type
+        id: bump
+        shell: bash
+        run: |
+          last_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
+          if [ -n "$last_tag" ]; then range="${last_tag}..HEAD"; else range="HEAD"; fi
+          messages=$(git log --format="%s" "$range")
+          echo "Commits seit ${last_tag:-Repo-Start}:"
+          echo "$messages" | sed 's/^/  /'
+
+          # 1) Nur Wartungs-Commits (chore/docs/test/ci/style) → skip.
+          non_skippable=$(echo "$messages" \
+            | grep -vE "^(chore|docs|test|ci|style)(\(.+\))?:" \
+            | grep -v "^$" | wc -l)
+          if [ "$non_skippable" -eq 0 ]; then
+            echo "bump=skip" >> "$GITHUB_OUTPUT"
+            echo "→ kein Release: nur Wartungs-Commits."
+            exit 0
+          fi
+
+          # 2) feat:/BREAKING CHANGE → minor, sonst patch.
+          if echo "$messages" | grep -qiE "^(feat|feature)(\(.+\))?:|BREAKING CHANGE"; then
+            echo "bump=minor" >> "$GITHUB_OUTPUT"
+            echo "→ minor (feat/breaking)"
+          else
+            echo "bump=patch" >> "$GITHUB_OUTPUT"
+            echo "→ patch (fix/refactor/perf/default)"
+          fi
+
+      - name: Bump version, commit & tag
+        if: steps.bump.outputs.bump != 'skip'
+        env:
+          BUMP: ${{ steps.bump.outputs.bump }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          current=$(node -p "require('./package.json').version")
+          IFS=. read -r major minor patch <<< "$current"
+          case "$BUMP" in
+            patch) patch=$((patch+1)) ;;
+            minor) minor=$((minor+1)); patch=0 ;;
+            major) major=$((major+1)); minor=0; patch=0 ;;
+          esac
+          new="$major.$minor.$patch"
+          echo "Bump $current → $new ($BUMP)"
+
+          # 5 Stellen synchron erhöhen (sed mit fixiertem Suchstring).
+          sed -i "s/\"version\": \"$current\"/\"version\": \"$new\"/" package.json
+          sed -i "s/\"version\": \"$current\"/\"version\": \"$new\"/g" package-lock.json
+          sed -i "s/^version = \"$current\"$/version = \"$new\"/" src-tauri/Cargo.toml
+          sed -i "s/\"version\": \"$current\"/\"version\": \"$new\"/" src-tauri/tauri.conf.json
+          sed -i "s|<code>$current</code>|<code>$new</code>|" index.html
+
+          git add -A
+          git commit -m "chore(release): v$new"
+          git tag -a "v$new" -m "Release $new"
+          git push origin main
+          git push origin "v$new"
+
   release:
     name: Release
     needs: test
