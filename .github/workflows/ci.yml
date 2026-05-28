@@ -79,18 +79,27 @@ jobs:
           echo "Commits seit ${last_tag:-Repo-Start}:"
           echo "$messages" | sed 's/^/  /'
 
-          # 1) Nur Wartungs-Commits (chore/docs/test/ci/style) → skip.
-          non_skippable=$(echo "$messages" \
-            | grep -vE "^(chore|docs|test|ci|style)(\(.+\))?:" \
-            | grep -v "^$" | wc -l)
+          # Robuste Zählung ohne pipefail-Probleme: leerer grep-Output liefert
+          # exit 1, was unter "set -e -o pipefail" sonst die ganze Pipeline killt.
+          non_skippable=0
+          has_feat=0
+          while IFS= read -r line; do
+            [ -z "$line" ] && continue
+            if echo "$line" | grep -qE "^(chore|docs|test|ci|style)(\(.+\))?:"; then
+              continue   # Wartungs-Commit ignorieren
+            fi
+            non_skippable=$((non_skippable + 1))
+            if echo "$line" | grep -qiE "^(feat|feature)(\(.+\))?:|BREAKING CHANGE"; then
+              has_feat=1
+            fi
+          done <<< "$messages"
+
           if [ "$non_skippable" -eq 0 ]; then
             echo "bump=skip" >> "$GITHUB_OUTPUT"
             echo "→ kein Release: nur Wartungs-Commits."
             exit 0
           fi
-
-          # 2) feat:/BREAKING CHANGE → minor, sonst patch.
-          if echo "$messages" | grep -qiE "^(feat|feature)(\(.+\))?:|BREAKING CHANGE"; then
+          if [ "$has_feat" -eq 1 ]; then
             echo "bump=minor" >> "$GITHUB_OUTPUT"
             echo "→ minor (feat/breaking)"
           else
