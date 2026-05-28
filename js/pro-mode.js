@@ -247,7 +247,14 @@ export const ProMode = {
         
         const renderFunction = tabs[tab];
         if (renderFunction) {
-            content.innerHTML = renderFunction();
+            // Settings-Stil: jeder Tab beginnt mit einer großen Page-Überschrift.
+            const titleText = (LanguageManager && LanguageManager.t)
+                ? LanguageManager.t(`pro.tabs.${tab}`)
+                : tab;
+            const safeTitle = (UIHelpers && UIHelpers.escapeHtml)
+                ? UIHelpers.escapeHtml(titleText)
+                : String(titleText).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+            content.innerHTML = `<h1 class="page-title">${safeTitle}</h1>` + renderFunction();
             this.attachTabEventListeners(tab);
             this.ensurePersistListener();   // einmaliger Persist-Listener
             this.restoreTabValues();        // gespeicherte statische Werte

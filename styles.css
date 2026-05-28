@@ -276,16 +276,19 @@ body {
 .wizard-step.active,
 .pro-tab.active {
     background: var(--surface);
-    box-shadow: var(--shadow-card);
+    box-shadow: 0 1px 3px rgba(0,0,0,.08);
+    border: 1px solid var(--border);
+    font-weight: 600;
 }
 .wizard-step.active::before,
 .pro-tab.active::before {
     content: '';
     position: absolute;
-    left: -4px; top: 8px;
-    width: 3px; height: 18px;
+    left: 0; top: 50%;
+    width: 4px; height: 18px;
+    margin-top: -9px;
     background: var(--accent);
-    border-radius: 2px;
+    border-radius: 0 2px 2px 0;
 }
 
 .wizard-step-number {
@@ -430,7 +433,7 @@ body {
     margin-bottom: 8px;
 }
 /* In Card eingebettet: horizontale Mockup-Card-Zeilen
-   (Label links, Control rechts; Trennlinie zwischen Einträgen) */
+   (Icon links, Label/Body mitte, Control rechts) */
 .card .form-group {
     background: transparent;
     border: 0;
@@ -442,6 +445,17 @@ body {
     flex-wrap: wrap;
     align-items: center;
     gap: 16px;
+}
+/* Generisches Mockup-Icon (kleines Akzent-Quadrat) links vor jeder Setting */
+.card .form-group::before {
+    content: '';
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    background-image: radial-gradient(circle at center, var(--accent) 25%, transparent 26%);
 }
 .card .form-group:last-child {
     border-bottom: 0;
@@ -653,8 +667,73 @@ textarea:focus {
 input::placeholder,
 textarea::placeholder { color: var(--muted); }
 
-input[type="checkbox"],
 input[type="radio"] { accent-color: var(--accent); width: auto; height: auto; }
+
+/* ----- Toggle-Switch (Checkbox als Win11-Toggle) ---------- */
+/* Alle nativen <input type="checkbox"> in Form-Bereichen werden zu
+   Mockup-Toggle-Switches (40x20 px, Akzent-Hintergrund bei :checked).
+   Modernes appearance:none + ::before für den Knopf. */
+.card input[type="checkbox"],
+.wizard-page input[type="checkbox"],
+.form-group input[type="checkbox"],
+.form-section input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 40px;
+    height: 20px;
+    background: var(--surface-2);
+    border: 1px solid var(--muted);
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0;
+    transition: background .12s, border-color .12s;
+}
+.card input[type="checkbox"]::before,
+.wizard-page input[type="checkbox"]::before,
+.form-group input[type="checkbox"]::before,
+.form-section input[type="checkbox"]::before {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--muted);
+    transition: transform .12s, background .12s;
+}
+.card input[type="checkbox"]:checked,
+.wizard-page input[type="checkbox"]:checked,
+.form-group input[type="checkbox"]:checked,
+.form-section input[type="checkbox"]:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+.card input[type="checkbox"]:checked::before,
+.wizard-page input[type="checkbox"]:checked::before,
+.form-group input[type="checkbox"]:checked::before,
+.form-section input[type="checkbox"]:checked::before {
+    transform: translateX(20px);
+    background: #fff;
+}
+/* Toggle rechtsbündig in horizontaler Form-Group.
+   Die Checkbox steckt in der App typischerweise in einem <label> –
+   wir lassen das Label seine Kinder direkt der Flex-Box der form-group
+   übergeben (display:contents), damit order/margin auf die Checkbox wirkt. */
+.card .form-group input[type="checkbox"],
+.card .form-group label input[type="checkbox"] {
+    order: 99;
+    margin-left: auto;
+}
+.card .form-group > label:has(> input[type="checkbox"]) {
+    display: contents;
+}
+/* Falls :has() nicht greift: alle Labels innerhalb einer form-group mit
+   Checkbox werden inline (Fallback). */
+.card .form-group label { color: var(--text); }
 
 /* Toggle-Switch */
 .switch {
