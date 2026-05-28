@@ -51,7 +51,13 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # RELEASE_TOKEN (Fine-grained PAT mit Contents+Actions Write) hebt die
+          # GitHub-Anti-Loop-Sperre auf, sodass der hier erzeugte Tag-Push den
+          # release- und windows-app-Job automatisch triggert.
+          # Fallback auf GITHUB_TOKEN, falls das Secret mal fehlt
+          # (dann läuft Auto-Release zwar, aber der Tag-Workflow muss manuell
+          # nachgezogen werden).
+          token: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
