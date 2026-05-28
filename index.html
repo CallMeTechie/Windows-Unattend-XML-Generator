@@ -40,6 +40,14 @@
 
         <!-- LanguageManager hängt hier <div class="language-selector-container"> an -->
 
+        <button class="title-btn" data-action="help" title="Über &amp; Hilfe" aria-label="Über und Hilfe">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+                <circle cx="8" cy="8" r="6.5"/>
+                <circle cx="8" cy="5" r=".7" fill="currentColor" stroke="none"/>
+                <path d="M8 7.5v4" stroke-linecap="round"/>
+            </svg>
+        </button>
+
         <label for="theme-dark" class="theme-toggle" title="Theme wechseln" aria-label="Theme wechseln">
             <svg class="sun" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
                 <circle cx="8" cy="8" r="3"/>
@@ -162,15 +170,39 @@
             </div>
         </div>
 
-        <!-- Help Modal -->
+        <!-- Help / About Modal -->
         <div class="modal" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpModalTitle">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title" id="helpModalTitle" data-i18n="help.title">Hilfe &amp; Dokumentation</h2>
+                    <h2 class="modal-title" id="helpModalTitle">Über &amp; Hilfe</h2>
                     <button class="modal-close" data-i18n-aria="buttons.close">✕</button>
                 </div>
-                <div class="modal-body">
-                    <!-- Content will be populated by JavaScript -->
+                <div class="modal-body about-body">
+                    <section class="about-section">
+                        <h3>Über die Anwendung</h3>
+                        <p><strong>Windows Autounattend.xml Generator</strong></p>
+                        <p>Version <code>0.2.0</code> · Lizenz <a href="https://github.com/CallMeTechie/Windows-Unattend-XML-Generator/blob/main/LICENSE" target="_blank" rel="noopener">MIT</a></p>
+                        <p>Generator für unbeaufsichtigte Installationen von Windows 11 und Windows Server 2022.</p>
+                    </section>
+
+                    <section class="about-section">
+                        <h3>Hersteller</h3>
+                        <p>© 2026 CallMeTechie</p>
+                        <p>Website: <a href="https://callmetechie.de" target="_blank" rel="noopener">callmetechie.de</a></p>
+                    </section>
+
+                    <section class="about-section">
+                        <h3>Updates &amp; Quellcode</h3>
+                        <p>Aktuelle Version und Installer (NSIS&nbsp;.exe, MSI):<br>
+                            <a href="https://github.com/CallMeTechie/Windows-Unattend-XML-Generator/releases" target="_blank" rel="noopener">github.com/CallMeTechie/Windows-Unattend-XML-Generator/releases</a></p>
+                        <p>Quellcode &amp; Issues:<br>
+                            <a href="https://github.com/CallMeTechie/Windows-Unattend-XML-Generator" target="_blank" rel="noopener">github.com/CallMeTechie/Windows-Unattend-XML-Generator</a></p>
+                    </section>
+
+                    <section class="about-section">
+                        <h3>Hilfe &amp; Dokumentation</h3>
+                        <p>Eine ausführliche Anleitung und FAQ findest du in der <a href="https://github.com/CallMeTechie/Windows-Unattend-XML-Generator#readme" target="_blank" rel="noopener">README auf GitHub</a>.</p>
+                    </section>
                 </div>
             </div>
         </div>

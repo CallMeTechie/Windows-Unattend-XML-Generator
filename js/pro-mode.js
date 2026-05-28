@@ -259,6 +259,8 @@ export const ProMode = {
             this.ensurePersistListener();   // einmaliger Persist-Listener
             this.restoreTabValues();        // gespeicherte statische Werte
             this.restoreItems(tab);         // gespeicherte dynamische Items (Lücke 2)
+            // Settings-Stil: jede Setting-Zeile bekommt ein passendes Icon links.
+            if (UIHelpers && UIHelpers.applyRowIcons) UIHelpers.applyRowIcons(content);
         } else {
             content.innerHTML = `<div class="card"><div class="card-title">${LanguageManager?.t('common.loading') || 'Loading...'}</div></div>`;
         }

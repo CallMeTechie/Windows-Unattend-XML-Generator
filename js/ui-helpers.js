@@ -776,6 +776,94 @@ export const UIHelpers = {
         this.modalStack = [];
         
         console.log('UI helpers cleanup completed');
+    },
+
+    /**
+     * Icon-Map fuer Setting-Zeilen (Settings-Stil).
+     * SVGs sind statisch und Inline – kein User-Input → kein XSS-Risiko.
+     */
+    _rowIcons: {
+        gear:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>',
+        doc:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
+        key:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="15.5" r="5.5"/><path d="m21 2-9.6 9.6"/><path d="m15.5 7.5 3 3L22 7l-3-3"/></svg>',
+        monitor: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
+        user:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+        building:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01M16 6h.01M8 10h.01M16 10h.01M8 14h.01M16 14h.01"/></svg>',
+        clock:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+        globe:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10z"/></svg>',
+        shield:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+        mic:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>',
+        cloud:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19a4.5 4.5 0 1 0 0-9h-1.3A8 8 0 1 0 4 16.25"/></svg>',
+        pin:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>',
+        eye:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>',
+        wifi:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>',
+        code:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>',
+        cpu:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="2" x2="9" y2="4"/><line x1="15" y1="2" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="22"/><line x1="15" y1="20" x2="15" y2="22"/><line x1="20" y1="9" x2="22" y2="9"/><line x1="20" y1="14" x2="22" y2="14"/><line x1="2" y1="9" x2="4" y2="9"/><line x1="2" y1="14" x2="4" y2="14"/></svg>',
+        image:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>',
+        idcard:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><circle cx="9" cy="11" r="2"/><path d="M14 8h4M14 12h3M14 16h-9"/></svg>',
+        zap:     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+        server:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>',
+        window:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="12" y1="3" x2="12" y2="21"/></svg>',
+        puzzle:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19.4 7.9c0 .3.1.6.3.8l1.6 1.6c.5.5.7 1.1.7 1.7s-.2 1.2-.7 1.7l-1.6 1.6c-.2.2-.5.3-.8.3-.5-.1-.8-.5-1-.9a2.5 2.5 0 1 0-3.2 3.2c.4.2.8.5.9 1 0 .3-.1.6-.3.8L13.7 21c-.5.5-1.1.7-1.7.7s-1.2-.2-1.7-.7L8.7 19.4c-.2-.2-.5-.3-.9-.3-.5.1-.8.5-1 .9a2.5 2.5 0 1 1-3.2-3.2c.4-.2.9-.5 1-1 0-.3-.1-.6-.3-.8L2.7 13.7C2.2 13.2 2 12.6 2 12s.2-1.2.7-1.7l1.5-1.5c.2-.2.6-.4.9-.3.5.1.9.5 1.1 1a2.5 2.5 0 1 0 3.3-3.2c-.5-.2-.9-.6-1-1 0-.3.1-.6.3-.9l1.5-1.5c.5-.5 1.1-.7 1.7-.7s1.2.2 1.7.7l1.6 1.6c.2.2.6.3.9.3.5-.1.8-.5 1-1a2.5 2.5 0 1 1 3.2 3.3c-.5.2-.9.5-1 1z"/></svg>'
+    },
+
+    /**
+     * Bestimmt das Icon-Key fuer einen Label-Text per Schluesselwort-Map.
+     */
+    _iconKeyFor(text) {
+        const t = (text || '').toLowerCase();
+        const rules = [
+            [/telemetr|datenschutz|privacy|sicherheit/, 'shield'],
+            [/cortana/, 'mic'],
+            [/onedrive|online.{0,2}konto|online.{0,2}account/, 'cloud'],
+            [/standort|location/, 'pin'],
+            [/werbe|advertis|ad[- ]id/, 'eye'],
+            [/wlan|wifi/, 'wifi'],
+            [/eula|lizenz|license/, 'doc'],
+            [/wins|\bdns\b|name.?server/, 'server'],
+            [/ipv6|netzwerk|network|adapter/, 'globe'],
+            [/lokales.{0,2}konto|local.{0,2}account|benutzer|user|besitzer|owner|konto/, 'user'],
+            [/schl[uü]ssel|product.?key|\bkey\b/, 'key'],
+            [/computername|hostname/, 'monitor'],
+            [/architekt|amd64|arm64|architecture/, 'cpu'],
+            [/treiber|driver/, 'cpu'],
+            [/install.?image|image.?index|\bimage\b/, 'image'],
+            [/lockscreen|bildschirm|branding|wallpaper|hintergrund/, 'image'],
+            [/sprache|language|locale|tastatur|keyboard/, 'globe'],
+            [/zeit|time|zone|stunde|task|aufgabe|geplant|schedule/, 'clock'],
+            [/organisation|firm|company|hersteller/, 'building'],
+            [/dom[aä]ne|domain|workgroup/, 'building'],
+            [/express|schnell|fast/, 'zap'],
+            [/skript|script|powershell|batch|\bcmd\b/, 'code'],
+            [/gpupdate|richtlinie|policy/, 'shield'],
+            [/feature|funktion|optional/, 'puzzle'],
+            [/oem|registr/, 'idcard'],
+            [/version|windows|edition/, 'window']
+        ];
+        for (const [re, key] of rules) if (re.test(t)) return key;
+        return 'gear';
+    },
+
+    /**
+     * Fuegt jeder .form-group im Container ein passendes 28x28-Icon links ein
+     * (vor dem Label/Control). Idempotent: ruft sich nicht doppelt auf.
+     */
+    applyRowIcons(container) {
+        if (!container) return;
+        const sel = '.card .form-group, .wizard-page > .form-group, .wizard-page .grid > .form-group';
+        const groups = container.querySelectorAll(sel);
+        for (const g of groups) {
+            if (g.querySelector(':scope > .row-icon')) continue;
+            const label = g.querySelector('.form-label, label');
+            if (!label) continue;
+            const key = this._iconKeyFor(label.textContent || '');
+            const span = document.createElement('span');
+            span.className = 'row-icon';
+            span.setAttribute('aria-hidden', 'true');
+            // statisches SVG aus interner Map – kein User-Input
+            span.innerHTML = this._rowIcons[key] || this._rowIcons.gear;
+            g.insertBefore(span, g.firstChild);
+        }
     }
 };
 

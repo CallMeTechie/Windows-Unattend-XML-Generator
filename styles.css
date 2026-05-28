@@ -125,6 +125,13 @@ body {
     border-color: var(--accent);
 }
 
+/* Reihenfolge in der Titelleiste (links → rechts):
+   Icon · Name · Mode · Sprache · Theme · Über · Min/Max/Close */
+.titlebar .language-selector-container { order: 10; }
+.titlebar .theme-toggle { order: 20; }
+.titlebar .title-btn   { order: 25; }
+.titlebar .win-controls { order: 30; }
+
 /* Sprachauswahl (in Titlebar) */
 .language-selector-container {
     position: static;
@@ -133,6 +140,30 @@ body {
     display: flex;
     align-items: center;
 }
+
+/* Titelleisten-Button (Info/Über) */
+.title-btn {
+    width: 46px; height: 40px;
+    background: none; border: 0;
+    color: var(--text); cursor: pointer;
+    display: inline-flex; align-items: center; justify-content: center;
+}
+.title-btn:hover { background: var(--hover); }
+
+/* Pro Setting-Zeile: bestimmtes Icon (gesetzt per data-icon) */
+.card .form-group::before {
+    content: none;             /* alten Punkt-Platzhalter entfernen */
+}
+.row-icon {
+    flex-shrink: 0;
+    width: 28px; height: 28px;
+    border-radius: 4px;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--accent);
+}
+.row-icon svg { width: 16px; height: 16px; }
 .language-selector {
     height: 26px;
     min-width: auto;
@@ -446,17 +477,8 @@ body {
     align-items: center;
     gap: 16px;
 }
-/* Generisches Mockup-Icon (kleines Akzent-Quadrat) links vor jeder Setting */
-.card .form-group::before {
-    content: '';
-    flex-shrink: 0;
-    width: 28px;
-    height: 28px;
-    border-radius: 4px;
-    background: var(--surface-2);
-    border: 1px solid var(--border);
-    background-image: radial-gradient(circle at center, var(--accent) 25%, transparent 26%);
-}
+/* (Der alte generische Punkt-Platzhalter wurde entfernt – jede Zeile bekommt
+   jetzt ein spezifisches Icon via UIHelpers.applyRowIcons() / .row-icon.) */
 .card .form-group:last-child {
     border-bottom: 0;
 }

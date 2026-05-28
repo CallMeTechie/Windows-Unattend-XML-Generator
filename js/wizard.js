@@ -49,6 +49,11 @@ export const WizardMode = {
         // damit die Konfiguration überschreibt (Datenverlust bei Reload/Sprachwechsel).
         this.restoreStepFields();
 
+        // Settings-Stil: jede Setting-Zeile bekommt ein passendes Icon links.
+        if (typeof UIHelpers !== 'undefined' && UIHelpers.applyRowIcons) {
+            UIHelpers.applyRowIcons(wizardContent);
+        }
+
         // Make first step visible and set indicators
         this.goToStep(ConfigManager.currentStep);
     },
@@ -103,6 +108,9 @@ export const WizardMode = {
             if (this[renderMethod]) {
                 currentStepElement.innerHTML = this[renderMethod]();
                 this.attachEventListeners();
+                if (typeof UIHelpers !== 'undefined' && UIHelpers.applyRowIcons) {
+                    UIHelpers.applyRowIcons(currentStepElement);
+                }
             }
         }
     },
