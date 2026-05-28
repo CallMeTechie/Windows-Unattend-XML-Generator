@@ -1,6 +1,6 @@
 [package]
 name = "autounattend-generator"
-version = "0.4.1"
+version = "0.4.2"
 description = "Windows Autounattend.xml Generator"
 authors = ["CallMeTechie"]
 license = "MIT"
