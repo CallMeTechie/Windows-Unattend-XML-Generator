@@ -191,7 +191,11 @@ body {
     padding: 0;
     animation: none;
 }
-.header { display: none; }    /* alte Header-Box ausblenden (Anker für Sprachauswahl lebt jetzt in der Titlebar) */
+/* Die alte freistehende Header-Box gibt es nicht mehr; .header lebt
+   jetzt als zusätzliche Klasse auf der Titelleiste, damit der LanguageManager
+   die Sprachauswahl dort einhängen kann. Daher NICHT auf .header allein
+   verstecken (das würde die Titelleiste mit ausblenden). */
+.header:not(.titlebar) .header-subtitle { display: none; }
 
 .main-content {
     flex: 1;
