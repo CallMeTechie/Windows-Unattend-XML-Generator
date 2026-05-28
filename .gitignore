@@ -13,6 +13,9 @@ src-tauri/target/
 src-tauri/gen/
 dist/
 
+# Lokale UI-Mockups (gehören nicht ins Repository)
+Mockups/
+
 # Logs / temporäre Dateien
 *.log
 npm-debug.log*
