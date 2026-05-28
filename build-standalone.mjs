@@ -67,7 +67,7 @@ html = html
     // lokal & eingebettet; XSS-Schutz bleibt über escapeHtml/highlightXML aktiv).
     .replace(
         /<meta http-equiv="Content-Security-Policy"[^>]*>/,
-        `<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data:; object-src 'none'; base-uri 'self'">`
+        `<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://api.github.com; object-src 'none'; base-uri 'self'">`
     )
     .replace(
         /<script type="module" src="js\/app\.js"><\/script>/,

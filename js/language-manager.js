@@ -187,40 +187,75 @@ export const LanguageManager = {
      * Create language selector
      */
     createLanguageSelector() {
-        // Check if selector already exists
-        let selector = document.getElementById('language-selector');
-        if (!selector) {
-            // Create selector container
-            const container = document.createElement('div');
-            container.className = 'language-selector-container';
-            container.innerHTML = `
-                <select id="language-selector" class="language-selector" aria-label="Language selection">
-                    ${Object.entries(this.availableLanguages)
-                        .map(([code, name]) => 
-                            `<option value="${code}" ${code === this.currentLang ? 'selected' : ''}>${this.getFlagEmoji(code)} ${name}</option>`
-                        ).join('')}
-                </select>
-            `;
-            
-            // Add to header or create fixed position
-            const header = document.querySelector('.header');
-            if (header) {
-                header.appendChild(container);
-            } else {
-                container.style.position = 'fixed';
-                container.style.top = '10px';
-                container.style.right = '10px';
-                container.style.zIndex = '10000';
-                document.body.appendChild(container);
-            }
-            
-            selector = container.querySelector('#language-selector');
+        // Schon vorhanden? abbrechen
+        if (document.querySelector('.lang-dropdown')) return;
+
+        const container = document.createElement('div');
+        container.className = 'language-selector-container';
+        const optionsHtml = Object.entries(this.availableLanguages).map(([code, name]) => `
+            <button type="button" class="lang-option ${code === this.currentLang ? 'selected' : ''}" role="option" data-lang="${code}" aria-selected="${code === this.currentLang}">
+                ${this.getFlagSvg(code)}
+                <span>${name}</span>
+            </button>
+        `).join('');
+        const hasOwn = Object.prototype.hasOwnProperty;
+        const currentName = hasOwn.call(this.availableLanguages, this.currentLang)
+            ? this.availableLanguages[this.currentLang]
+            : this.currentLang;
+        container.innerHTML = `
+            <div class="lang-dropdown">
+                <button type="button" class="lang-current" aria-haspopup="listbox" aria-expanded="false" aria-label="Language selection">
+                    ${this.getFlagSvg(this.currentLang)}
+                    <span class="lang-current-name">${currentName}</span>
+                    <span class="caret" aria-hidden="true">▾</span>
+                </button>
+                <div class="lang-options" role="listbox" hidden>
+                    ${optionsHtml}
+                </div>
+            </div>
+        `;
+
+        const header = document.querySelector('.header');
+        if (header) {
+            header.appendChild(container);
+        } else {
+            container.style.position = 'fixed';
+            container.style.top = '10px';
+            container.style.right = '10px';
+            container.style.zIndex = '10000';
+            document.body.appendChild(container);
         }
-        
-        // Add change listener
-        selector.addEventListener('change', async (e) => {
-            const newLang = e.target.value;
-            await this.changeLanguage(newLang);
+
+        const trigger = container.querySelector('.lang-current');
+        const menu = container.querySelector('.lang-options');
+
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const open = !menu.hasAttribute('hidden');
+            if (open) {
+                menu.setAttribute('hidden', '');
+                trigger.setAttribute('aria-expanded', 'false');
+            } else {
+                menu.removeAttribute('hidden');
+                trigger.setAttribute('aria-expanded', 'true');
+                const closer = (ev) => {
+                    if (!ev.target.closest('.lang-dropdown')) {
+                        menu.setAttribute('hidden', '');
+                        trigger.setAttribute('aria-expanded', 'false');
+                        document.removeEventListener('click', closer, true);
+                    }
+                };
+                setTimeout(() => document.addEventListener('click', closer, true), 0);
+            }
+        });
+
+        menu.querySelectorAll('.lang-option').forEach(opt => {
+            opt.addEventListener('click', async () => {
+                const lang = opt.dataset.lang;
+                menu.setAttribute('hidden', '');
+                trigger.setAttribute('aria-expanded', 'false');
+                await this.changeLanguage(lang);
+            });
         });
     },
     
@@ -276,6 +311,27 @@ export const LanguageManager = {
             'zh': '🇨🇳'
         };
         return flags[langCode] || '🌐';
+    },
+
+    /**
+     * Inline-SVG-Flagge für eine Sprachcode-2-Buchstaben.
+     * Anders als Unicode-Flag-Emojis (🇩🇪) werden SVGs auf jedem System
+     * konsistent gerendert. Windows-Default-Emoji-Fonts zeigen Flag-Emojis
+     * als Buchstaben-Codes („DE", „GB" …), was wir damit umgehen.
+     * Alle SVGs sind statisch und stammen aus interner Map – kein User-Input.
+     */
+    getFlagSvg(langCode) {
+        const flags = {
+            de: '<svg class="flag" viewBox="0 0 24 16" preserveAspectRatio="none"><rect width="24" height="16" fill="#000"/><rect y="5.33" width="24" height="5.34" fill="#dd0000"/><rect y="10.67" width="24" height="5.33" fill="#ffce00"/></svg>',
+            en: '<svg class="flag" viewBox="0 0 24 16" preserveAspectRatio="none"><rect width="24" height="16" fill="#012169"/><path d="M0 0L24 16M24 0L0 16" stroke="#fff" stroke-width="2"/><path d="M0 0L24 16M24 0L0 16" stroke="#c8102e" stroke-width="1"/><path d="M12 0V16M0 8H24" stroke="#fff" stroke-width="3.5"/><path d="M12 0V16M0 8H24" stroke="#c8102e" stroke-width="2"/></svg>',
+            es: '<svg class="flag" viewBox="0 0 24 16" preserveAspectRatio="none"><rect width="24" height="16" fill="#aa151b"/><rect y="4" width="24" height="8" fill="#f1bf00"/></svg>',
+            fr: '<svg class="flag" viewBox="0 0 24 16" preserveAspectRatio="none"><rect width="8" height="16" fill="#0055a4"/><rect x="8" width="8" height="16" fill="#fff"/><rect x="16" width="8" height="16" fill="#ef4135"/></svg>',
+            it: '<svg class="flag" viewBox="0 0 24 16" preserveAspectRatio="none"><rect width="8" height="16" fill="#009246"/><rect x="8" width="8" height="16" fill="#fff"/><rect x="16" width="8" height="16" fill="#ce2b37"/></svg>',
+            pl: '<svg class="flag" viewBox="0 0 24 16" preserveAspectRatio="none"><rect width="24" height="8" fill="#fff"/><rect y="8" width="24" height="8" fill="#dc143c"/><rect width="24" height="16" fill="none" stroke="rgba(0,0,0,.15)" stroke-width=".5"/></svg>',
+            ru: '<svg class="flag" viewBox="0 0 24 16" preserveAspectRatio="none"><rect width="24" height="16" fill="#fff"/><rect y="5.33" width="24" height="5.34" fill="#0039a6"/><rect y="10.67" width="24" height="5.33" fill="#d52b1e"/><rect width="24" height="16" fill="none" stroke="rgba(0,0,0,.15)" stroke-width=".5"/></svg>',
+            zh: '<svg class="flag" viewBox="0 0 24 16" preserveAspectRatio="none"><rect width="24" height="16" fill="#de2910"/><polygon points="4,3 4.5,4.5 6,4.5 4.8,5.4 5.3,7 4,6.1 2.7,7 3.2,5.4 2,4.5 3.5,4.5" fill="#ffde00"/></svg>'
+        };
+        return flags[langCode] || flags.en;
     },
     
     /**

@@ -223,6 +223,10 @@ const App = {
                         this.closeInfoMenu();
                         this.checkUpdates();
                         break;
+                    case 'open-vendor':
+                        this.closeInfoMenu();
+                        window.open('https://callmetechie.de', '_blank', 'noopener');
+                        break;
                     case 'help':
                         this.showAbout();
                         break;
@@ -440,18 +444,16 @@ const App = {
     },
 
     /**
-     * Show save indicator
+     * Show save indicator (Toast oben rechts, lokalisiert, kein Layout-Shift).
+     * Nutzt die bestehende Notification-Mechanik mit fixer Position, damit das
+     * App-Fenster beim Auto-Save nicht „wackelt".
      */
     showSaveIndicator() {
-        const indicator = document.createElement('div');
-        indicator.className = 'save-indicator';
-        indicator.innerHTML = '✓ Saved';
-        document.body.appendChild(indicator);
-
-        setTimeout(() => {
-            indicator.classList.add('fade-out');
-            setTimeout(() => indicator.remove(), 300);
-        }, 2000);
+        if (typeof UIHelpers === 'undefined' || !UIHelpers.showNotification) return;
+        const msg = (typeof LanguageManager !== 'undefined' && LanguageManager.t)
+            ? LanguageManager.t('notifications.configSaved')
+            : 'Saved';
+        UIHelpers.showNotification(msg, 'success', 1500);
     },
 
     /**
