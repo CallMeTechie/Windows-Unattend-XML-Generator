@@ -3,8 +3,12 @@ name: CI
 on:
   push:
     branches: [ main, master ]
-    tags: [ 'v*' ]
   pull_request:
+  # Tag-Push triggert keinen eigenen Workflow mehr – die Tag-Erzeugung und der
+  # darauf folgende Release-/Windows-Build laufen alle innerhalb des main-Push-
+  # Workflows (auto-release → release → windows-app). Damit umgehen wir die
+  # GitHub-Anti-Loop-Sperre, die Workflow-Pushes (auch mit PAT) nicht
+  # zuverlässig in einen neuen Tag-Workflow überführt.
 
 jobs:
   test:
@@ -35,10 +39,12 @@ jobs:
         run: npm run build
 
   # Auto-Release auf main:
-  # Analysiert Commits seit dem letzten Tag, bumpt die Version nach Conventional
+  # Analysiert Commits seit dem letzten Tag und entscheidet anhand Conventional
   # Commits (feat → minor, fix/perf/refactor → patch, reine chore/docs/test/ci/
-  # style → kein Release) und pusht Tag vX.Y.Z. Der Tag-Push triggert den
-  # bestehenden release- + windows-app-Job (siehe unten) automatisch.
+  # style → kein Release), ob eine neue Version erzeugt werden muss. Bumpt
+  # daraufhin die Version in fünf Dateien, committet als „chore(release): vX.Y.Z"
+  # und pusht Tag. Die Folge-Jobs release/windows-app hängen via needs an dieser
+  # Stelle.
   auto-release:
     name: Auto Release on main
     needs: test
@@ -46,17 +52,17 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    outputs:
+      bump: ${{ steps.bump.outputs.bump }}
+      new_tag: ${{ steps.commit.outputs.new_tag }}
     steps:
       - name: Checkout (full history)
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          # RELEASE_TOKEN (Fine-grained PAT mit Contents+Actions Write) hebt die
-          # GitHub-Anti-Loop-Sperre auf, sodass der hier erzeugte Tag-Push den
-          # release- und windows-app-Job automatisch triggert.
-          # Fallback auf GITHUB_TOKEN, falls das Secret mal fehlt
-          # (dann läuft Auto-Release zwar, aber der Tag-Workflow muss manuell
-          # nachgezogen werden).
+          # RELEASE_TOKEN (Fine-grained PAT mit Contents Write) ermöglicht den
+          # commit + Tag-Push als echter Nutzer (CallMeTechie) statt als
+          # github-actions[bot]. Fallback auf GITHUB_TOKEN, falls Secret fehlt.
           token: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
@@ -108,6 +114,7 @@ jobs:
           fi
 
       - name: Bump version, commit & tag
+        id: commit
         if: steps.bump.outputs.bump != 'skip'
         env:
           BUMP: ${{ steps.bump.outputs.bump }}
@@ -137,16 +144,24 @@ jobs:
           git push origin main
           git push origin "v$new"
 
+          echo "new_tag=v$new" >> "$GITHUB_OUTPUT"
+
+  # Linux-Release-Job: baut das Standalone-HTML und erstellt das GitHub-Release
+  # mit Auto-Changelog. Läuft als Folge-Job von auto-release (nicht mehr auf
+  # Tag-Push). Checkt explizit den neuen Tag aus, damit die Versionen
+  # konsistent sind.
   release:
     name: Release
-    needs: test
-    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [ test, auto-release ]
+    if: needs.auto-release.outputs.bump != 'skip' && needs.auto-release.outputs.new_tag != ''
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - name: Checkout
+      - name: Checkout (Release-Tag)
         uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.auto-release.outputs.new_tag }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -163,20 +178,25 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          name: ${{ github.ref_name }}
+          name: ${{ needs.auto-release.outputs.new_tag }}
+          tag_name: ${{ needs.auto-release.outputs.new_tag }}
           generate_release_notes: true
           files: autounattend-generator.standalone.html
 
+  # Windows-App-Build: baut die Tauri-.exe (NSIS) und .msi auf einem
+  # windows-latest-Runner und hängt beides ans Release.
   windows-app:
     name: Windows App (Tauri)
-    needs: [ test, release ]
-    if: startsWith(github.ref, 'refs/tags/v')
+    needs: [ test, auto-release, release ]
+    if: needs.auto-release.outputs.bump != 'skip' && needs.auto-release.outputs.new_tag != ''
     runs-on: windows-latest
     permissions:
       contents: write
     steps:
-      - name: Checkout
+      - name: Checkout (Release-Tag)
         uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.auto-release.outputs.new_tag }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -202,7 +222,7 @@ jobs:
         shell: bash
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          TAG_NAME: ${{ github.ref_name }}
+          TAG_NAME: ${{ needs.auto-release.outputs.new_tag }}
         run: |
           gh release upload "$TAG_NAME" \
             "src-tauri/target/release/bundle/nsis/"*-setup.exe \
