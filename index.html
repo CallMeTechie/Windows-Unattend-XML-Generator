@@ -7,86 +7,124 @@
          Inline-/Event-Handler-Skripte werden blockiert. 'unsafe-inline' nur für
          style (vorhandene Inline-Styles), nicht für script. -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self'; object-src 'none'; base-uri 'self'">
-    <meta name="description" content="Professional Windows Autounattend.xml Generator for unattended Windows installations">
+    <meta name="description" content="Windows Autounattend.xml Generator for unattended Windows installations">
     <meta name="author" content="CallMeTechie">
-    <title>Windows Autounattend.xml Generator - Professional Edition</title>
+    <title>Windows Autounattend.xml Generator</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-    <div class="app-container">
-        <!-- Header -->
-        <header class="header">
-            <h1 data-i18n="header.title">Windows Autounattend.xml Generator</h1>
-            <div class="header-subtitle" data-i18n="header.subtitle">Create unattended installation configurations for Windows 11 and Server 2022</div>
-        </header>
+    <!-- Theme-Toggle (CSS-gesteuert via :has()) -->
+    <input type="checkbox" id="theme-dark" aria-hidden="true">
 
-        <!-- Mode Selector -->
-        <nav class="mode-selector" role="navigation">
+    <!-- Custom-Titelleiste (Settings-Stil, Fluent 2).
+         Träger der Klasse .header, damit der LanguageManager hier die
+         Sprachauswahl anhängt. -->
+    <header class="titlebar header">
+        <svg class="app-icon" viewBox="0 0 16 16" aria-hidden="true">
+            <rect x="1" y="1" width="14" height="14" rx="3" fill="#0067c0"/>
+            <rect x="4.5" y="4" width="7" height="1" fill="#fff"/>
+            <rect x="4.5" y="6.5" width="7" height="1" fill="#fff"/>
+            <rect x="4.5" y="9" width="4.5" height="1" fill="#fff"/>
+        </svg>
+        <h1 class="app-name" data-i18n="header.title">Windows Autounattend.xml Generator</h1>
+
+        <nav class="mode-selector" role="navigation" aria-label="Modus">
             <button class="mode-btn active" data-mode="wizard" data-i18n-aria="modes.wizard">
-                <span>🧙</span> <span data-i18n="modes.wizard">Wizard Mode</span>
+                <span data-i18n="modes.wizard">Wizard</span>
             </button>
             <button class="mode-btn" data-mode="pro" data-i18n-aria="modes.pro">
-                <span>⚡</span> <span data-i18n="modes.pro">Pro Mode</span>
+                <span data-i18n="modes.pro">Pro</span>
             </button>
         </nav>
 
-        <!-- Main Content -->
+        <!-- LanguageManager hängt hier <div class="language-selector-container"> an -->
+
+        <label for="theme-dark" class="theme-toggle" title="Theme wechseln" aria-label="Theme wechseln">
+            <svg class="sun" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <circle cx="8" cy="8" r="3"/>
+                <g stroke="currentColor" stroke-width="1.2" stroke-linecap="round">
+                    <line x1="8" y1="1.5" x2="8" y2="3"/>
+                    <line x1="8" y1="13" x2="8" y2="14.5"/>
+                    <line x1="1.5" y1="8" x2="3" y2="8"/>
+                    <line x1="13" y1="8" x2="14.5" y2="8"/>
+                    <line x1="3.2" y1="3.2" x2="4.2" y2="4.2"/>
+                    <line x1="11.8" y1="11.8" x2="12.8" y2="12.8"/>
+                    <line x1="3.2" y1="12.8" x2="4.2" y2="11.8"/>
+                    <line x1="11.8" y1="4.2" x2="12.8" y2="3.2"/>
+                </g>
+            </svg>
+            <svg class="moon" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+                <path d="M6 2a6 6 0 1 0 8 8A6 6 0 0 1 6 2z"/>
+            </svg>
+        </label>
+
+        <div class="win-controls" aria-hidden="true">
+            <button class="win-btn" tabindex="-1" title="Minimieren">&#x2014;</button>
+            <button class="win-btn" tabindex="-1" title="Maximieren">&#x25A1;</button>
+            <button class="win-btn close" tabindex="-1" title="Schließen">&#x2715;</button>
+        </div>
+    </header>
+
+    <div class="app-container">
         <main class="main-content">
             <!-- Wizard Mode -->
             <section class="wizard-container active" aria-label="Wizard Mode">
-                <div class="wizard-steps" role="progressbar">
-                    <div class="wizard-step active" role="button" tabindex="0" data-i18n-aria="wizard.steps.basic.title">
-                        <div class="wizard-step-number">1</div>
-                        <div class="wizard-step-title" data-i18n="wizard.steps.basic.title">Basic Settings</div>
-                    </div>
-                    <div class="wizard-step" role="button" tabindex="0" data-i18n-aria="wizard.steps.partitioning.title">
-                        <div class="wizard-step-number">2</div>
-                        <div class="wizard-step-title" data-i18n="wizard.steps.partitioning.title">Partitioning</div>
-                    </div>
-                    <div class="wizard-step" role="button" tabindex="0" data-i18n-aria="wizard.steps.users.title">
-                        <div class="wizard-step-number">3</div>
-                        <div class="wizard-step-title" data-i18n="wizard.steps.users.title">User Accounts</div>
-                    </div>
-                    <div class="wizard-step" role="button" tabindex="0" data-i18n-aria="wizard.steps.network.title">
-                        <div class="wizard-step-number">4</div>
-                        <div class="wizard-step-title" data-i18n="wizard.steps.network.title">Network</div>
-                    </div>
-                    <div class="wizard-step" role="button" tabindex="0" data-i18n-aria="wizard.steps.software.title">
-                        <div class="wizard-step-number">5</div>
-                        <div class="wizard-step-title" data-i18n="wizard.steps.software.title">Software</div>
-                    </div>
-                    <div class="wizard-step" role="button" tabindex="0" data-i18n-aria="wizard.steps.finish.title">
-                        <div class="wizard-step-number">6</div>
-                        <div class="wizard-step-title" data-i18n="wizard.steps.finish.title">Finish</div>
-                    </div>
-                </div>
+                <nav class="wizard-steps" role="tablist">
+                    <button class="wizard-step active" role="tab" tabindex="0" data-i18n-aria="wizard.steps.basic.title">
+                        <span class="wizard-step-number">1</span>
+                        <span class="wizard-step-title" data-i18n="wizard.steps.basic.title">Grundeinstellungen</span>
+                    </button>
+                    <button class="wizard-step" role="tab" tabindex="0" data-i18n-aria="wizard.steps.partitioning.title">
+                        <span class="wizard-step-number">2</span>
+                        <span class="wizard-step-title" data-i18n="wizard.steps.partitioning.title">Partitionierung</span>
+                    </button>
+                    <button class="wizard-step" role="tab" tabindex="0" data-i18n-aria="wizard.steps.users.title">
+                        <span class="wizard-step-number">3</span>
+                        <span class="wizard-step-title" data-i18n="wizard.steps.users.title">Benutzerkonten</span>
+                    </button>
+                    <button class="wizard-step" role="tab" tabindex="0" data-i18n-aria="wizard.steps.network.title">
+                        <span class="wizard-step-number">4</span>
+                        <span class="wizard-step-title" data-i18n="wizard.steps.network.title">Netzwerk</span>
+                    </button>
+                    <button class="wizard-step" role="tab" tabindex="0" data-i18n-aria="wizard.steps.software.title">
+                        <span class="wizard-step-number">5</span>
+                        <span class="wizard-step-title" data-i18n="wizard.steps.software.title">Software</span>
+                    </button>
+                    <button class="wizard-step" role="tab" tabindex="0" data-i18n-aria="wizard.steps.finish.title">
+                        <span class="wizard-step-number">6</span>
+                        <span class="wizard-step-title" data-i18n="wizard.steps.finish.title">Abschluss</span>
+                    </button>
+                </nav>
 
                 <div class="wizard-content" id="wizard-content">
                     <!-- Content will be loaded dynamically by JavaScript -->
                 </div>
 
                 <div class="btn-group">
-                    <button class="btn btn-secondary" id="prevBtn" style="display:none;" data-i18n="buttons.previous">← Back</button>
-                    <button class="btn btn-primary" id="nextBtn" data-i18n="buttons.next">Next →</button>
-                    <button class="btn btn-success" id="finishBtn" style="display:none;" data-i18n="buttons.finish">Generate XML</button>
+                    <button class="btn btn-secondary" id="prevBtn" style="display:none;" data-i18n="buttons.previous">← Zurück</button>
+                    <button class="btn btn-primary" id="nextBtn" data-i18n="buttons.next">Weiter →</button>
+                    <button class="btn btn-success" id="finishBtn" style="display:none;" data-i18n="buttons.finish">XML generieren</button>
                 </div>
             </section>
 
             <!-- Pro Mode -->
             <section class="pro-container" aria-label="Professional Mode">
                 <nav class="pro-tabs" role="tablist">
-                    <button class="pro-tab active" data-tab="basic" role="tab" aria-selected="true" data-i18n="pro.tabs.basic">Basic Settings</button>
-                    <button class="pro-tab" data-tab="disk" role="tab" data-i18n="pro.tabs.disk">Disk</button>
-                    <button class="pro-tab" data-tab="users" role="tab" data-i18n="pro.tabs.users">Users</button>
-                    <button class="pro-tab" data-tab="network" role="tab" data-i18n="pro.tabs.network">Network</button>
+                    <div class="sidebar-group" role="presentation">SYSTEM</div>
+                    <button class="pro-tab active" data-tab="basic" role="tab" aria-selected="true" data-i18n="pro.tabs.basic">Allgemein</button>
+                    <button class="pro-tab" data-tab="disk" role="tab" data-i18n="pro.tabs.disk">Festplatte</button>
+                    <button class="pro-tab" data-tab="users" role="tab" data-i18n="pro.tabs.users">Benutzer</button>
+                    <button class="pro-tab" data-tab="domain" role="tab" data-i18n="pro.tabs.domain">Domäne</button>
+                    <button class="pro-tab" data-tab="network" role="tab" data-i18n="pro.tabs.network">Netzwerk</button>
                     <button class="pro-tab" data-tab="software" role="tab" data-i18n="pro.tabs.software">Software</button>
-                    <button class="pro-tab" data-tab="domain" role="tab" data-i18n="pro.tabs.domain">Domain</button>
                     <button class="pro-tab" data-tab="features" role="tab" data-i18n="pro.tabs.features">Features</button>
-                    <button class="pro-tab" data-tab="oobe" role="tab" data-i18n="pro.tabs.oobe">OOBE</button>
-                    <button class="pro-tab" data-tab="scripts" role="tab" data-i18n="pro.tabs.scripts">Scripts</button>
-                    <button class="pro-tab" data-tab="drivers" role="tab" data-i18n="pro.tabs.drivers">Drivers</button>
-                    <button class="pro-tab" data-tab="preview" role="tab" data-i18n="pro.tabs.preview">Preview</button>
+
+                    <div class="sidebar-group" role="presentation">ERWEITERT</div>
+                    <button class="pro-tab" data-tab="oobe" role="tab" data-i18n="pro.tabs.oobe">OOBE-Tweaks</button>
+                    <button class="pro-tab" data-tab="scripts" role="tab" data-i18n="pro.tabs.scripts">Skripte</button>
+                    <button class="pro-tab" data-tab="drivers" role="tab" data-i18n="pro.tabs.drivers">Treiber</button>
+                    <button class="pro-tab" data-tab="preview" role="tab" data-i18n="pro.tabs.preview">Vorschau</button>
                 </nav>
 
                 <div class="pro-content" id="pro-content" role="tabpanel">
@@ -94,10 +132,10 @@
                 </div>
 
                 <div class="btn-group">
-                    <button class="btn btn-secondary" data-action="import">📥 <span data-i18n="buttons.import">Import XML</span></button>
-                    <button class="btn btn-secondary" data-action="save-template">💾 <span data-i18n="buttons.saveTemplate">Save as Template</span></button>
-                    <button class="btn btn-primary" data-action="validate">✔ <span data-i18n="buttons.validate">Validate Configuration</span></button>
-                    <button class="btn btn-success" data-action="generate">⬇ <span data-i18n="buttons.generate">Generate XML</span></button>
+                    <button class="btn btn-secondary" data-action="import"><span data-i18n="buttons.import">XML importieren</span></button>
+                    <button class="btn btn-secondary" data-action="save-template"><span data-i18n="buttons.saveTemplate">Vorlage speichern</span></button>
+                    <button class="btn btn-secondary" data-action="validate"><span data-i18n="buttons.validate">Validieren</span></button>
+                    <button class="btn btn-primary" data-action="generate"><span data-i18n="buttons.generate">XML generieren</span></button>
                 </div>
             </section>
         </main>
@@ -118,8 +156,8 @@
                 </div>
                 <div class="xml-preview" id="xmlPreview"></div>
                 <div class="btn-group">
-                    <button class="btn btn-secondary" data-action="copy-xml">📋 <span data-i18n="buttons.copy">Copy</span></button>
-                    <button class="btn btn-primary" data-action="download-xml">⬇ <span data-i18n="buttons.download">Download</span></button>
+                    <button class="btn btn-secondary" data-action="copy-xml"><span data-i18n="buttons.copy">Kopieren</span></button>
+                    <button class="btn btn-primary" data-action="download-xml"><span data-i18n="buttons.download">Herunterladen</span></button>
                 </div>
             </div>
         </div>
@@ -128,7 +166,7 @@
         <div class="modal" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpModalTitle">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 class="modal-title" id="helpModalTitle" data-i18n="help.title">Help & Documentation</h2>
+                    <h2 class="modal-title" id="helpModalTitle" data-i18n="help.title">Hilfe &amp; Dokumentation</h2>
                     <button class="modal-close" data-i18n-aria="buttons.close">✕</button>
                 </div>
                 <div class="modal-body">
