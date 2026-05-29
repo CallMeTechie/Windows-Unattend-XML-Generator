@@ -24,7 +24,8 @@
         "advancedComputerOptions": "Options avancées du nom d'ordinateur",
         "massDeploymentTips": "Conseils pour le déploiement en masse:",
         "singleNameWarning": "Tous les ordinateurs recevront le même nom!",
-        "uniqueNameSuccess": "Chaque ordinateur recevra un nom unique"
+        "uniqueNameSuccess": "Chaque ordinateur recevra un nom unique",
+        "systemSecurity": "Système et sécurité"
       },
       "partitioning": {
         "number": "2",

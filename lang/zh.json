@@ -24,7 +24,8 @@
         "advancedComputerOptions": "高级计算机名称选项",
         "massDeploymentTips": "批量部署提示：",
         "singleNameWarning": "所有计算机将获得相同的名称！",
-        "uniqueNameSuccess": "每台计算机将获得唯一的名称"
+        "uniqueNameSuccess": "每台计算机将获得唯一的名称",
+        "systemSecurity": "系统与安全"
       },
       "partitioning": {
         "number": "2",

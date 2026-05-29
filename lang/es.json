@@ -24,7 +24,8 @@
         "advancedComputerOptions": "Opciones avanzadas de nombre de equipo",
         "massDeploymentTips": "Consejos para implementación masiva:",
         "singleNameWarning": "¡Todos los equipos recibirán el mismo nombre!",
-        "uniqueNameSuccess": "Cada equipo recibirá un nombre único"
+        "uniqueNameSuccess": "Cada equipo recibirá un nombre único",
+        "systemSecurity": "Sistema y seguridad"
       },
       "partitioning": {
         "number": "2",

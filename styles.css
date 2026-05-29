@@ -1450,3 +1450,53 @@ button.add-item {
     margin: 0;
     background: var(--surface-2);
 }
+
+/* ============================================================
+ *  Wizard-Step-6: Konfigurationsuebersicht
+ *  Standardmaessig hat die Card-Klasse padding:0 (Inhalte liefern
+ *  ihr eigenes Padding ueber .form-group); #configSummary ist
+ *  jedoch ein einfacher DIV-Container mit <p>-Reihen und klebte
+ *  deshalb direkt an den Card-Raendern. Hier echte Innenabstaende
+ *  und ein zweispaltiges Label/Wert-Raster setzen.
+ * ============================================================ */
+#configSummary {
+    padding: 14px 18px;
+}
+#configSummary p {
+    display: grid;
+    grid-template-columns: minmax(160px, 220px) 1fr;
+    gap: 12px 18px;
+    align-items: baseline;
+    margin: 0;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+}
+#configSummary p:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+#configSummary p:first-child {
+    padding-top: 0;
+}
+#configSummary p strong {
+    color: var(--muted);
+    font-weight: 600;
+}
+
+/* Validierungs-Banner direkt ueber der Uebersichts-Card etwas
+   absetzen, damit die zwei Notification-Boxen nicht direkt am
+   naechsten Card-Header kleben. */
+#finishValidation {
+    margin-bottom: 12px;
+}
+#finishValidation .static-notification {
+    padding: 12px 16px;
+    border-radius: 6px;
+}
+#finishValidation .static-notification ul {
+    margin: 8px 0 0;
+    padding-left: 22px;
+}
+#finishValidation .static-notification li {
+    margin: 4px 0;
+}

@@ -207,7 +207,27 @@ export const WizardMode = {
                             </label>
                         </div>
                     </div>
-                    
+
+                    <!-- System & Sicherheit: bisher faelschlicherweise im
+                         Fertigstellungs-Tab versteckt; gehoert thematisch zu
+                         den OOBE-Defaults und steht jetzt hier sichtbar bei
+                         den anderen Boot-Zeit-Schaltern. -->
+                    <div class="card" style="margin-top: 20px;">
+                        <div class="card-title">🛡️ ${lang.t('wizard.steps.basic.systemSecurity', 'System & Security')}</div>
+                        <div class="form-group">
+                            <label for="enableRDP"><input type="checkbox" id="enableRDP" name="enableRDP" checked> ${lang.t('wizard.steps.finish.enableRDP', 'Enable Remote Desktop')}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="enableFirewall"><input type="checkbox" id="enableFirewall" name="enableFirewall" checked> ${lang.t('wizard.steps.finish.enableFirewall', 'Keep Windows Firewall enabled')}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="disableUAC"><input type="checkbox" id="disableUAC" name="disableUAC"> ${lang.t('wizard.steps.finish.disableUAC', 'Disable UAC')}</label>
+                        </div>
+                        <div class="form-group">
+                            <label for="skipOOBE"><input type="checkbox" id="skipOOBE" name="skipOOBE"> ${lang.t('wizard.steps.finish.skipOOBE', 'Skip OOBE')}</label>
+                        </div>
+                    </div>
+
                     <div class="card" style="margin-top: 20px;">
                         <div class="card-title">🖥️ ${lang.t('wizard.steps.basic.advancedComputerOptions')}</div>
                         <div id="advancedComputerNameOptions" style="display:none;"></div>
@@ -696,6 +716,12 @@ export const WizardMode = {
                 config.inputLocale = document.getElementById('inputLocale')?.value;
                 config.skipEula = document.getElementById('skipEula')?.checked;
                 config.skipProductKey = document.getElementById('skipProductKey')?.checked;
+                // System- und Sicherheitsschalter (frueher unter „Zusaetzliche
+                // Optionen" im Step 6; jetzt hier neben skipEula/skipProductKey).
+                config.enableRDP = document.getElementById('enableRDP')?.checked;
+                config.enableFirewall = document.getElementById('enableFirewall')?.checked;
+                config.disableUAC = document.getElementById('disableUAC')?.checked;
+                config.skipOOBE = document.getElementById('skipOOBE')?.checked;
                 break;
                 
             case 2:
@@ -742,10 +768,11 @@ export const WizardMode = {
                 break;
                 
             case 6:
-                config.enableRDP = document.getElementById('enableRDP')?.checked;
-                config.disableUAC = document.getElementById('disableUAC')?.checked;
-                config.enableFirewall = document.getElementById('enableFirewall')?.checked;
-                config.skipOOBE = document.getElementById('skipOOBE')?.checked;
+                // Step 6 ist seit dem Validation-Refactor ein reiner
+                // Uebersichts-/Validierungs-Tab; die ehemaligen „Zusaetzlichen
+                // Optionen" werden jetzt in case 1 persistiert. Hier nichts mehr
+                // zu lesen – ein Save ohne DOM-Elemente wuerde sonst die in
+                // Step 1 gesetzten Werte mit `undefined` ueberschreiben.
                 break;
         }
         

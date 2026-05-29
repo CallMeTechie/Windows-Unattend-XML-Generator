@@ -24,7 +24,8 @@
         "advancedComputerOptions": "Advanced Computer Name Options",
         "massDeploymentTips": "Mass Deployment Tips:",
         "singleNameWarning": "All computers will receive the same name!",
-        "uniqueNameSuccess": "Each computer will receive a unique name"
+        "uniqueNameSuccess": "Each computer will receive a unique name",
+        "systemSecurity": "System & Security"
       },
       "partitioning": {
         "number": "2",

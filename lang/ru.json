@@ -24,7 +24,8 @@
         "advancedComputerOptions": "Расширенные опции имени компьютера",
         "massDeploymentTips": "Советы для массового развертывания:",
         "singleNameWarning": "Все компьютеры получат одинаковое имя!",
-        "uniqueNameSuccess": "Каждый компьютер получит уникальное имя"
+        "uniqueNameSuccess": "Каждый компьютер получит уникальное имя",
+        "systemSecurity": "Система и безопасность"
       },
       "partitioning": {
         "number": "2",
