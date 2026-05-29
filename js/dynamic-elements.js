@@ -125,29 +125,31 @@ export const DynamicElements = {
         }
 
         const userId = this.uniqueId();
+        const userNumber = this.getItemCount(container, '.user-item') + 1;
         const userHTML = `
-            <div class="user-item" data-id="${userId}">
-                <h4>User ${this.getItemCount(container, '.user-item') + 1}</h4>
-                <div class="grid grid-2">
+            <div class="user-item card-item" data-id="${userId}">
+                <div class="item-header">
+                    <h4>${lang.t('fields.user') || 'Benutzer'} ${userNumber}</h4>
+                    <button class="icon-btn icon-btn-danger remove-btn" data-type="user" title="${lang.t('buttons.remove')}" aria-label="${lang.t('buttons.remove')}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg>
+                    </button>
+                </div>
+                <div class="item-body">
                     <div class="form-group">
                         <label class="form-label" for="username-${userId}">${lang.t('fields.username')}</label>
-                        <input type="text" class="form-control" id="username-${userId}" name="username-${userId}" data-field="username" 
-                               autocomplete="username" placeholder="${lang.t('placeholders.username')}" required>
+                        <input type="text" class="form-control" id="username-${userId}" name="username-${userId}" data-field="username" autocomplete="username" placeholder="${lang.t('placeholders.username')}" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="password-${userId}">${lang.t('fields.password')}</label>
-                        <input type="password" class="form-control" id="password-${userId}" name="password-${userId}" data-field="password" 
-                               autocomplete="new-password" placeholder="${lang.t('placeholders.password')}" required>
+                        <input type="password" class="form-control" id="password-${userId}" name="password-${userId}" data-field="password" autocomplete="new-password" placeholder="${lang.t('placeholders.password')}" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="fullname-${userId}">${lang.t('fields.fullName')}</label>
-                        <input type="text" class="form-control" id="fullname-${userId}" name="fullname-${userId}" data-field="fullname" 
-                               autocomplete="name" placeholder="${lang.t('placeholders.fullname')}">
+                        <input type="text" class="form-control" id="fullname-${userId}" name="fullname-${userId}" data-field="fullname" autocomplete="name" placeholder="${lang.t('placeholders.fullname')}">
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="description-${userId}">${lang.t('fields.description')}</label>
-                        <input type="text" class="form-control" id="description-${userId}" name="description-${userId}" data-field="description" 
-                               autocomplete="off" placeholder="${lang.t('placeholders.description')}">
+                        <input type="text" class="form-control" id="description-${userId}" name="description-${userId}" data-field="description" autocomplete="off" placeholder="${lang.t('placeholders.description')}">
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="group-${userId}">${lang.t('fields.group')}</label>
@@ -161,26 +163,15 @@ export const DynamicElements = {
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="autologon-${userId}">
-                            <input type="checkbox" id="autologon-${userId}" name="autologon-${userId}" data-field="autologon"> Enable Auto-logon for this user
-                        </label>
+                        <label for="autologon-${userId}"><input type="checkbox" id="autologon-${userId}" name="autologon-${userId}" data-field="autologon"> Auto-Logon für diesen Benutzer</label>
                     </div>
                     <div class="form-group">
-                        <label for="passwordNeverExpires-${userId}">
-                            <input type="checkbox" id="passwordNeverExpires-${userId}" name="passwordNeverExpires-${userId}" data-field="passwordNeverExpires" checked> 
-                            Password Never Expires
-                        </label>
+                        <label for="passwordNeverExpires-${userId}"><input type="checkbox" id="passwordNeverExpires-${userId}" name="passwordNeverExpires-${userId}" data-field="passwordNeverExpires" checked> Passwort läuft nie ab</label>
                     </div>
                     <div class="form-group">
-                        <label for="disableAccount-${userId}">
-                            <input type="checkbox" id="disableAccount-${userId}" name="disableAccount-${userId}" data-field="disableAccount"> 
-                            Account Disabled Initially
-                        </label>
+                        <label for="disableAccount-${userId}"><input type="checkbox" id="disableAccount-${userId}" name="disableAccount-${userId}" data-field="disableAccount"> Konto initial deaktiviert</label>
                     </div>
                 </div>
-                <button class="btn btn-secondary remove-btn" data-type="user">
-                    ❌ ${lang.t('buttons.remove')}
-                </button>
             </div>
         `;
 
@@ -202,42 +193,54 @@ export const DynamicElements = {
         }
 
         const softwareId = this.uniqueId();
+        const itemNumber = this.getItemCount(container, '.software-item') + 1;
         const softwareHTML = `
-            <div class="software-item" data-id="${softwareId}">
-                <h4>Software Package ${this.getItemCount(container, '.software-item') + 1}</h4>
-                <div class="grid grid-2">
+            <div class="software-item card-item" data-id="${softwareId}">
+                <div class="software-item-header">
+                    <h4>${lang.t('software.package') || 'Software-Paket'} ${itemNumber}</h4>
+                    <button class="icon-btn icon-btn-danger remove-btn" data-type="software" title="${lang.t('buttons.remove')}" aria-label="${lang.t('buttons.remove')}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg>
+                    </button>
+                </div>
+                <div class="software-item-body">
                     <div class="form-group">
                         <label class="form-label" for="name-${softwareId}">${lang.t('fields.softwareName')}</label>
-                        <input type="text" class="form-control" id="name-${softwareId}" name="name-${softwareId}" data-field="name" 
-                               placeholder="${lang.t('placeholders.softwareName')}" required>
+                        <input type="text" class="form-control" id="name-${softwareId}" name="name-${softwareId}" data-field="name" placeholder="${lang.t('placeholders.softwareName')}" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="type-${softwareId}">Package Type</label>
+                        <label class="form-label" for="type-${softwareId}">${lang.t('fields.packageType') || 'Paket-Typ'}</label>
                         <select class="form-control" id="type-${softwareId}" name="type-${softwareId}" data-field="type">
-                            <option value="msi">MSI Package</option>
-                            <option value="exe">EXE Installer</option>
-                            <option value="appx">AppX/MSIX Package</option>
-                            <option value="script">Script/Batch</option>
-                            <option value="zip">ZIP Archive</option>
+                            <option value="msi">MSI-Paket</option>
+                            <option value="exe">EXE-Installer</option>
+                            <option value="appx">AppX/MSIX-Paket</option>
+                            <option value="script">Skript/Batch</option>
+                            <option value="zip">ZIP-Archiv</option>
                         </select>
                     </div>
-                    <div class="form-group" style="grid-column: span 2;">
+                    <div class="form-group full">
                         <label class="form-label" for="path-${softwareId}">${lang.t('fields.installPath')}</label>
-                        <input type="text" class="form-control" id="path-${softwareId}" name="path-${softwareId}" data-field="path" 
-                               placeholder="${lang.t('placeholders.softwarePath')}" required>
+                        <input type="text" class="form-control" id="path-${softwareId}" name="path-${softwareId}" data-field="path" placeholder="${lang.t('placeholders.softwarePath')}" required>
                     </div>
-                    <div class="form-group" style="grid-column: span 2;">
+                    <div class="form-group full">
                         <label class="form-label" for="arguments-${softwareId}">${lang.t('fields.arguments')}</label>
-                        <input type="text" class="form-control" id="arguments-${softwareId}" name="arguments-${softwareId}" data-field="arguments" 
-                               placeholder="${lang.t('placeholders.arguments')}">
-                        <div class="form-hint">Silent install switches: /quiet /norestart (MSI) or /S (EXE)</div>
+                        <input type="text" class="form-control" id="arguments-${softwareId}" name="arguments-${softwareId}" data-field="arguments" placeholder="z. B. /quiet /norestart">
+                        <div class="arg-chips" data-arg-target="arguments-${softwareId}">
+                            <button type="button" class="arg-chip" data-value="/quiet /norestart" title="MSI – stiller Standardmodus, kein Neustart">MSI · /quiet /norestart</button>
+                            <button type="button" class="arg-chip" data-value="/qn" title="MSI – komplett ohne UI">MSI · /qn</button>
+                            <button type="button" class="arg-chip" data-value="/quiet ALLUSERS=1" title="MSI – Installation für alle Nutzer">MSI · ALLUSERS=1</button>
+                            <button type="button" class="arg-chip" data-value="/S" title="NSIS-Installer (z. B. Notepad++, 7-Zip)">EXE · /S (NSIS)</button>
+                            <button type="button" class="arg-chip" data-value="/silent" title="Allgemeiner /silent-Switch">EXE · /silent</button>
+                            <button type="button" class="arg-chip" data-value="/verysilent /SP- /SUPPRESSMSGBOXES" title="Inno-Setup-Installer">EXE · Inno Setup</button>
+                            <button type="button" class="arg-chip" data-value="--silent" title="Squirrel / Electron-Installer">EXE · --silent</button>
+                            <button type="button" class="arg-chip" data-value="-ExecutionPolicy Bypass -File" title="PowerShell-Skript ohne Policy-Prüfung">PowerShell-Skript</button>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="order-${softwareId}">${lang.t('fields.order')}</label>
                         <input type="number" class="form-control" id="order-${softwareId}" name="order-${softwareId}" data-field="order" value="1" min="1">
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="phase-${softwareId}">Install Phase</label>
+                        <label class="form-label" for="phase-${softwareId}">Phase</label>
                         <select class="form-control" id="phase-${softwareId}" name="phase-${softwareId}" data-field="phase">
                             <option value="firstlogon">First Logon</option>
                             <option value="specialize">Specialize</option>
@@ -246,27 +249,36 @@ export const DynamicElements = {
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="rebootAfter-${softwareId}">
-                            <input type="checkbox" id="rebootAfter-${softwareId}" name="rebootAfter-${softwareId}" data-field="rebootAfter"> 
-                            Reboot After Installation
-                        </label>
+                        <label for="rebootAfter-${softwareId}"><input type="checkbox" id="rebootAfter-${softwareId}" name="rebootAfter-${softwareId}" data-field="rebootAfter"> Neustart nach Installation</label>
                     </div>
                     <div class="form-group">
-                        <label for="continueOnError-${softwareId}">
-                            <input type="checkbox" id="continueOnError-${softwareId}" name="continueOnError-${softwareId}" data-field="continueOnError" checked> 
-                            Continue On Error
-                        </label>
+                        <label for="continueOnError-${softwareId}"><input type="checkbox" id="continueOnError-${softwareId}" name="continueOnError-${softwareId}" data-field="continueOnError" checked> Bei Fehler weiter</label>
                     </div>
                 </div>
-                <button class="btn btn-secondary remove-btn" data-type="software">
-                    ❌ ${lang.t('buttons.remove')}
-                </button>
             </div>
         `;
 
         container.insertAdjacentHTML('beforeend', softwareHTML);
+
+        // Arg-Chips übertragen ihren Wert ins zugehörige Input-Feld.
+        const newItem = container.querySelector(`[data-id="${softwareId}"]`);
+        if (newItem) {
+            newItem.querySelectorAll('.arg-chip').forEach(chip => {
+                chip.addEventListener('click', () => {
+                    const wrap = chip.closest('.arg-chips');
+                    const targetId = wrap && wrap.dataset.argTarget;
+                    const input = targetId && document.getElementById(targetId);
+                    if (input) {
+                        input.value = chip.dataset.value || '';
+                        input.dispatchEvent(new Event('change', { bubbles: true }));
+                        input.dispatchEvent(new Event('input', { bubbles: true }));
+                    }
+                });
+            });
+        }
+
         this.saveSoftware();
-        
+
         UIHelpers.showNotification(lang.t('notifications.softwareAdded'), 'success');
     },
 

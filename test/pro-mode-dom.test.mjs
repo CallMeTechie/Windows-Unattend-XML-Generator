@@ -57,8 +57,11 @@ check('Bug10: partition.filesystem erfasst (ntfs)', partitions[0]?.filesystem ==
 check('Bug10: partition.size erfasst (500)', partitions[0]?.size === '500', JSON.stringify(partitions[0]));
 check('Bug10: partition.label erfasst (EFI)', partitions[0]?.label === 'EFI', JSON.stringify(partitions[0]));
 
-// User: Default-User hat leere Pflichtfelder -> füllen, dann sammeln.
+// User: Im Settings-Stil-Redesign gibt es kein vorgerendertes Default-Item mehr
+// (der Add-Icon im Card-Title legt eines an). Wir klicken den Add-Button und
+// prüfen anschließend die data-field-Attribute.
 ProMode.loadContent('users');
+document.getElementById('pro-addUserBtn')?.click();
 const uName = document.querySelector('.user-item [data-field="username"]');
 const uPass = document.querySelector('.user-item [data-field="password"]');
 check('Bug10: User-Item hat data-field-Felder', !!uName && !!uPass);
@@ -70,8 +73,9 @@ if (uName && uPass) {
         users.some(u => u.username === 'alice' && u.password === 'Secret1!'), JSON.stringify(users));
 }
 
-// Software: software-args muss als data-field="arguments" ankommen.
+// Software: analog – Add-Button legt das Item an.
 ProMode.loadContent('software');
+document.getElementById('pro-addSoftwareBtn')?.click();
 const sName = document.querySelector('.software-item [data-field="name"]');
 const sPath = document.querySelector('.software-item [data-field="path"]');
 const sArgs = document.querySelector('.software-item [data-field="arguments"]');

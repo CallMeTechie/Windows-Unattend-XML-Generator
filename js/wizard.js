@@ -390,30 +390,12 @@ export const WizardMode = {
      */
     renderStep6() {
         const lang = LanguageManager;
-        
         return `
             <h2>${lang.t('wizard.steps.finish.heading')}</h2>
+            <div id="finishValidation"></div>
             <div class="card">
                 <div class="card-title">${lang.t('wizard.steps.finish.configOverview')}</div>
                 <div id="configSummary"></div>
-            </div>
-            <div class="card">
-                <div class="card-title">${lang.t('wizard.steps.finish.additionalOptions')}</div>
-                <div class="form-group">
-                    <label for="enableRDP"><input type="checkbox" id="enableRDP" name="enableRDP" checked> ${lang.t('wizard.steps.finish.enableRDP')}</label>
-                </div>
-                <div class="form-group">
-                    <label for="disableUAC"><input type="checkbox" id="disableUAC" name="disableUAC"> ${lang.t('wizard.steps.finish.disableUAC')}</label>
-                </div>
-                <div class="form-group">
-                    <label for="enableFirewall"><input type="checkbox" id="enableFirewall" name="enableFirewall" checked> ${lang.t('wizard.steps.finish.enableFirewall')}</label>
-                </div>
-                <div class="form-group">
-                    <label for="skipOOBE"><input type="checkbox" id="skipOOBE" name="skipOOBE"> ${lang.t('wizard.steps.finish.skipOOBE')}</label>
-                </div>
-            </div>
-            <div class="notification success static-notification">
-                ✔ ${lang.t('wizard.steps.finish.readyMessage')}
             </div>
         `;
     },
@@ -791,5 +773,30 @@ export const WizardMode = {
             <p><strong>${lang.t('fields.uiLanguage')}:</strong> ${UIHelpers.escapeHtml(config.uilanguage)}</p>
             <p><strong>${lang.t('fields.productKey')}:</strong> ${config.productKey ? '***SET***' : '-'}</p>
         `;
+
+        // Validierungs-Anzeige im Step 6 (ersetzt die alte feste „bereit"-Meldung).
+        const validationDiv = document.getElementById('finishValidation');
+        if (validationDiv) {
+            const VM = (typeof ValidationManager !== 'undefined' && ValidationManager)
+                || (typeof window !== 'undefined' && window.ValidationManager);
+            const result = (VM && VM.validateConfiguration)
+                ? VM.validateConfiguration(config)
+                : { errors: [], warnings: [] };
+            const errors = result.errors || [];
+            const warnings = result.warnings || [];
+            const fmt = (e) => UIHelpers.escapeHtml(e && (e.message || e.field) ? (e.message || e.field) : String(e));
+            let html = '';
+            if (errors.length === 0 && warnings.length === 0) {
+                html = `<div class="static-notification success">✓ ${lang.t('wizard.steps.finish.readyMessage')}</div>`;
+            } else {
+                if (errors.length > 0) {
+                    html += `<div class="static-notification error"><strong>${errors.length} ${errors.length === 1 ? 'Fehler' : 'Fehler'}:</strong><ul>${errors.map(e => `<li>${fmt(e)}</li>`).join('')}</ul></div>`;
+                }
+                if (warnings.length > 0) {
+                    html += `<div class="static-notification warning"><strong>${warnings.length} ${warnings.length === 1 ? 'Warnung' : 'Warnungen'}:</strong><ul>${warnings.map(w => `<li>${fmt(w)}</li>`).join('')}</ul></div>`;
+                }
+            }
+            validationDiv.innerHTML = html;
+        }
     }
 };

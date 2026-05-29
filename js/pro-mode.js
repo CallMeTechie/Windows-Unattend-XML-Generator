@@ -540,9 +540,13 @@ export const ProMode = {
             </div>
             
             <div class="card">
-                <div class="card-title">${lang.t('pro.sections.additionalUsers')}</div>
-                <button class="btn btn-secondary" id="pro-addUserBtn">➕ ${lang.t('buttons.addUser')}</button>
-                <div id="pro-userList" style="margin-top: 15px;">
+                <div class="card-title card-title-with-action">
+                    <span>${lang.t('pro.sections.additionalUsers')}</span>
+                    <button class="icon-btn icon-btn-accent" id="pro-addUserBtn" title="${lang.t('buttons.addUser')}" aria-label="${lang.t('buttons.addUser')}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                    </button>
+                </div>
+                <div id="pro-userList">
                     <div class="user-item">
                         <div class="grid grid-3">
                             <div class="form-group">
@@ -769,34 +773,13 @@ export const ProMode = {
             </div>
             
             <div class="card">
-                <div class="card-title">${lang.t('pro.sections.softwareInstallation')}</div>
-                <button class="btn btn-secondary" id="pro-addSoftwareBtn">➕ ${lang.t('buttons.addSoftware')}</button>
-                <div class="form-hint" style="margin: 10px 0;">${lang.t('hints.softwareTypes')}</div>
-                <div id="pro-softwareList" style="margin-top: 15px;">
-                    <div class="software-item">
-                        <div class="grid grid-2">
-                            <div class="form-group">
-                                <label class="form-label" for="${softwareId}-name">${lang.t('fields.softwareName')}</label>
-                                <input type="text" class="form-control" id="${softwareId}-name" name="software-name" data-field="name" placeholder="${lang.t('placeholders.softwareName')}">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" for="${softwareId}-path">${lang.t('fields.installPath')}</label>
-                                <input type="text" class="form-control" id="${softwareId}-path" name="software-path" data-field="path" placeholder="${lang.t('placeholders.softwarePath')}">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" for="${softwareId}-args">${lang.t('fields.arguments')}</label>
-                                <input type="text" class="form-control" id="${softwareId}-args" name="software-args" data-field="arguments" placeholder="${lang.t('placeholders.arguments')}">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label" for="${softwareId}-order">${lang.t('fields.order')}</label>
-                                <input type="number" class="form-control" id="${softwareId}-order" name="software-order" data-field="order" value="1" min="1">
-                            </div>
-                            <div class="form-group">
-                                <button class="remove-btn">❌ ${lang.t('buttons.remove')}</button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="card-title card-title-with-action">
+                    <span>${lang.t('pro.sections.softwareInstallation')}</span>
+                    <button class="icon-btn icon-btn-accent" id="pro-addSoftwareBtn" title="${lang.t('buttons.addSoftware')}" aria-label="${lang.t('buttons.addSoftware')}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                    </button>
                 </div>
+                <div id="pro-softwareList"></div>
             </div>
         `;
     },
@@ -883,41 +866,40 @@ export const ProMode = {
      */
     renderFeaturesTab() {
         const lang = LanguageManager || { t: (key) => key };
-        
+        // Hilfs-Funktion: Toggle-Zeile mit Label rechts vom Toggle, kompakt im Grid.
+        const f = (id, name, label, checked = false) =>
+            `<div class="form-group"><label for="pro-feat-${id}"><input type="checkbox" id="pro-feat-${id}" name="feat-${id}" data-field="feat-${id}"${checked ? ' checked' : ''}> ${label}</label></div>`;
+
         return `
             <h3>${lang.t('pro.sections.commonFeatures')}</h3>
             <div class="grid grid-2">
                 <div class="card">
                     <div class="card-title">${lang.t('pro.sections.commonFeatures')}</div>
-                    <div class="form-group">
-                        <label for="pro-feat-netfx3"><input type="checkbox" id="pro-feat-netfx3" name="feat-netfx3"> ${lang.t('features.netFramework35')}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="pro-feat-netfx48"><input type="checkbox" id="pro-feat-netfx48" name="feat-netfx48" checked> ${lang.t('features.netFramework48')}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="pro-feat-hyperv"><input type="checkbox" id="pro-feat-hyperv" name="feat-hyperv"> ${lang.t('features.hyperV')}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="pro-feat-wsl"><input type="checkbox" id="pro-feat-wsl" name="feat-wsl"> ${lang.t('features.wsl')}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="pro-feat-sandbox"><input type="checkbox" id="pro-feat-sandbox" name="feat-sandbox"> ${lang.t('features.windowsSandbox')}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="pro-feat-containers"><input type="checkbox" id="pro-feat-containers" name="feat-containers"> ${lang.t('features.windowsContainers')}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="pro-feat-telnet"><input type="checkbox" id="pro-feat-telnet" name="feat-telnet"> ${lang.t('features.telnetClient')}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="pro-feat-tftp"><input type="checkbox" id="pro-feat-tftp" name="feat-tftp"> ${lang.t('features.tftpClient')}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="pro-feat-smb1"><input type="checkbox" id="pro-feat-smb1" name="feat-smb1"> ${lang.t('features.smb1')}</label>
-                    </div>
-                    <div class="form-group">
-                        <label for="pro-feat-directplay"><input type="checkbox" id="pro-feat-directplay" name="feat-directplay"> ${lang.t('features.directPlay')}</label>
+                    <div class="feature-grid">
+                        ${f('netfx3',  'feat-netfx3',  lang.t('features.netFramework35'))}
+                        ${f('netfx48', 'feat-netfx48', lang.t('features.netFramework48'), true)}
+                        ${f('hyperv',  'feat-hyperv',  lang.t('features.hyperV'))}
+                        ${f('vmplatform', 'feat-vmplatform', 'Virtual Machine Platform (für WSL2)')}
+                        ${f('wsl',     'feat-wsl',     lang.t('features.wsl'))}
+                        ${f('sandbox', 'feat-sandbox', lang.t('features.windowsSandbox'))}
+                        ${f('containers','feat-containers', lang.t('features.windowsContainers'))}
+                        ${f('hypervisor','feat-hypervisor', 'Hypervisor-Plattform')}
+                        ${f('telnet',  'feat-telnet',  lang.t('features.telnetClient'))}
+                        ${f('tftp',    'feat-tftp',    lang.t('features.tftpClient'))}
+                        ${f('smb1',    'feat-smb1',    lang.t('features.smb1'))}
+                        ${f('directplay','feat-directplay', lang.t('features.directPlay'))}
+                        ${f('ssh-client', 'feat-ssh-client', 'OpenSSH-Client', true)}
+                        ${f('ssh-server', 'feat-ssh-server', 'OpenSSH-Server')}
+                        ${f('print-pdf', 'feat-print-pdf', 'Microsoft Print to PDF', true)}
+                        ${f('xps',     'feat-xps',     'XPS-Dienste')}
+                        ${f('ps-v2',   'feat-ps-v2',   'PowerShell 2.0 (Legacy)')}
+                        ${f('snmp',    'feat-snmp',    'SNMP-Dienst')}
+                        ${f('msmq',    'feat-msmq',    'Microsoft Message Queue (MSMQ)')}
+                        ${f('nfs',     'feat-nfs',     'NFS-Client')}
+                        ${f('media-features', 'feat-media-features', 'Media Features')}
+                        ${f('work-folders', 'feat-work-folders', 'Work-Folders-Client')}
+                        ${f('wdag',    'feat-wdag',    'Defender Application Guard')}
+                        ${f('legacy-components', 'feat-legacy-components', 'Legacy-Komponenten')}
                     </div>
                 </div>
                 
@@ -1254,12 +1236,10 @@ export const ProMode = {
             <h3>${lang.t('pro.sections.xmlPreview')}</h3>
             <div class="card">
                 <div class="card-title">${lang.t('modals.xmlPreview.title')}</div>
-                <div class="xml-preview" id="pro-xmlPreview" style="height: 500px; overflow-y: auto;">
-                    <div style="color: #999; text-align: center; padding: 50px;">
-                        ${lang.t('preview.clickValidate')}
-                    </div>
+                <div class="xml-preview" id="pro-xmlPreview">
+                    <div class="xml-preview-placeholder">${lang.t('preview.clickValidate')}</div>
                 </div>
-                <div class="btn-group" style="margin-top: 15px;">
+                <div class="btn-group">
                     <button class="btn btn-secondary" id="validateProBtn">${lang.t('buttons.validate')}</button>
                     <button class="btn btn-secondary" id="copyProXMLBtn">${lang.t('buttons.copy')}</button>
                     <button class="btn btn-primary" id="downloadProXMLBtn">${lang.t('buttons.download')}</button>

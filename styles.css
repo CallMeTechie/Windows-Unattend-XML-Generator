@@ -1287,3 +1287,166 @@ button.add-item {
 
 /* Native Select (Fallback / wenn JS aus) bleibt minimal */
 .language-selector { font-size: 12px; }
+
+/* ============================================================
+ *  Icon-Buttons (in Card-Titeln, als Add/Remove neben Items)
+ * ============================================================ */
+.icon-btn {
+    width: 28px; height: 28px;
+    padding: 0;
+    flex-shrink: 0;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--text);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .1s, border-color .1s, color .1s;
+}
+.icon-btn:hover { background: var(--hover); border-color: var(--border-strong); }
+.icon-btn svg {
+    width: 16px; height: 16px;
+    stroke: currentColor; fill: none;
+    stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+}
+.icon-btn.icon-btn-accent {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+.icon-btn.icon-btn-accent:hover {
+    background: var(--accent-hover);
+    border-color: var(--accent-hover);
+}
+.icon-btn.icon-btn-danger:hover {
+    background: var(--error);
+    border-color: var(--error);
+    color: #fff;
+}
+
+/* Card-Titel mit rechtsbündiger Action (z.B. Add-Icon) */
+.card-title-with-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+.card-title-with-action > span:first-child { flex: 1; min-width: 0; }
+
+/* ============================================================
+ *  Software-Item (Card-im-Card, Header + Body + Argument-Chips)
+ * ============================================================ */
+.software-item.card-item,
+.user-item.card-item {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0;
+    margin: 12px 18px;
+    overflow: hidden;
+    display: block;
+    grid-template-columns: none;
+    gap: 0;
+}
+.software-item-header,
+.item-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+}
+.software-item-header h4,
+.item-header h4 {
+    margin: 0;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--text);
+}
+.software-item-body,
+.item-body {
+    padding: 14px 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px 16px;
+}
+.software-item-body .form-group,
+.item-body .form-group {
+    margin: 0;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    display: block;
+}
+.software-item-body .form-group.full,
+.item-body .form-group.full {
+    grid-column: 1 / -1;
+}
+.software-item-body .form-control,
+.item-body .form-control {
+    background: var(--surface);
+}
+
+/* Argument-Schnellvorlagen (Chip-Liste unter dem Argumente-Feld) */
+.arg-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+.arg-chip {
+    height: 22px;
+    padding: 0 10px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    border-radius: 11px;
+    color: var(--muted);
+    font-size: 11px;
+    font-family: "Cascadia Code", "Consolas", monospace;
+    cursor: pointer;
+    line-height: 1;
+}
+.arg-chip:hover {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+/* ============================================================
+ *  Feature-Grid (Windows-Features in 2 Spalten bei breitem Platz)
+ * ============================================================ */
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    border-top: 1px solid var(--border);
+}
+.feature-grid .form-group {
+    border-bottom: 1px solid var(--border) !important;
+    padding: 10px 16px !important;
+    border-radius: 0 !important;
+}
+.feature-grid .form-group:nth-child(odd):not(:last-child) {
+    border-right: 1px solid var(--border);
+}
+@media (max-width: 880px) {
+    .feature-grid { grid-template-columns: 1fr; }
+    .feature-grid .form-group:nth-child(odd):not(:last-child) { border-right: 0; }
+}
+
+/* ============================================================
+ *  Preview-Tab Layout-Korrekturen
+ * ============================================================ */
+.pro-content .xml-preview {
+    margin: 4px 18px;
+    border-radius: 6px;
+    max-height: 60vh;
+}
+.card > .btn-group {
+    padding: 14px 18px;
+    border-top: 1px solid var(--border);
+    margin: 0;
+    background: var(--surface-2);
+}
