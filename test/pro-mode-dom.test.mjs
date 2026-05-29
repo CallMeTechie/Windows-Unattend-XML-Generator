@@ -323,7 +323,9 @@ check('Lücke5: Fehler blockiert Generierung (null)', genErr === null, String(ge
 check('Lücke5: Fehler zeigt Übersicht (alert aufgerufen)', alertCount === 1, 'alertCount=' + alertCount);
 
 // (b) Nur Warnungen + Nutzer bricht ab -> kein XML.
-ConfigManager.config = { windowsVersion: 'win11pro', computerNameStrategy: 'prompt' };
+// Strenger-Validierung: enableAdminAccount:false unterdrückt den Admin-PW-Error,
+// damit dieser Test wirklich nur Warnungen (nicht Fehler) auslöst.
+ConfigManager.config = { windowsVersion: 'win11pro', computerNameStrategy: 'prompt', enableAdminAccount: false };
 confirmResult = false;
 const genCancel = XMLGenerator.generateXML();
 check('Lücke5: Warnung + Abbruch -> kein XML', genCancel === null, String(genCancel));

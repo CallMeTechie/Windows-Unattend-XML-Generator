@@ -48,6 +48,7 @@ const aPartition = { type: 'primary', size: '40000', filesystem: 'ntfs', label: 
 // -------------------------------------------------------------------------
 ConfigManager.config = {
     windowsVersion: 'win11pro', computerNameStrategy: 'fixed', computerName: 'PC1',
+    enableAdminAccount: false, skipEula: true,
     diskMode: 'manual', partitions: [{ ...aPartition }], users: []
 };
 ProMode.loadContent('users');                 // DOM = Users-Tab (keine Partition-Container)
@@ -67,6 +68,7 @@ check('E2E: Partition überlebt Bearbeitung eines Benutzers auf anderem Tab',
 // -------------------------------------------------------------------------
 ConfigManager.config = {
     windowsVersion: 'win11pro', computerNameStrategy: 'fixed', computerName: 'PC1',
+    enableAdminAccount: false, skipEula: true,
     diskMode: 'manual', partitions: [{ ...aPartition }], users: []
 };
 ProMode.loadContent('users');                 // generieren von einem Nicht-Disk-Tab
@@ -80,6 +82,7 @@ check('E2E: generiertes XML enthält die Partition (DiskConfiguration)',
 // -------------------------------------------------------------------------
 ConfigManager.config = {
     windowsVersion: 'win11pro', computerNameStrategy: 'fixed', computerName: 'PC1',
+    enableAdminAccount: false, skipEula: true,
     organization: 'ACME & Co <Ltd>', owner: 'O\'Brien', timezone: 'W. Europe Standard Time',
     diskMode: 'manual', partitions: [{ ...aPartition }], users: []
 };

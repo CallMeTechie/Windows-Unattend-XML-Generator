@@ -44,11 +44,70 @@ export const ValidationUtils = {
         // Validate drivers
         this.validateDrivers(config, errors, warnings);
 
+        // Strengere Defaults- und OOBE-Plausibilitätsprüfung
+        this.validateOOBEAndDefaults(config, errors, warnings);
+
         return {
             valid: errors.length === 0,
             errors: errors,
             warnings: warnings
         };
+    },
+
+    /**
+     * Strenge Defaults- und OOBE-Plausibilität.
+     * Erkennt unangetastete Standardwerte, fehlende OOBE-Bestätigungen und
+     * Konfigurationen, die zu pausierten oder unsicheren Installationen führen.
+     */
+    validateOOBEAndDefaults(config, errors, warnings) {
+        // 1) Standardmäßige Computername-Defaults erkennen (Nutzer hat nichts
+        //    geändert) – häufige Vorlagen in Wizard und Pro-Modus.
+        const defaultNames = ['PC-001', 'DESKTOP-XXX', 'COMPUTER', 'WIN-PC', 'CHANGE-ME'];
+        if (config.computerNameStrategy === 'fixed'
+            && config.computerName
+            && defaultNames.includes(String(config.computerName).toUpperCase())) {
+            warnings.push(`Computername „${config.computerName}" ist ein unangepasster Standardwert – setze einen aussagekräftigen Namen.`);
+        }
+
+        // 2) EULA-Akzeptanz – ohne wird die Installation pausiert.
+        if (config.skipEula === false || config.skipEula === undefined) {
+            warnings.push('EULA wird nicht automatisch akzeptiert – die Installation pausiert beim Lizenzbildschirm.');
+        }
+
+        // 3) Zeitzone explizit gesetzt? Anders als das alte „not set" prüfen
+        //    wir hier auch, ob der Wert ein verwendbarer Windows-Zeitzonen-Name
+        //    ist (enthält 'Standard Time' oder ist UTC).
+        if (config.timezone) {
+            const tz = String(config.timezone).trim();
+            if (tz && tz !== 'UTC' && !/Standard Time$|Daylight Time$/i.test(tz)) {
+                warnings.push(`Zeitzone „${tz}" entspricht nicht dem Windows-Format (z. B. „W. Europe Standard Time").`);
+            }
+        }
+
+        // 4) Produktschlüssel und Skip-Strategie konsistent? Wenn weder Key noch
+        //    skipProductKey gesetzt, pausiert die Installation am Key-Bildschirm.
+        if (!config.productKey && !config.skipProductKey) {
+            warnings.push('Kein Produktschlüssel gesetzt und „Eingabe überspringen" deaktiviert – die Installation fragt den Schlüssel ab.');
+        }
+
+        // 5) Online-/Lokales-Konto-Skip Konsistenz: wenn beide übersprungen
+        //    werden und kein lokaler Benutzer existiert, gibt es nach dem
+        //    Setup keinen Login.
+        const hasAdmin = config.enableAdminAccount && config.adminPassword;
+        const hasLocalUser = Array.isArray(config.users) && config.users.some(u => u && u.username && u.password);
+        if (config.skipOnlineAccount && config.skipLocalAccount && !hasAdmin && !hasLocalUser) {
+            errors.push('Online- und Lokales-Konto-Setup werden übersprungen, aber es ist kein Administrator- oder lokaler Benutzer mit Passwort definiert – nach der Installation gibt es keinen Login.');
+        }
+
+        // 6) Auto-Logon ohne Benutzer/Passwort.
+        if (config.autoLogon && !hasAdmin && !hasLocalUser) {
+            warnings.push('Auto-Logon aktiviert, aber kein Konto mit Passwort konfiguriert.');
+        }
+
+        // 7) Telemetrie-Stufe „Full" warnen.
+        if (config.telemetryLevel === '3' || config.telemetryLevel === 'full') {
+            warnings.push('Telemetrie-Stufe „Full" sendet die meisten Diagnosedaten – ggf. herabsetzen.');
+        }
     },
 
     /**
@@ -62,11 +121,11 @@ export const ValidationUtils = {
         }
         
         if (!config.timezone) {
-            warnings.push('Timezone not set, will use default');
+            warnings.push('Zeitzone nicht gesetzt – Windows-Standard wird verwendet.');
         }
-        
+
         if (!config.uilanguage) {
-            warnings.push('UI language not set, will use en-US');
+            warnings.push('Anzeigesprache nicht gesetzt – en-US wird verwendet.');
         }
         
         // Validate locale formats
@@ -219,7 +278,14 @@ export const ValidationUtils = {
                 errors.push(lang.t('validations.mustMatch', { field: 'Administrator passwords' }));
             }
         } else {
-            warnings.push('No administrator password set');
+            // Strenger: wenn das Administrator-Konto aktiv ist, ist ein gesetztes
+            // Passwort Pflicht. Ohne wird das Built-in-Admin-Konto ohne Passwort
+            // ausgerollt – ein klares Sicherheitsrisiko.
+            if (config.enableAdminAccount !== false) {
+                errors.push('Kein Administrator-Passwort gesetzt – das Built-in-Konto wäre ohne Passwort exponiert.');
+            } else {
+                warnings.push('Kein Administrator-Passwort gesetzt.');
+            }
         }
         
         // Validate additional users

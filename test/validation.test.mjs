@@ -65,7 +65,15 @@ const invalid = ValidationUtils.validateConfiguration({ windowsVersion: '', comp
 check('validateConfiguration: ungültig bei fehlendem Computernamen', invalid.valid === false && invalid.errors.length > 0,
     JSON.stringify(invalid.errors));
 
-const valid = ValidationUtils.validateConfiguration({ windowsVersion: 'win11pro', computerNameStrategy: 'prompt' });
+// „Gültige" Minimal-Config muss seit dem Strenger-Refactor auch ein Admin-PW
+// haben (sonst error wegen exponiertem Built-in-Konto).
+const valid = ValidationUtils.validateConfiguration({
+    windowsVersion: 'win11pro',
+    computerNameStrategy: 'prompt',
+    enableAdminAccount: true,
+    adminPassword: 'AdminPw#1',
+    adminPasswordConfirm: 'AdminPw#1'
+});
 check('validateConfiguration: gültig bei prompt-Strategie', valid.valid === true, JSON.stringify(valid.errors));
 check('validateConfiguration: liefert errors- und warnings-Arrays',
     Array.isArray(valid.errors) && Array.isArray(valid.warnings));
