@@ -267,7 +267,9 @@
     "rebootAfter": "Neustart nach Installation",
     "continueOnError": "Bei Fehler weiter",
     "autologon": "Auto-Logon für diesen Benutzer",
-    "disableAccount": "Konto initial deaktiviert"
+    "disableAccount": "Konto initial deaktiviert",
+    "activePartition": "Aktive Partition",
+    "featureName": "Feature-Name"
   },
   "features": {
     "netfx3": ".NET Framework 3.5",
@@ -320,7 +322,8 @@
     "mediaFeatures": "Medienfunktionen",
     "workFoldersClient": "Arbeitsordner-Client",
     "defenderAppGuard": "Defender Application Guard",
-    "legacyComponents": "Legacy-Komponenten"
+    "legacyComponents": "Legacy-Komponenten",
+    "feature": "Feature"
   },
   "options": {
     "windowsVersions": {
@@ -462,7 +465,8 @@
       "W": "W:",
       "X": "X:",
       "Y": "Y:",
-      "Z": "Z:"
+      "Z": "Z:",
+      "auto": "Automatisch"
     },
     "packageTypes": {
       "msi": "MSI-Paket",
@@ -476,6 +480,10 @@
       "specialize": "Specialize",
       "auditmode": "Audit Mode",
       "oobe": "OOBE"
+    },
+    "featureActions": {
+      "enable": "Aktivieren",
+      "disable": "Deaktivieren"
     }
   },
   "buttons": {
@@ -645,10 +653,12 @@
     "disableOneDrive": "OneDrive deaktivieren"
   },
   "scripts": {
-    "executionPhases": "Skript-Ausführungsphasen"
+    "executionPhases": "Skript-Ausführungsphasen",
+    "script": "Skript"
   },
   "drivers": {
-    "management": "Treiber-Verwaltung"
+    "management": "Treiber-Verwaltung",
+    "driver": "Treiber"
   },
   "preview": {
     "clickValidate": "Klicken Sie auf 'Validieren' um Vorschau zu generieren"
@@ -705,5 +715,21 @@
     "telemetryFull": "Telemetrie-Stufe „Full\" sendet die meisten Daten an Microsoft – Datenschutz prüfen.",
     "timezoneNotSetDE": "Zeitzone nicht gesetzt – Windows-Standard wird verwendet.",
     "uiLanguageNotSetDE": "Anzeigesprache nicht gesetzt – en-US wird verwendet."
+  },
+  "partitions": {
+    "partition": "Partition"
+  },
+  "tasks": {
+    "task": "Aufgabe"
+  },
+  "argChips": {
+    "msiQuiet": "MSI – stiller Standardmodus, kein Neustart",
+    "msiQn": "MSI – komplett ohne Oberfläche",
+    "msiAllusers": "MSI – Installation für alle Benutzer",
+    "exeNsis": "NSIS-Installer (z. B. Notepad++, 7-Zip)",
+    "exeSilent": "Allgemeiner /silent-Schalter",
+    "exeInno": "Inno-Setup-Installer",
+    "exeSquirrel": "Squirrel-/Electron-Installer",
+    "psFile": "PowerShell-Skript ohne Richtlinienprüfung"
   }
 }

@@ -90,8 +90,6 @@ const App = {
             
             // Mark as initialized
             this.isInitialized = true;
-
-            console.log('Application initialized successfully');
         } catch (error) {
             console.error('Failed to initialize application:', error);
             this.handleInitError(error);
@@ -507,9 +505,7 @@ const App = {
      */
     loadSavedConfig() {
         try {
-            if (ConfigManager.loadFromStorage()) {
-                console.log('Loaded saved configuration');
-            }
+            ConfigManager.loadFromStorage();
         } catch (error) {
             console.error('Failed to load saved config:', error);
         }
@@ -911,8 +907,6 @@ const App = {
      * Removes all event listeners, clears timers, and frees resources
      */
     async cleanup() {
-        console.log('Starting application cleanup...');
-
         try {
             // 1. Clear all timers
             Object.keys(this.timers).forEach(timer => {
@@ -967,8 +961,6 @@ const App = {
             // 10. Reset initialization flag
             this.isInitialized = false;
             this.isRefreshing = false;
-
-            console.log('Application cleanup completed');
         } catch (error) {
             console.error('Error during cleanup:', error);
         }
@@ -996,8 +988,6 @@ const App = {
                 delete window[module];
             }
         });
-
-        console.log('Application destroyed');
     },
 
     /**

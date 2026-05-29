@@ -257,8 +257,12 @@ export const WizardMode = {
             </div>
             <div id="manualPartitions" style="display:none;">
                 <div class="card">
-                    <div class="card-title">${lang.t('wizard.steps.partitioning.manualConfig')}</div>
-                    <button class="btn btn-secondary" id="addPartitionBtn">${lang.t('buttons.addPartition')}</button>
+                    <div class="card-title card-title-with-action">
+                        <span>${lang.t('wizard.steps.partitioning.manualConfig')}</span>
+                        <button class="icon-btn icon-btn-accent" id="addPartitionBtn" title="${lang.t('buttons.addPartition')}" aria-label="${lang.t('buttons.addPartition')}">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                        </button>
+                    </div>
                     <div id="partitionList"></div>
                 </div>
             </div>
@@ -292,8 +296,12 @@ export const WizardMode = {
                 </div>
             </div>
             <div class="card">
-                <div class="card-title">${lang.t('wizard.steps.users.additionalUsers')}</div>
-                <button class="btn btn-secondary" id="addUserBtn">${lang.t('buttons.addUser')}</button>
+                <div class="card-title card-title-with-action">
+                    <span>${lang.t('wizard.steps.users.additionalUsers')}</span>
+                    <button class="icon-btn icon-btn-accent" id="addUserBtn" title="${lang.t('buttons.addUser')}" aria-label="${lang.t('buttons.addUser')}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                    </button>
+                </div>
                 <div id="userList"></div>
             </div>
         `;
@@ -387,8 +395,12 @@ export const WizardMode = {
                 </div>
             </div>
             <div class="card">
-                <div class="card-title">${lang.t('wizard.steps.software.softwarePackages')}</div>
-                <button class="btn btn-secondary" id="addSoftwareBtn">${lang.t('buttons.addSoftware')}</button>
+                <div class="card-title card-title-with-action">
+                    <span>${lang.t('wizard.steps.software.softwarePackages')}</span>
+                    <button class="icon-btn icon-btn-accent" id="addSoftwareBtn" title="${lang.t('buttons.addSoftware')}" aria-label="${lang.t('buttons.addSoftware')}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                    </button>
+                </div>
                 <div id="softwareList"></div>
                 <div class="form-hint">${lang.t('wizard.steps.software.softwareHint')}</div>
             </div>

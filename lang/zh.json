@@ -267,7 +267,9 @@
     "rebootAfter": "安装后重启",
     "continueOnError": "出错时继续",
     "autologon": "为此用户启用自动登录",
-    "disableAccount": "账户初始为禁用"
+    "disableAccount": "账户初始为禁用",
+    "activePartition": "活动分区",
+    "featureName": "功能名称"
   },
   "defaults": {
     "administratorName": "Administrator",
@@ -326,7 +328,8 @@
     "mediaFeatures": "媒体功能",
     "workFoldersClient": "工作文件夹客户端",
     "defenderAppGuard": "Defender Application Guard",
-    "legacyComponents": "旧版组件"
+    "legacyComponents": "旧版组件",
+    "feature": "功能"
   },
   "options": {
     "windowsVersions": {
@@ -364,8 +367,7 @@
       "es-ES": "西班牙语",
       "it-IT": "意大利语",
       "pl-PL": "波兰语",
-      "ru-RU": "俄语",
-      "zh-CN": "中文（简体）"
+      "ru-RU": "俄语"
     },
     "userGroups": {
       "users": "用户",
@@ -469,7 +471,8 @@
       "W": "W:",
       "X": "X:",
       "Y": "Y:",
-      "Z": "Z:"
+      "Z": "Z:",
+      "auto": "自动"
     },
     "packageTypes": {
       "msi": "MSI 包",
@@ -483,6 +486,10 @@
       "specialize": "Specialize",
       "auditmode": "Audit Mode",
       "oobe": "OOBE"
+    },
+    "featureActions": {
+      "enable": "启用",
+      "disable": "禁用"
     }
   },
   "placeholders": {
@@ -652,10 +659,12 @@
     "disableOneDrive": "禁用OneDrive"
   },
   "scripts": {
-    "executionPhases": "脚本执行阶段"
+    "executionPhases": "脚本执行阶段",
+    "script": "脚本"
   },
   "drivers": {
-    "management": "驱动程序管理"
+    "management": "驱动程序管理",
+    "driver": "驱动程序"
   },
   "preview": {
     "clickValidate": "点击\"验证\"生成预览"
@@ -706,5 +715,21 @@
     "telemetryFull": "遥测级别 \"Full\" 向 Microsoft 发送最多数据 – 请审查隐私影响。",
     "timezoneNotSetDE": "未设置时区 – 将使用 Windows 默认值。",
     "uiLanguageNotSetDE": "未设置界面语言 – 将使用 en-US。"
+  },
+  "partitions": {
+    "partition": "分区"
+  },
+  "tasks": {
+    "task": "任务"
+  },
+  "argChips": {
+    "msiQuiet": "MSI – 静默标准模式，不重启",
+    "msiQn": "MSI – 完全无界面",
+    "msiAllusers": "MSI – 为所有用户安装",
+    "exeNsis": "NSIS 安装程序（例如 Notepad++、7-Zip）",
+    "exeSilent": "通用 /silent 开关",
+    "exeInno": "Inno Setup 安装程序",
+    "exeSquirrel": "Squirrel / Electron 安装程序",
+    "psFile": "PowerShell 脚本，跳过策略检查"
   }
 }

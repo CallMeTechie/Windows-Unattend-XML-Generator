@@ -267,7 +267,9 @@
     "rebootAfter": "Reboot after installation",
     "continueOnError": "Continue on error",
     "autologon": "Auto-logon for this user",
-    "disableAccount": "Account initially disabled"
+    "disableAccount": "Account initially disabled",
+    "activePartition": "Active partition",
+    "featureName": "Feature name"
   },
   "defaults": {
     "administratorName": "Administrator",
@@ -326,7 +328,8 @@
     "mediaFeatures": "Media Features",
     "workFoldersClient": "Work Folders Client",
     "defenderAppGuard": "Defender Application Guard",
-    "legacyComponents": "Legacy Components"
+    "legacyComponents": "Legacy Components",
+    "feature": "Feature"
   },
   "options": {
     "windowsVersions": {
@@ -468,7 +471,8 @@
       "W": "W:",
       "X": "X:",
       "Y": "Y:",
-      "Z": "Z:"
+      "Z": "Z:",
+      "auto": "Auto"
     },
     "packageTypes": {
       "msi": "MSI package",
@@ -482,6 +486,10 @@
       "specialize": "Specialize",
       "auditmode": "Audit Mode",
       "oobe": "OOBE"
+    },
+    "featureActions": {
+      "enable": "Enable",
+      "disable": "Disable"
     }
   },
   "buttons": {
@@ -651,10 +659,12 @@
     "disableOneDrive": "Disable OneDrive"
   },
   "scripts": {
-    "executionPhases": "Script Execution Phases"
+    "executionPhases": "Script Execution Phases",
+    "script": "Script"
   },
   "drivers": {
-    "management": "Driver Management"
+    "management": "Driver Management",
+    "driver": "Driver"
   },
   "preview": {
     "clickValidate": "Click 'Validate' to generate preview"
@@ -705,5 +715,21 @@
     "telemetryFull": "Telemetry level \"Full\" sends the most data to Microsoft – review privacy implications.",
     "timezoneNotSetDE": "Time zone not set – Windows default will be used.",
     "uiLanguageNotSetDE": "UI language not set – en-US will be used."
+  },
+  "partitions": {
+    "partition": "Partition"
+  },
+  "tasks": {
+    "task": "Task"
+  },
+  "argChips": {
+    "msiQuiet": "MSI – silent default, no restart",
+    "msiQn": "MSI – completely without UI",
+    "msiAllusers": "MSI – install for all users",
+    "exeNsis": "NSIS installer (e.g. Notepad++, 7-Zip)",
+    "exeSilent": "Generic /silent switch",
+    "exeInno": "Inno Setup installer",
+    "exeSquirrel": "Squirrel / Electron installer",
+    "psFile": "PowerShell script without policy check"
   }
 }

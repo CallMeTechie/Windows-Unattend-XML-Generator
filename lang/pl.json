@@ -267,7 +267,9 @@
     "rebootAfter": "Uruchom ponownie po instalacji",
     "continueOnError": "Kontynuuj w razie błędu",
     "autologon": "Automatyczne logowanie tego użytkownika",
-    "disableAccount": "Konto początkowo wyłączone"
+    "disableAccount": "Konto początkowo wyłączone",
+    "activePartition": "Partycja aktywna",
+    "featureName": "Nazwa funkcji"
   },
   "defaults": {
     "administratorName": "Administrator",
@@ -326,7 +328,8 @@
     "mediaFeatures": "Funkcje multimedialne",
     "workFoldersClient": "Klient folderów roboczych",
     "defenderAppGuard": "Defender Application Guard",
-    "legacyComponents": "Składniki starszej wersji"
+    "legacyComponents": "Składniki starszej wersji",
+    "feature": "Funkcja"
   },
   "options": {
     "windowsVersions": {
@@ -468,7 +471,8 @@
       "W": "W:",
       "X": "X:",
       "Y": "Y:",
-      "Z": "Z:"
+      "Z": "Z:",
+      "auto": "Automatycznie"
     },
     "packageTypes": {
       "msi": "Pakiet MSI",
@@ -482,6 +486,10 @@
       "specialize": "Specialize",
       "auditmode": "Audit Mode",
       "oobe": "OOBE"
+    },
+    "featureActions": {
+      "enable": "Włącz",
+      "disable": "Wyłącz"
     }
   },
   "placeholders": {
@@ -651,10 +659,12 @@
     "disableOneDrive": "Wyłącz OneDrive"
   },
   "scripts": {
-    "executionPhases": "Fazy wykonywania skryptów"
+    "executionPhases": "Fazy wykonywania skryptów",
+    "script": "Skrypt"
   },
   "drivers": {
-    "management": "Zarządzanie sterownikami"
+    "management": "Zarządzanie sterownikami",
+    "driver": "Sterownik"
   },
   "preview": {
     "clickValidate": "Kliknij 'Waliduj' aby wygenerować podgląd"
@@ -705,5 +715,21 @@
     "telemetryFull": "Poziom telemetrii \"Full\" wysyła najwięcej danych do Microsoft – sprawdź konsekwencje dla prywatności.",
     "timezoneNotSetDE": "Strefa czasowa nieustawiona – zostanie użyta wartość domyślna Windows.",
     "uiLanguageNotSetDE": "Język interfejsu nieustawiony – zostanie użyty en-US."
+  },
+  "partitions": {
+    "partition": "Partycja"
+  },
+  "tasks": {
+    "task": "Zadanie"
+  },
+  "argChips": {
+    "msiQuiet": "MSI – tryb cichy standardowy, bez ponownego uruchomienia",
+    "msiQn": "MSI – całkowicie bez interfejsu",
+    "msiAllusers": "MSI – instalacja dla wszystkich użytkowników",
+    "exeNsis": "Instalator NSIS (np. Notepad++, 7-Zip)",
+    "exeSilent": "Ogólny przełącznik /silent",
+    "exeInno": "Instalator Inno Setup",
+    "exeSquirrel": "Instalator Squirrel / Electron",
+    "psFile": "Skrypt PowerShell bez sprawdzania zasad"
   }
 }

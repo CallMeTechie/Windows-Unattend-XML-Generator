@@ -267,7 +267,9 @@
     "rebootAfter": "Redémarrer après l’installation",
     "continueOnError": "Continuer en cas d’erreur",
     "autologon": "Connexion automatique pour cet utilisateur",
-    "disableAccount": "Compte initialement désactivé"
+    "disableAccount": "Compte initialement désactivé",
+    "activePartition": "Partition active",
+    "featureName": "Nom de fonctionnalité"
   },
   "defaults": {
     "administratorName": "Administrateur",
@@ -326,7 +328,8 @@
     "mediaFeatures": "Fonctionnalités multimédias",
     "workFoldersClient": "Client Dossiers de travail",
     "defenderAppGuard": "Defender Application Guard",
-    "legacyComponents": "Composants hérités"
+    "legacyComponents": "Composants hérités",
+    "feature": "Fonctionnalité"
   },
   "options": {
     "windowsVersions": {
@@ -468,7 +471,8 @@
       "W": "W:",
       "X": "X:",
       "Y": "Y:",
-      "Z": "Z:"
+      "Z": "Z:",
+      "auto": "Automatique"
     },
     "packageTypes": {
       "msi": "Paquet MSI",
@@ -482,6 +486,10 @@
       "specialize": "Specialize",
       "auditmode": "Audit Mode",
       "oobe": "OOBE"
+    },
+    "featureActions": {
+      "enable": "Activer",
+      "disable": "Désactiver"
     }
   },
   "placeholders": {
@@ -651,10 +659,12 @@
     "disableOneDrive": "Désactiver OneDrive"
   },
   "scripts": {
-    "executionPhases": "Phases d'exécution de script"
+    "executionPhases": "Phases d'exécution de script",
+    "script": "Script"
   },
   "drivers": {
-    "management": "Gestion des pilotes"
+    "management": "Gestion des pilotes",
+    "driver": "Pilote"
   },
   "preview": {
     "clickValidate": "Cliquez sur 'Valider' pour générer l'aperçu"
@@ -705,5 +715,21 @@
     "telemetryFull": "Le niveau de télémétrie « Full » envoie le plus de données à Microsoft – vérifiez les implications pour la confidentialité.",
     "timezoneNotSetDE": "Fuseau horaire non défini – la valeur par défaut de Windows sera utilisée.",
     "uiLanguageNotSetDE": "Langue de l’interface non définie – en-US sera utilisée."
+  },
+  "partitions": {
+    "partition": "Partition"
+  },
+  "tasks": {
+    "task": "Tâche"
+  },
+  "argChips": {
+    "msiQuiet": "MSI – mode silencieux standard, sans redémarrage",
+    "msiQn": "MSI – entièrement sans interface",
+    "msiAllusers": "MSI – installer pour tous les utilisateurs",
+    "exeNsis": "Programme NSIS (p. ex. Notepad++, 7-Zip)",
+    "exeSilent": "Commutateur /silent générique",
+    "exeInno": "Programme Inno Setup",
+    "exeSquirrel": "Programme Squirrel / Electron",
+    "psFile": "Script PowerShell sans vérification de stratégie"
   }
 }

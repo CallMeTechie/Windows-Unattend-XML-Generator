@@ -55,17 +55,23 @@ export const DynamicElements = {
         }
 
         const partitionId = this.uniqueId();
+        const partitionNumber = this.getItemCount(container, '.partition-item') + 1;
         const partitionHTML = `
-            <div class="partition-item" data-id="${partitionId}">
-                <h4>Partition ${this.getItemCount(container, '.partition-item') + 1}</h4>
-                <div class="grid grid-3">
+            <div class="partition-item card-item" data-id="${partitionId}">
+                <div class="item-header">
+                    <h4>${lang.t('partitions.partition', 'Partition')} ${partitionNumber}</h4>
+                    <button class="icon-btn icon-btn-danger remove-btn" data-type="partition" title="${lang.t('buttons.remove')}" aria-label="${lang.t('buttons.remove')}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg>
+                    </button>
+                </div>
+                <div class="item-body">
                     <div class="form-group">
                         <label class="form-label" for="type-${partitionId}">${lang.t('fields.type')}</label>
                         <select class="form-control" id="type-${partitionId}" name="type-${partitionId}" data-field="type">
-                            <option value="primary">Primary</option>
-                            <option value="efi">EFI System</option>
-                            <option value="msr">MSR</option>
-                            <option value="recovery">Recovery</option>
+                            <option value="primary">${lang.t('options.partitionTypes.primary', 'Primary')}</option>
+                            <option value="efi">${lang.t('options.partitionTypes.efi', 'EFI System')}</option>
+                            <option value="msr">${lang.t('options.partitionTypes.msr', 'MSR')}</option>
+                            <option value="recovery">${lang.t('options.partitionTypes.recovery', 'Recovery')}</option>
                             <option value="extended">Extended</option>
                             <option value="logical">Logical</option>
                         </select>
@@ -73,7 +79,6 @@ export const DynamicElements = {
                     <div class="form-group">
                         <label class="form-label" for="size-${partitionId}">${lang.t('fields.size')} (MB)</label>
                         <input type="number" class="form-control" id="size-${partitionId}" name="size-${partitionId}" data-field="size" placeholder="${lang.t('hints.sizeHint')}">
-                        <div class="form-hint">0 = Use remaining space</div>
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="filesystem-${partitionId}">${lang.t('fields.filesystem')}</label>
@@ -91,19 +96,16 @@ export const DynamicElements = {
                     <div class="form-group">
                         <label class="form-label" for="letter-${partitionId}">${lang.t('fields.driveLetter')}</label>
                         <select class="form-control" id="letter-${partitionId}" name="letter-${partitionId}" data-field="letter">
-                            <option value="">Auto</option>
+                            <option value="">${lang.t('options.driveLetters.auto', 'Auto')}</option>
                             ${this.getDriveLetterOptions()}
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="active-${partitionId}">
-                            <input type="checkbox" id="active-${partitionId}" name="active-${partitionId}" data-field="active" checked> Active Partition
+                            <input type="checkbox" id="active-${partitionId}" name="active-${partitionId}" data-field="active" checked> ${lang.t('fields.activePartition', 'Active Partition')}
                         </label>
                     </div>
                 </div>
-                <button class="btn btn-secondary remove-btn" data-type="partition">
-                    ❌ ${lang.t('buttons.remove')}
-                </button>
             </div>
         `;
 
@@ -223,16 +225,16 @@ export const DynamicElements = {
                     </div>
                     <div class="form-group full">
                         <label class="form-label" for="arguments-${softwareId}">${lang.t('fields.arguments')}</label>
-                        <input type="text" class="form-control" id="arguments-${softwareId}" name="arguments-${softwareId}" data-field="arguments" placeholder="${lang.t('placeholders.softwareArgs', 'e.g. /quiet /norestart')}">
+                        <input type="text" class="form-control" id="arguments-${softwareId}" name="arguments-${softwareId}" data-field="arguments" placeholder="${lang.t('placeholders.arguments')}">
                         <div class="arg-chips" data-arg-target="arguments-${softwareId}">
-                            <button type="button" class="arg-chip" data-value="/quiet /norestart" title="MSI – stiller Standardmodus, kein Neustart">MSI · /quiet /norestart</button>
-                            <button type="button" class="arg-chip" data-value="/qn" title="MSI – komplett ohne UI">MSI · /qn</button>
-                            <button type="button" class="arg-chip" data-value="/quiet ALLUSERS=1" title="MSI – Installation für alle Nutzer">MSI · ALLUSERS=1</button>
-                            <button type="button" class="arg-chip" data-value="/S" title="NSIS-Installer (z. B. Notepad++, 7-Zip)">EXE · /S (NSIS)</button>
-                            <button type="button" class="arg-chip" data-value="/silent" title="Allgemeiner /silent-Switch">EXE · /silent</button>
-                            <button type="button" class="arg-chip" data-value="/verysilent /SP- /SUPPRESSMSGBOXES" title="Inno-Setup-Installer">EXE · Inno Setup</button>
-                            <button type="button" class="arg-chip" data-value="--silent" title="Squirrel / Electron-Installer">EXE · --silent</button>
-                            <button type="button" class="arg-chip" data-value="-ExecutionPolicy Bypass -File" title="PowerShell-Skript ohne Policy-Prüfung">PowerShell-Skript</button>
+                            <button type="button" class="arg-chip" data-value="/quiet /norestart" title="${lang.t('argChips.msiQuiet', 'MSI – silent default, no restart')}">MSI · /quiet /norestart</button>
+                            <button type="button" class="arg-chip" data-value="/qn" title="${lang.t('argChips.msiQn', 'MSI – completely without UI')}">MSI · /qn</button>
+                            <button type="button" class="arg-chip" data-value="/quiet ALLUSERS=1" title="${lang.t('argChips.msiAllusers', 'MSI – install for all users')}">MSI · ALLUSERS=1</button>
+                            <button type="button" class="arg-chip" data-value="/S" title="${lang.t('argChips.exeNsis', 'NSIS installer (e.g. Notepad++, 7-Zip)')}">EXE · /S (NSIS)</button>
+                            <button type="button" class="arg-chip" data-value="/silent" title="${lang.t('argChips.exeSilent', 'Generic /silent switch')}">EXE · /silent</button>
+                            <button type="button" class="arg-chip" data-value="/verysilent /SP- /SUPPRESSMSGBOXES" title="${lang.t('argChips.exeInno', 'Inno Setup installer')}">EXE · Inno Setup</button>
+                            <button type="button" class="arg-chip" data-value="--silent" title="${lang.t('argChips.exeSquirrel', 'Squirrel / Electron installer')}">EXE · --silent</button>
+                            <button type="button" class="arg-chip" data-value="-ExecutionPolicy Bypass -File" title="${lang.t('argChips.psFile', 'PowerShell script without policy check')}">PS1 · -File</button>
                         </div>
                     </div>
                     <div class="form-group">
@@ -295,9 +297,14 @@ export const DynamicElements = {
 
         const scriptId = this.uniqueId();
         const scriptHTML = `
-            <div class="script-item" data-id="${scriptId}">
-                <h4>Script ${this.getItemCount(container, '.script-item') + 1}</h4>
-                <div class="grid grid-2">
+            <div class="script-item card-item" data-id="${scriptId}">
+                <div class="item-header">
+                    <h4>${lang.t('scripts.script', 'Script')} ${this.getItemCount(container, '.script-item') + 1}</h4>
+                    <button class="icon-btn icon-btn-danger remove-btn" data-type="script" title="${lang.t('buttons.remove')}" aria-label="${lang.t('buttons.remove')}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg>
+                    </button>
+                </div>
+                <div class="item-body">
                     <div class="form-group">
                         <label class="form-label" for="script-name-${scriptId}">Script Name</label>
                         <input type="text" class="form-control" id="script-name-${scriptId}" name="script-name-${scriptId}" data-field="name" 
@@ -334,12 +341,12 @@ export const DynamicElements = {
                             <option value="elevated">Elevated</option>
                         </select>
                     </div>
-                    <div class="form-group" style="grid-column: span 2;">
+                    <div class="form-group full">
                         <label class="form-label" for="script-command-${scriptId}">${lang.t('fields.commandPath')}</label>
                         <input type="text" class="form-control" id="script-command-${scriptId}" name="script-command-${scriptId}" data-field="command" 
                                placeholder="${lang.t('placeholders.scriptCommand')}" required>
                     </div>
-                    <div class="form-group" style="grid-column: span 2;">
+                    <div class="form-group full">
                         <label class="form-label" for="script-content-${scriptId}">Script Content (Optional - Inline Script)</label>
                         <textarea class="form-control" id="script-content-${scriptId}" name="script-content-${scriptId}" data-field="content" rows="4" 
                                   placeholder="# PowerShell script content here..."></textarea>
@@ -364,9 +371,6 @@ export const DynamicElements = {
                         </label>
                     </div>
                 </div>
-                <button class="btn btn-secondary remove-btn" data-type="script">
-                    ❌ ${lang.t('buttons.remove')}
-                </button>
             </div>
         `;
 
@@ -389,9 +393,14 @@ export const DynamicElements = {
 
         const driverId = this.uniqueId();
         const driverHTML = `
-            <div class="driver-item" data-id="${driverId}">
-                <h4>Driver ${this.getItemCount(container, '.driver-item') + 1}</h4>
-                <div class="grid grid-2">
+            <div class="driver-item card-item" data-id="${driverId}">
+                <div class="item-header">
+                    <h4>${lang.t('drivers.driver', 'Driver')} ${this.getItemCount(container, '.driver-item') + 1}</h4>
+                    <button class="icon-btn icon-btn-danger remove-btn" data-type="driver" title="${lang.t('buttons.remove')}" aria-label="${lang.t('buttons.remove')}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg>
+                    </button>
+                </div>
+                <div class="item-body">
                     <div class="form-group">
                         <label class="form-label" for="driver-name-${driverId}">Driver Name</label>
                         <input type="text" class="form-control" id="driver-name-${driverId}" name="driver-name-${driverId}" data-field="name" 
@@ -409,7 +418,7 @@ export const DynamicElements = {
                             <option value="other">Other</option>
                         </select>
                     </div>
-                    <div class="form-group" style="grid-column: span 2;">
+                    <div class="form-group full">
                         <label class="form-label" for="driver-infPath-${driverId}">INF File Path</label>
                         <input type="text" class="form-control" id="driver-infPath-${driverId}" name="driver-infPath-${driverId}" data-field="infPath" 
                                placeholder="\\\\server\\drivers\\network\\e1000.inf" required>
@@ -441,9 +450,6 @@ export const DynamicElements = {
                         </label>
                     </div>
                 </div>
-                <button class="btn btn-secondary remove-btn" data-type="driver">
-                    ❌ ${lang.t('buttons.remove')}
-                </button>
             </div>
         `;
 
@@ -466,9 +472,14 @@ export const DynamicElements = {
 
         const taskId = this.uniqueId();
         const taskHTML = `
-            <div class="task-item" data-id="${taskId}">
-                <h4>Scheduled Task ${this.getItemCount(container, '.task-item') + 1}</h4>
-                <div class="grid grid-2">
+            <div class="task-item card-item" data-id="${taskId}">
+                <div class="item-header">
+                    <h4>${lang.t('tasks.task', 'Scheduled Task')} ${this.getItemCount(container, '.task-item') + 1}</h4>
+                    <button class="icon-btn icon-btn-danger remove-btn" data-type="task" title="${lang.t('buttons.remove')}" aria-label="${lang.t('buttons.remove')}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg>
+                    </button>
+                </div>
+                <div class="item-body">
                     <div class="form-group">
                         <label class="form-label" for="task-name-${taskId}">${lang.t('fields.taskName')}</label>
                         <input type="text" class="form-control" id="task-name-${taskId}" name="task-name-${taskId}" data-field="name" 
@@ -486,7 +497,7 @@ export const DynamicElements = {
                             <option value="idle">On Idle</option>
                         </select>
                     </div>
-                    <div class="form-group" style="grid-column: span 2;">
+                    <div class="form-group full">
                         <label class="form-label" for="task-action-${taskId}">${lang.t('fields.action')}</label>
                         <input type="text" class="form-control" id="task-action-${taskId}" name="task-action-${taskId}" data-field="action" 
                                placeholder="${lang.t('placeholders.taskAction')}" required>
@@ -513,9 +524,6 @@ export const DynamicElements = {
                         </label>
                     </div>
                 </div>
-                <button class="btn btn-secondary remove-btn" data-type="task">
-                    ❌ ${lang.t('buttons.remove')}
-                </button>
             </div>
         `;
 
@@ -538,23 +546,26 @@ export const DynamicElements = {
 
         const featureId = this.uniqueId();
         const featureHTML = `
-            <div class="feature-item" data-id="${featureId}">
-                <div class="grid grid-2">
+            <div class="feature-item card-item" data-id="${featureId}">
+                <div class="item-header">
+                    <h4>${lang.t('features.feature', 'Feature')} ${this.getItemCount(container, '.feature-item') + 1}</h4>
+                    <button class="icon-btn icon-btn-danger remove-btn" data-type="feature" title="${lang.t('buttons.remove')}" aria-label="${lang.t('buttons.remove')}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg>
+                    </button>
+                </div>
+                <div class="item-body">
                     <div class="form-group">
-                        <label class="form-label" for="feature-name-${featureId}">Feature Name</label>
-                        <input type="text" class="form-control" id="feature-name-${featureId}" name="feature-name-${featureId}" data-field="name" 
+                        <label class="form-label" for="feature-name-${featureId}">${lang.t('fields.featureName', 'Feature Name')}</label>
+                        <input type="text" class="form-control" id="feature-name-${featureId}" name="feature-name-${featureId}" data-field="name"
                                placeholder="Microsoft-Windows-Subsystem-Linux" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="feature-action-${featureId}">Action</label>
+                        <label class="form-label" for="feature-action-${featureId}">${lang.t('fields.action', 'Action')}</label>
                         <select class="form-control" id="feature-action-${featureId}" name="feature-action-${featureId}" data-field="action">
-                            <option value="enable">Enable</option>
-                            <option value="disable">Disable</option>
+                            <option value="enable">${lang.t('options.featureActions.enable', 'Enable')}</option>
+                            <option value="disable">${lang.t('options.featureActions.disable', 'Disable')}</option>
                         </select>
                     </div>
-                    <button class="btn btn-secondary remove-btn" data-type="feature">
-                        ❌ ${lang.t('buttons.remove')}
-                    </button>
                 </div>
             </div>
         `;

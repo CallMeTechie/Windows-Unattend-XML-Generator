@@ -1308,6 +1308,7 @@ button.add-item {
 .icon-btn:hover { background: var(--hover); border-color: var(--border-strong); }
 .icon-btn svg {
     width: 16px; height: 16px;
+    flex-shrink: 0;            /* im Flex-Button nicht horizontal quetschen */
     stroke: currentColor; fill: none;
     stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
 }
@@ -1336,10 +1337,12 @@ button.add-item {
 .card-title-with-action > span:first-child { flex: 1; min-width: 0; }
 
 /* ============================================================
- *  Software-Item (Card-im-Card, Header + Body + Argument-Chips)
+ *  Dynamische Items im Karten-Stil — EINHEITLICH für Partition,
+ *  Benutzer, Software, Skript, Treiber und geplante Aufgabe (beide
+ *  Modi). Aufbau: Kopfzeile (Titel + Entfernen-Icon) über einem
+ *  responsiven Feld-Raster; Toggle-Zeilen spannen die volle Breite.
  * ============================================================ */
-.software-item.card-item,
-.user-item.card-item {
+.card-item {
     background: var(--surface-2);
     border: 1px solid var(--border);
     border-radius: 6px;
@@ -1355,6 +1358,7 @@ button.add-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 12px;
     padding: 10px 16px;
     background: var(--surface);
     border-bottom: 1px solid var(--border);
@@ -1372,6 +1376,7 @@ button.add-item {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 12px 16px;
+    align-items: start;
 }
 .software-item-body .form-group,
 .item-body .form-group {
@@ -1385,9 +1390,30 @@ button.add-item {
 .item-body .form-group.full {
     grid-column: 1 / -1;
 }
+/* Toggle-/Checkbox-Zeilen nehmen die volle Breite ein und sitzen so als
+   klar getrennte Optionen unter dem eigentlichen Feld-Raster. */
+.software-item-body .form-group:has(> label > input[type="checkbox"]),
+.item-body .form-group:has(> label > input[type="checkbox"]) {
+    grid-column: 1 / -1;
+}
 .software-item-body .form-control,
 .item-body .form-control {
     background: var(--surface);
+}
+/* Im kompakten Item-Raster keine generischen Zeilen-Icons (applyRowIcons):
+   Label und Feld stehen für sich; ein Zahnrad je Feld wirkt unruhig. */
+.item-body .row-icon,
+.software-item-body .row-icon { display: none; }
+/* Inline-Toggle im Item-Body: Schalter + Text linksbündig statt
+   weit auseinandergezogen (im Item gibt es keine zweispaltige Zeile). */
+.software-item-body .form-group > label:has(> input[type="checkbox"]),
+.item-body .form-group > label:has(> input[type="checkbox"]) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    margin: 0;
 }
 
 /* Argument-Schnellvorlagen (Chip-Liste unter dem Argumente-Feld) */

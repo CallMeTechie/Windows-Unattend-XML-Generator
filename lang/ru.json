@@ -267,7 +267,9 @@
     "rebootAfter": "Перезагрузить после установки",
     "continueOnError": "Продолжить при ошибке",
     "autologon": "Автовход для этого пользователя",
-    "disableAccount": "Учётная запись изначально отключена"
+    "disableAccount": "Учётная запись изначально отключена",
+    "activePartition": "Активный раздел",
+    "featureName": "Имя компонента"
   },
   "defaults": {
     "administratorName": "Администратор",
@@ -326,7 +328,8 @@
     "mediaFeatures": "Мультимедийные функции",
     "workFoldersClient": "Клиент рабочих папок",
     "defenderAppGuard": "Defender Application Guard",
-    "legacyComponents": "Устаревшие компоненты"
+    "legacyComponents": "Устаревшие компоненты",
+    "feature": "Компонент"
   },
   "options": {
     "windowsVersions": {
@@ -468,7 +471,8 @@
       "W": "W:",
       "X": "X:",
       "Y": "Y:",
-      "Z": "Z:"
+      "Z": "Z:",
+      "auto": "Авто"
     },
     "packageTypes": {
       "msi": "Пакет MSI",
@@ -482,6 +486,10 @@
       "specialize": "Specialize",
       "auditmode": "Audit Mode",
       "oobe": "OOBE"
+    },
+    "featureActions": {
+      "enable": "Включить",
+      "disable": "Отключить"
     }
   },
   "placeholders": {
@@ -651,10 +659,12 @@
     "disableOneDrive": "Отключить OneDrive"
   },
   "scripts": {
-    "executionPhases": "Фазы выполнения скриптов"
+    "executionPhases": "Фазы выполнения скриптов",
+    "script": "Скрипт"
   },
   "drivers": {
-    "management": "Управление драйверами"
+    "management": "Управление драйверами",
+    "driver": "Драйвер"
   },
   "preview": {
     "clickValidate": "Нажмите 'Проверить' для генерации предпросмотра"
@@ -705,5 +715,21 @@
     "telemetryFull": "Уровень телеметрии \"Full\" отправляет наибольший объём данных в Microsoft – проверьте последствия для конфиденциальности.",
     "timezoneNotSetDE": "Часовой пояс не задан – будет использовано значение Windows по умолчанию.",
     "uiLanguageNotSetDE": "Язык интерфейса не задан – будет использован en-US."
+  },
+  "partitions": {
+    "partition": "Раздел"
+  },
+  "tasks": {
+    "task": "Задача"
+  },
+  "argChips": {
+    "msiQuiet": "MSI – тихий стандартный режим, без перезагрузки",
+    "msiQn": "MSI – полностью без интерфейса",
+    "msiAllusers": "MSI – установка для всех пользователей",
+    "exeNsis": "Установщик NSIS (напр. Notepad++, 7-Zip)",
+    "exeSilent": "Общий ключ /silent",
+    "exeInno": "Установщик Inno Setup",
+    "exeSquirrel": "Установщик Squirrel / Electron",
+    "psFile": "Скрипт PowerShell без проверки политики"
   }
 }

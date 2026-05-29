@@ -423,12 +423,22 @@ export const ProMode = {
             </div>
             
             <div class="card">
-                <div class="card-title">${lang.t('pro.sections.partitions')}</div>
-                <button class="btn btn-secondary" id="pro-addPartitionBtn">➕ ${lang.t('buttons.addPartition')}</button>
-                <div id="pro-partitionList" style="margin-top: 15px;">
-                    <!-- Default UEFI partitions with proper IDs -->
-                    <div class="partition-item">
-                        <div class="grid grid-3">
+                <div class="card-title card-title-with-action">
+                    <span>${lang.t('pro.sections.partitions')}</span>
+                    <button class="icon-btn icon-btn-accent" id="pro-addPartitionBtn" title="${lang.t('buttons.addPartition')}" aria-label="${lang.t('buttons.addPartition')}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                    </button>
+                </div>
+                <div id="pro-partitionList">
+                    <!-- Standard-UEFI-Partition -->
+                    <div class="partition-item card-item">
+                        <div class="item-header">
+                            <h4>${lang.t('partitions.partition', 'Partition')} 1</h4>
+                            <button class="icon-btn icon-btn-danger remove-btn" title="${lang.t('buttons.remove')}" aria-label="${lang.t('buttons.remove')}">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg>
+                            </button>
+                        </div>
+                        <div class="item-body">
                             <div class="form-group">
                                 <label class="form-label" for="${partitionId}-type">${lang.t('fields.type')}</label>
                                 <select class="form-control" id="${partitionId}-type" name="partition-type" data-field="type">
@@ -457,9 +467,6 @@ export const ProMode = {
                             <div class="form-group">
                                 <label class="form-label" for="${partitionId}-letter">${lang.t('fields.driveLetter')}</label>
                                 <input type="text" class="form-control" id="${partitionId}-letter" name="partition-letter" data-field="letter" maxlength="1" placeholder="${lang.t('placeholders.driveLetter')}">
-                            </div>
-                            <div class="form-group">
-                                <button class="remove-btn">❌ ${lang.t('buttons.remove')}</button>
                             </div>
                         </div>
                     </div>
@@ -547,8 +554,14 @@ export const ProMode = {
                     </button>
                 </div>
                 <div id="pro-userList">
-                    <div class="user-item">
-                        <div class="grid grid-3">
+                    <div class="user-item card-item">
+                        <div class="item-header">
+                            <h4>${lang.t('users.user', 'User')} 1</h4>
+                            <button class="icon-btn icon-btn-danger remove-btn" title="${lang.t('buttons.remove')}" aria-label="${lang.t('buttons.remove')}">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg>
+                            </button>
+                        </div>
+                        <div class="item-body">
                             <div class="form-group">
                                 <label class="form-label" for="${userId}-username">${lang.t('fields.username')}</label>
                                 <input type="text" class="form-control" id="${userId}-username" name="user-username" data-field="username" placeholder="${lang.t('placeholders.username')}">
@@ -573,9 +586,6 @@ export const ProMode = {
                                     <option value="powerusers">${lang.t('options.userGroups.powerusers')}</option>
                                     <option value="remotedesktop">${lang.t('options.userGroups.remotedesktop')}</option>
                                 </select>
-                            </div>
-                            <div class="form-group">
-                                <button class="remove-btn">❌ ${lang.t('buttons.remove')}</button>
                             </div>
                         </div>
                     </div>
@@ -1061,11 +1071,21 @@ export const ProMode = {
             </div>
             
             <div class="card">
-                <div class="card-title">${lang.t('pro.sections.setupScripts')}</div>
-                <button class="btn btn-secondary" id="pro-addScriptBtn">➕ ${lang.t('buttons.addScript')}</button>
-                <div id="pro-scriptList" style="margin-top: 15px;">
-                    <div class="script-item">
-                        <div class="grid grid-2">
+                <div class="card-title card-title-with-action">
+                    <span>${lang.t('pro.sections.setupScripts')}</span>
+                    <button class="icon-btn icon-btn-accent" id="pro-addScriptBtn" title="${lang.t('buttons.addScript')}" aria-label="${lang.t('buttons.addScript')}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                    </button>
+                </div>
+                <div id="pro-scriptList">
+                    <div class="script-item card-item">
+                        <div class="item-header">
+                            <h4>${lang.t('scripts.script', 'Script')} 1</h4>
+                            <button class="icon-btn icon-btn-danger remove-btn" title="${lang.t('buttons.remove')}" aria-label="${lang.t('buttons.remove')}">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg>
+                            </button>
+                        </div>
+                        <div class="item-body">
                             <div class="form-group">
                                 <label class="form-label" for="${scriptId}-phase">${lang.t('fields.phase')}</label>
                                 <select class="form-control" id="${scriptId}-phase" name="script-phase" data-field="phase">
@@ -1084,7 +1104,7 @@ export const ProMode = {
                                     <option value="exe">${lang.t('options.scriptTypes.exe')}</option>
                                 </select>
                             </div>
-                            <div class="form-group" style="grid-column: span 2;">
+                            <div class="form-group full">
                                 <label class="form-label" for="${scriptId}-command">${lang.t('fields.commandPath')}</label>
                                 <input type="text" class="form-control" id="${scriptId}-command" name="script-command" data-field="command" placeholder="${lang.t('placeholders.scriptCommand')}">
                             </div>
@@ -1097,14 +1117,11 @@ export const ProMode = {
                                     <input type="checkbox" id="${scriptId}-async" name="script-async" data-field="async"> ${lang.t('fields.runAsync')}
                                 </label>
                             </div>
-                            <div class="form-group">
-                                <button class="remove-btn">❌ ${lang.t('buttons.remove')}</button>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-            
+
             <div class="grid grid-2">
                 <div class="card">
                     <div class="card-title">${lang.t('pro.sections.powerShellConfig')}</div>
@@ -1136,9 +1153,13 @@ export const ProMode = {
                 </div>
                 
                 <div class="card">
-                    <div class="card-title">${lang.t('pro.sections.scheduledTasks')}</div>
-                    <button class="btn btn-secondary" id="pro-addTaskBtn">➕ ${lang.t('buttons.addTask')}</button>
-                    <div id="pro-taskList" style="margin-top: 15px;">
+                    <div class="card-title card-title-with-action">
+                        <span>${lang.t('pro.sections.scheduledTasks')}</span>
+                        <button class="icon-btn icon-btn-accent" id="pro-addTaskBtn" title="${lang.t('buttons.addTask')}" aria-label="${lang.t('buttons.addTask')}">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                        </button>
+                    </div>
+                    <div id="pro-taskList">
                         <!-- Tasks will be added here -->
                     </div>
                 </div>
@@ -1205,9 +1226,13 @@ export const ProMode = {
             </div>
             
             <div class="card">
-                <div class="card-title">${lang.t('pro.sections.criticalDrivers')}</div>
-                <button class="btn btn-secondary" id="pro-addDriverBtn">➕ ${lang.t('buttons.addDriver')}</button>
-                <div id="pro-driverList" style="margin-top: 15px;">
+                <div class="card-title card-title-with-action">
+                    <span>${lang.t('pro.sections.criticalDrivers')}</span>
+                    <button class="icon-btn icon-btn-accent" id="pro-addDriverBtn" title="${lang.t('buttons.addDriver')}" aria-label="${lang.t('buttons.addDriver')}">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+                    </button>
+                </div>
+                <div id="pro-driverList">
                     <!-- Critical drivers will be listed here -->
                 </div>
             </div>
@@ -1510,11 +1535,18 @@ export const ProMode = {
         const lang = LanguageManager || { t: (key) => key };
         const partitionList = document.getElementById('pro-partitionList');
         const partitionDiv = document.createElement('div');
-        partitionDiv.className = 'partition-item';
+        partitionDiv.className = 'partition-item card-item';
         const uniqueId = this.generateUniqueId('partition');
-        
+        const partitionNumber = partitionList.querySelectorAll('.partition-item').length + 1;
+
         partitionDiv.innerHTML = `
-            <div class="grid grid-3">
+            <div class="item-header">
+                <h4>${lang.t('partitions.partition', 'Partition')} ${partitionNumber}</h4>
+                <button class="icon-btn icon-btn-danger remove-btn" title="${lang.t('buttons.remove')}" aria-label="${lang.t('buttons.remove')}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg>
+                </button>
+            </div>
+            <div class="item-body">
                 <div class="form-group">
                     <label class="form-label" for="${uniqueId}-type">${lang.t('fields.type')}</label>
                     <select class="form-control" id="${uniqueId}-type" name="partition-type" data-field="type">
@@ -1544,9 +1576,6 @@ export const ProMode = {
                     <label class="form-label" for="${uniqueId}-letter">${lang.t('fields.driveLetter')}</label>
                     <input type="text" class="form-control" id="${uniqueId}-letter" name="partition-letter" data-field="letter" maxlength="1" placeholder="${lang.t('placeholders.driveLetter')}">
                 </div>
-                <div class="form-group">
-                    <button class="remove-btn">❌ ${lang.t('buttons.remove')}</button>
-                </div>
             </div>
         `;
         partitionList.appendChild(partitionDiv);
@@ -1562,11 +1591,18 @@ export const ProMode = {
         const lang = LanguageManager || { t: (key) => key };
         const userList = document.getElementById('pro-userList');
         const userDiv = document.createElement('div');
-        userDiv.className = 'user-item';
+        userDiv.className = 'user-item card-item';
         const uniqueId = this.generateUniqueId('user');
-        
+        const userNumber = userList.querySelectorAll('.user-item').length + 1;
+
         userDiv.innerHTML = `
-            <div class="grid grid-3">
+            <div class="item-header">
+                <h4>${lang.t('users.user', 'User')} ${userNumber}</h4>
+                <button class="icon-btn icon-btn-danger remove-btn" title="${lang.t('buttons.remove')}" aria-label="${lang.t('buttons.remove')}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg>
+                </button>
+            </div>
+            <div class="item-body">
                 <div class="form-group">
                     <label class="form-label" for="${uniqueId}-username">${lang.t('fields.username')}</label>
                     <input type="text" class="form-control" id="${uniqueId}-username" name="user-username" data-field="username" placeholder="${lang.t('placeholders.username')}">
@@ -1592,9 +1628,6 @@ export const ProMode = {
                         <option value="remotedesktop">${lang.t('options.userGroups.remotedesktop')}</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <button class="remove-btn">❌ ${lang.t('buttons.remove')}</button>
-                </div>
             </div>
         `;
         userList.appendChild(userDiv);
@@ -1610,34 +1643,62 @@ export const ProMode = {
         const lang = LanguageManager || { t: (key) => key };
         const softwareList = document.getElementById('pro-softwareList');
         const softwareDiv = document.createElement('div');
-        softwareDiv.className = 'software-item';
+        softwareDiv.className = 'software-item card-item';
         const uniqueId = this.generateUniqueId('software');
-        
+        const softwareNumber = softwareList.querySelectorAll('.software-item').length + 1;
+
         softwareDiv.innerHTML = `
-            <div class="grid grid-2">
+            <div class="item-header">
+                <h4>${lang.t('software.package', 'Software package')} ${softwareNumber}</h4>
+                <button class="icon-btn icon-btn-danger remove-btn" title="${lang.t('buttons.remove')}" aria-label="${lang.t('buttons.remove')}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg>
+                </button>
+            </div>
+            <div class="item-body">
                 <div class="form-group">
                     <label class="form-label" for="${uniqueId}-name">${lang.t('fields.softwareName')}</label>
                     <input type="text" class="form-control" id="${uniqueId}-name" name="software-name" data-field="name" placeholder="${lang.t('placeholders.softwareName')}">
                 </div>
                 <div class="form-group">
-                    <label class="form-label" for="${uniqueId}-path">${lang.t('fields.installPath')}</label>
-                    <input type="text" class="form-control" id="${uniqueId}-path" name="software-path" data-field="path" placeholder="${lang.t('placeholders.softwarePath')}">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="${uniqueId}-args">${lang.t('fields.arguments')}</label>
-                    <input type="text" class="form-control" id="${uniqueId}-args" name="software-args" data-field="arguments" placeholder="${lang.t('placeholders.arguments')}">
-                </div>
-                <div class="form-group">
                     <label class="form-label" for="${uniqueId}-order">${lang.t('fields.order')}</label>
                     <input type="number" class="form-control" id="${uniqueId}-order" name="software-order" data-field="order" value="1" min="1">
                 </div>
-                <div class="form-group">
-                    <button class="remove-btn">❌ ${lang.t('buttons.remove')}</button>
+                <div class="form-group full">
+                    <label class="form-label" for="${uniqueId}-path">${lang.t('fields.installPath')}</label>
+                    <input type="text" class="form-control" id="${uniqueId}-path" name="software-path" data-field="path" placeholder="${lang.t('placeholders.softwarePath')}">
+                </div>
+                <div class="form-group full">
+                    <label class="form-label" for="${uniqueId}-args">${lang.t('fields.arguments')}</label>
+                    <input type="text" class="form-control" id="${uniqueId}-args" name="software-args" data-field="arguments" placeholder="${lang.t('placeholders.arguments')}">
+                    <div class="arg-chips" data-arg-target="${uniqueId}-args">
+                        <button type="button" class="arg-chip" data-value="/quiet /norestart" title="${lang.t('argChips.msiQuiet', 'MSI – silent default, no restart')}">MSI · /quiet /norestart</button>
+                        <button type="button" class="arg-chip" data-value="/qn" title="${lang.t('argChips.msiQn', 'MSI – completely without UI')}">MSI · /qn</button>
+                        <button type="button" class="arg-chip" data-value="/quiet ALLUSERS=1" title="${lang.t('argChips.msiAllusers', 'MSI – install for all users')}">MSI · ALLUSERS=1</button>
+                        <button type="button" class="arg-chip" data-value="/S" title="${lang.t('argChips.exeNsis', 'NSIS installer (e.g. Notepad++, 7-Zip)')}">EXE · /S (NSIS)</button>
+                        <button type="button" class="arg-chip" data-value="/silent" title="${lang.t('argChips.exeSilent', 'Generic /silent switch')}">EXE · /silent</button>
+                        <button type="button" class="arg-chip" data-value="/verysilent /SP- /SUPPRESSMSGBOXES" title="${lang.t('argChips.exeInno', 'Inno Setup installer')}">EXE · Inno Setup</button>
+                        <button type="button" class="arg-chip" data-value="--silent" title="${lang.t('argChips.exeSquirrel', 'Squirrel / Electron installer')}">EXE · --silent</button>
+                        <button type="button" class="arg-chip" data-value="-ExecutionPolicy Bypass -File" title="${lang.t('argChips.psFile', 'PowerShell script without policy check')}">PS1 · -File</button>
+                    </div>
                 </div>
             </div>
         `;
         softwareList.appendChild(softwareDiv);
-        
+
+        // Arg-Chips übertragen ihren Wert ins zugehörige Eingabefeld.
+        softwareDiv.querySelectorAll('.arg-chip').forEach(chip => {
+            chip.addEventListener('click', () => {
+                const wrap = chip.closest('.arg-chips');
+                const targetId = wrap && wrap.dataset.argTarget;
+                const input = targetId && document.getElementById(targetId);
+                if (input) {
+                    input.value = chip.dataset.value || '';
+                    input.dispatchEvent(new Event('change', { bubbles: true }));
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                }
+            });
+        });
+
         // Attach remove listener
         softwareDiv.querySelector('.remove-btn').addEventListener('click', () => softwareDiv.remove());
     },
@@ -1649,11 +1710,18 @@ export const ProMode = {
         const lang = LanguageManager || { t: (key) => key };
         const scriptList = document.getElementById('pro-scriptList');
         const scriptDiv = document.createElement('div');
-        scriptDiv.className = 'script-item';
+        scriptDiv.className = 'script-item card-item';
         const uniqueId = this.generateUniqueId('script');
-        
+        const scriptNumber = scriptList.querySelectorAll('.script-item').length + 1;
+
         scriptDiv.innerHTML = `
-            <div class="grid grid-2">
+            <div class="item-header">
+                <h4>${lang.t('scripts.script', 'Script')} ${scriptNumber}</h4>
+                <button class="icon-btn icon-btn-danger remove-btn" title="${lang.t('buttons.remove')}" aria-label="${lang.t('buttons.remove')}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg>
+                </button>
+            </div>
+            <div class="item-body">
                 <div class="form-group">
                     <label class="form-label" for="${uniqueId}-phase">${lang.t('fields.phase')}</label>
                     <select class="form-control" id="${uniqueId}-phase" name="script-phase" data-field="phase">
@@ -1672,7 +1740,7 @@ export const ProMode = {
                         <option value="exe">${lang.t('options.scriptTypes.exe')}</option>
                     </select>
                 </div>
-                <div class="form-group" style="grid-column: span 2;">
+                <div class="form-group full">
                     <label class="form-label" for="${uniqueId}-command">${lang.t('fields.commandPath')}</label>
                     <input type="text" class="form-control" id="${uniqueId}-command" name="script-command" data-field="command" placeholder="${lang.t('placeholders.scriptCommand')}">
                 </div>
@@ -1684,9 +1752,6 @@ export const ProMode = {
                     <label for="${uniqueId}-async">
                         <input type="checkbox" id="${uniqueId}-async" name="script-async" data-field="async"> ${lang.t('fields.runAsync')}
                     </label>
-                </div>
-                <div class="form-group">
-                    <button class="remove-btn">❌ ${lang.t('buttons.remove')}</button>
                 </div>
             </div>
         `;
@@ -1703,14 +1768,22 @@ export const ProMode = {
         const lang = LanguageManager || { t: (key) => key };
         const taskList = document.getElementById('pro-taskList');
         const taskDiv = document.createElement('div');
-        taskDiv.className = 'task-item';
+        taskDiv.className = 'task-item card-item';
         const uniqueId = this.generateUniqueId('task');
-        
+        const taskNumber = taskList.querySelectorAll('.task-item').length + 1;
+
         taskDiv.innerHTML = `
-            <div class="form-group">
-                <label class="form-label" for="${uniqueId}-name">${lang.t('fields.taskName')}</label>
-                <input type="text" class="form-control" id="${uniqueId}-name" name="task-name" data-field="name" placeholder="${lang.t('placeholders.taskName')}">
+            <div class="item-header">
+                <h4>${lang.t('tasks.task', 'Scheduled Task')} ${taskNumber}</h4>
+                <button class="icon-btn icon-btn-danger remove-btn" title="${lang.t('buttons.remove')}" aria-label="${lang.t('buttons.remove')}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg>
+                </button>
             </div>
+            <div class="item-body">
+                <div class="form-group">
+                    <label class="form-label" for="${uniqueId}-name">${lang.t('fields.taskName')}</label>
+                    <input type="text" class="form-control" id="${uniqueId}-name" name="task-name" data-field="name" placeholder="${lang.t('placeholders.taskName')}">
+                </div>
             <div class="form-group">
                 <label class="form-label" for="${uniqueId}-trigger">${lang.t('fields.trigger')}</label>
                 <select class="form-control" id="${uniqueId}-trigger" name="task-trigger" data-field="trigger">
@@ -1724,8 +1797,6 @@ export const ProMode = {
                 <label class="form-label" for="${uniqueId}-action">${lang.t('fields.action')}</label>
                 <input type="text" class="form-control" id="${uniqueId}-action" name="task-action" data-field="action" placeholder="${lang.t('placeholders.taskAction')}">
             </div>
-            <div class="form-group">
-                <button class="remove-btn">❌ ${lang.t('buttons.remove')}</button>
             </div>
         `;
         taskList.appendChild(taskDiv);
@@ -1741,11 +1812,18 @@ export const ProMode = {
         const lang = LanguageManager || { t: (key) => key };
         const driverList = document.getElementById('pro-driverList');
         const driverDiv = document.createElement('div');
-        driverDiv.className = 'driver-item';
+        driverDiv.className = 'driver-item card-item';
         const uniqueId = this.generateUniqueId('driver');
-        
+        const driverNumber = driverList.querySelectorAll('.driver-item').length + 1;
+
         driverDiv.innerHTML = `
-            <div class="grid grid-2">
+            <div class="item-header">
+                <h4>${lang.t('drivers.driver', 'Driver')} ${driverNumber}</h4>
+                <button class="icon-btn icon-btn-danger remove-btn" title="${lang.t('buttons.remove')}" aria-label="${lang.t('buttons.remove')}">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg>
+                </button>
+            </div>
+            <div class="item-body">
                 <div class="form-group">
                     <label class="form-label" for="${uniqueId}-name">${lang.t('fields.driverName')}</label>
                     <input type="text" class="form-control" id="${uniqueId}-name" name="driver-name" data-field="name" placeholder="${lang.t('placeholders.driverName')}">
@@ -1758,9 +1836,6 @@ export const ProMode = {
                     <label for="${uniqueId}-critical">
                         <input type="checkbox" id="${uniqueId}-critical" name="driver-critical" data-field="critical"> ${lang.t('fields.criticalDriver')}
                     </label>
-                </div>
-                <div class="form-group">
-                    <button class="remove-btn">❌ ${lang.t('buttons.remove')}</button>
                 </div>
             </div>
         `;

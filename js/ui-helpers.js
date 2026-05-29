@@ -202,8 +202,6 @@ export const UIHelpers = {
                 firstInput.focus();
             }
         }, 100);
-        
-        console.log(`Modal '${modalId}' opened`);
     },
     
     /**
@@ -734,8 +732,6 @@ export const UIHelpers = {
      * Cleans up all UI helpers resources
      */
     cleanup() {
-        console.log('Cleaning up UI helpers...');
-        
         // 1. Clear all notification timers
         this.notificationTimers.forEach((timers, notificationId) => {
             Object.values(timers).forEach(timer => {
@@ -774,8 +770,6 @@ export const UIHelpers = {
         
         // 6. Clear modal stack
         this.modalStack = [];
-        
-        console.log('UI helpers cleanup completed');
     },
 
     /**
