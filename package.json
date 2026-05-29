@@ -1,6 +1,6 @@
 {
   "name": "windows-autounattend-xml-generator",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "Windows Autounattend.xml-Generator für unbeaufsichtigte Installationen von Windows 11 und Server 2022 (reine Browser-App, keine Laufzeit-Abhängigkeiten).",
   "type": "module",
   "scripts": {
