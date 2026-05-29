@@ -879,27 +879,27 @@ export const ProMode = {
                         ${f('netfx3',  'feat-netfx3',  lang.t('features.netFramework35'))}
                         ${f('netfx48', 'feat-netfx48', lang.t('features.netFramework48'), true)}
                         ${f('hyperv',  'feat-hyperv',  lang.t('features.hyperV'))}
-                        ${f('vmplatform', 'feat-vmplatform', 'Virtual Machine Platform (für WSL2)')}
+                        ${f('vmplatform', 'feat-vmplatform', lang.t('features.vmPlatform', 'Virtual Machine Platform (for WSL2)'))}
                         ${f('wsl',     'feat-wsl',     lang.t('features.wsl'))}
                         ${f('sandbox', 'feat-sandbox', lang.t('features.windowsSandbox'))}
                         ${f('containers','feat-containers', lang.t('features.windowsContainers'))}
-                        ${f('hypervisor','feat-hypervisor', 'Hypervisor-Plattform')}
+                        ${f('hypervisor','feat-hypervisor', lang.t('features.hypervisorPlatform', 'Hypervisor Platform'))}
                         ${f('telnet',  'feat-telnet',  lang.t('features.telnetClient'))}
                         ${f('tftp',    'feat-tftp',    lang.t('features.tftpClient'))}
                         ${f('smb1',    'feat-smb1',    lang.t('features.smb1'))}
                         ${f('directplay','feat-directplay', lang.t('features.directPlay'))}
-                        ${f('ssh-client', 'feat-ssh-client', 'OpenSSH-Client', true)}
-                        ${f('ssh-server', 'feat-ssh-server', 'OpenSSH-Server')}
-                        ${f('print-pdf', 'feat-print-pdf', 'Microsoft Print to PDF', true)}
-                        ${f('xps',     'feat-xps',     'XPS-Dienste')}
-                        ${f('ps-v2',   'feat-ps-v2',   'PowerShell 2.0 (Legacy)')}
-                        ${f('snmp',    'feat-snmp',    'SNMP-Dienst')}
-                        ${f('msmq',    'feat-msmq',    'Microsoft Message Queue (MSMQ)')}
-                        ${f('nfs',     'feat-nfs',     'NFS-Client')}
-                        ${f('media-features', 'feat-media-features', 'Media Features')}
-                        ${f('work-folders', 'feat-work-folders', 'Work-Folders-Client')}
-                        ${f('wdag',    'feat-wdag',    'Defender Application Guard')}
-                        ${f('legacy-components', 'feat-legacy-components', 'Legacy-Komponenten')}
+                        ${f('ssh-client', 'feat-ssh-client', lang.t('features.opensshClient', 'OpenSSH Client'), true)}
+                        ${f('ssh-server', 'feat-ssh-server', lang.t('features.opensshServer', 'OpenSSH Server'))}
+                        ${f('print-pdf', 'feat-print-pdf', lang.t('features.printToPdf', 'Microsoft Print to PDF'), true)}
+                        ${f('xps',     'feat-xps',     lang.t('features.xpsServices', 'XPS Services'))}
+                        ${f('ps-v2',   'feat-ps-v2',   lang.t('features.powerShellV2', 'PowerShell 2.0 (Legacy)'))}
+                        ${f('snmp',    'feat-snmp',    lang.t('features.snmpService', 'SNMP Service'))}
+                        ${f('msmq',    'feat-msmq',    lang.t('features.msmq', 'Microsoft Message Queue (MSMQ)'))}
+                        ${f('nfs',     'feat-nfs',     lang.t('features.nfsClient', 'NFS Client'))}
+                        ${f('media-features', 'feat-media-features', lang.t('features.mediaFeatures', 'Media Features'))}
+                        ${f('work-folders', 'feat-work-folders', lang.t('features.workFoldersClient', 'Work Folders Client'))}
+                        ${f('wdag',    'feat-wdag',    lang.t('features.defenderAppGuard', 'Defender Application Guard'))}
+                        ${f('legacy-components', 'feat-legacy-components', lang.t('features.legacyComponents', 'Legacy Components'))}
                     </div>
                 </div>
                 

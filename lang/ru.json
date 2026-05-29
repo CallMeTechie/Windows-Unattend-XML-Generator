@@ -261,7 +261,12 @@
     "disableOneDrive": "Отключить OneDrive",
     "enableAutoLogon": "Включить автоматический вход",
     "packageDriveLetter": "Буква диска для пакетов",
-    "customFeatures": "Пользовательские компоненты (Имена пакетов DISM)"
+    "customFeatures": "Пользовательские компоненты (Имена пакетов DISM)",
+    "packageType": "Тип пакета",
+    "rebootAfter": "Перезагрузить после установки",
+    "continueOnError": "Продолжить при ошибке",
+    "autologon": "Автовход для этого пользователя",
+    "disableAccount": "Учётная запись изначально отключена"
   },
   "defaults": {
     "administratorName": "Администратор",
@@ -306,7 +311,21 @@
     "fileServer": "Файловый сервер",
     "printServer": "Сервер печати",
     "remoteDesktopServices": "Службы удаленных рабочих столов",
-    "deploymentServices": "Службы развертывания Windows"
+    "deploymentServices": "Службы развертывания Windows",
+    "vmPlatform": "Платформа виртуальной машины (для WSL2)",
+    "hypervisorPlatform": "Платформа гипервизора",
+    "opensshClient": "Клиент OpenSSH",
+    "opensshServer": "Сервер OpenSSH",
+    "printToPdf": "Microsoft Print to PDF",
+    "xpsServices": "Службы XPS",
+    "powerShellV2": "PowerShell 2.0 (устаревший)",
+    "snmpService": "Служба SNMP",
+    "msmq": "Microsoft Message Queue (MSMQ)",
+    "nfsClient": "Клиент NFS",
+    "mediaFeatures": "Мультимедийные функции",
+    "workFoldersClient": "Клиент рабочих папок",
+    "defenderAppGuard": "Defender Application Guard",
+    "legacyComponents": "Устаревшие компоненты"
   },
   "options": {
     "windowsVersions": {
@@ -449,6 +468,19 @@
       "X": "X:",
       "Y": "Y:",
       "Z": "Z:"
+    },
+    "packageTypes": {
+      "msi": "Пакет MSI",
+      "exe": "Установщик EXE",
+      "appx": "Пакет AppX/MSIX",
+      "script": "Скрипт/Batch",
+      "zip": "Архив ZIP"
+    },
+    "installPhases": {
+      "firstlogon": "First Logon",
+      "specialize": "Specialize",
+      "auditmode": "Audit Mode",
+      "oobe": "OOBE"
     }
   },
   "placeholders": {
@@ -625,5 +657,52 @@
   },
   "preview": {
     "clickValidate": "Нажмите 'Проверить' для генерации предпросмотра"
+  },
+  "software": {
+    "package": "Программный пакет",
+    "argsHint": "Примеры аргументов"
+  },
+  "users": {
+    "user": "Пользователь",
+    "additionalUsers": "Дополнительные пользователи"
+  },
+  "about": {
+    "title": "О приложении",
+    "tagline": "Автоматические установки для Windows 11 и Server 2022",
+    "version": "Версия",
+    "license": "Лицензия",
+    "copyright": "Copyright",
+    "source": "Исходный код",
+    "close": "Закрыть"
+  },
+  "menu": {
+    "infoTitle": "О приложении и справка",
+    "about": "О приложении",
+    "checkUpdates": "Проверить обновления",
+    "vendor": "Сайт производителя"
+  },
+  "updates": {
+    "checking": "Проверка обновлений …",
+    "rateLimit": "Достигнут лимит API GitHub (60 запросов/час для анонимных вызовов). Попробуйте позже.",
+    "upToDate": "Установлена актуальная версия (v{{version}}).",
+    "preview": "Установлена предварительная версия (v{{current}}, последний выпуск: v{{latest}}).",
+    "failed": "Проверка обновлений не удалась: {{error}}",
+    "newVersionAvailable": "Доступна новая версия:\n\nТекущая: v{{current}}\nНовая:   v{{latest}}\n\nОткрыть страницу выпуска?"
+  },
+  "validation": {
+    "error": "Ошибка",
+    "warning": "Предупреждение",
+    "warnings": "Предупреждения",
+    "adminPwExposed": "Пароль администратора не задан – встроенная учётная запись была бы открыта без пароля.",
+    "adminPwMissing": "Пароль администратора не задан.",
+    "defaultComputerName": "Имя компьютера \"{{name}}\" — неизменённое значение по умолчанию – задайте осмысленное имя.",
+    "eulaNotAccepted": "EULA не принимается автоматически – установка остановится на экране лицензии.",
+    "timezoneFormat": "Часовой пояс \"{{tz}}\" не соответствует формату Windows (например, \"W. Europe Standard Time\").",
+    "productKeyMissing": "Ключ продукта не задан – установщик его запросит.",
+    "allAccountSetupSkipped": "Пропущена настройка как онлайн-, так и локальной учётной записи, но не настроены ни администратор, ни локальный пользователь – после установки не будет возможности войти.",
+    "autoLogonNoAccount": "Автовход включён, но учётная запись не настроена.",
+    "telemetryFull": "Уровень телеметрии \"Full\" отправляет наибольший объём данных в Microsoft – проверьте последствия для конфиденциальности.",
+    "timezoneNotSetDE": "Часовой пояс не задан – будет использовано значение Windows по умолчанию.",
+    "uiLanguageNotSetDE": "Язык интерфейса не задан – будет использован en-US."
   }
 }

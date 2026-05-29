@@ -33,7 +33,7 @@
         <!-- LanguageManager hängt hier <div class="language-selector-container"> an -->
 
         <div class="title-menu">
-            <button class="title-btn" data-action="toggle-info-menu" title="Über &amp; Hilfe" aria-label="Über und Hilfe" aria-haspopup="menu" aria-expanded="false">
+            <button class="title-btn" data-action="toggle-info-menu" data-i18n-title="menu.infoTitle" data-i18n-aria="menu.infoTitle" title="Über &amp; Hilfe" aria-label="Über und Hilfe" aria-haspopup="menu" aria-expanded="false">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
                     <circle cx="8" cy="8" r="6.5"/>
                     <circle cx="8" cy="5" r=".7" fill="currentColor" stroke="none"/>
@@ -41,10 +41,10 @@
                 </svg>
             </button>
             <div class="title-menu-dropdown" role="menu" hidden>
-                <button class="dropdown-item" role="menuitem" data-action="show-about">Über die Anwendung</button>
-                <button class="dropdown-item" role="menuitem" data-action="check-updates">Auf Updates prüfen</button>
+                <button class="dropdown-item" role="menuitem" data-action="show-about" data-i18n="menu.about">Über die Anwendung</button>
+                <button class="dropdown-item" role="menuitem" data-action="check-updates" data-i18n="menu.checkUpdates">Auf Updates prüfen</button>
                 <div class="dropdown-sep"></div>
-                <button class="dropdown-item" role="menuitem" data-action="open-vendor">Hersteller-Website</button>
+                <button class="dropdown-item" role="menuitem" data-action="open-vendor" data-i18n="menu.vendor">Hersteller-Website</button>
             </div>
         </div>
 
@@ -172,27 +172,27 @@
                     </div>
                     <div class="about-title-block">
                         <h2 class="modal-title about-app" id="helpModalTitle">Windows Autounattend.xml Generator</h2>
-                        <p class="about-tagline">Unbeaufsichtigte Installationen für Windows 11 und Server 2022</p>
+                        <p class="about-tagline" data-i18n="about.tagline">Unbeaufsichtigte Installationen für Windows 11 und Server 2022</p>
                     </div>
-                    <button class="modal-close" aria-label="Schließen">✕</button>
+                    <button class="modal-close" data-i18n-aria="about.close" aria-label="Schließen">✕</button>
                 </div>
 
                 <div class="modal-body about-body">
                     <dl class="about-meta">
-                        <dt>Version</dt>
-                        <dd><code>0.5.1</code></dd>
-                        <dt>Lizenz</dt>
+                        <dt data-i18n="about.version">Version</dt>
+                        <dd><code>0.5.0</code></dd>
+                        <dt data-i18n="about.license">Lizenz</dt>
                         <dd><a href="https://github.com/CallMeTechie/Windows-Unattend-XML-Generator/blob/main/LICENSE" target="_blank" rel="noopener">MIT</a></dd>
-                        <dt>Copyright</dt>
+                        <dt data-i18n="about.copyright">Copyright</dt>
                         <dd>© 2026 CallMeTechie</dd>
-                        <dt>Quellcode</dt>
+                        <dt data-i18n="about.source">Quellcode</dt>
                         <dd><a href="https://github.com/CallMeTechie/Windows-Unattend-XML-Generator" target="_blank" rel="noopener">github.com/CallMeTechie/Windows-Unattend-XML-Generator</a></dd>
                     </dl>
                 </div>
 
                 <div class="btn-group about-actions">
                     <a class="btn btn-secondary" href="https://callmetechie.de" target="_blank" rel="noopener">callmetechie.de</a>
-                    <button class="btn btn-primary modal-close">Schließen</button>
+                    <button class="btn btn-primary modal-close" data-i18n="about.close">Schließen</button>
                 </div>
             </div>
         </div>

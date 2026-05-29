@@ -790,10 +790,14 @@ export const WizardMode = {
                 html = `<div class="static-notification success">✓ ${lang.t('wizard.steps.finish.readyMessage')}</div>`;
             } else {
                 if (errors.length > 0) {
-                    html += `<div class="static-notification error"><strong>${errors.length} ${errors.length === 1 ? 'Fehler' : 'Fehler'}:</strong><ul>${errors.map(e => `<li>${fmt(e)}</li>`).join('')}</ul></div>`;
+                    const label = lang.t('validation.error', 'Error');
+                    html += `<div class="static-notification error"><strong>${errors.length} ${label}:</strong><ul>${errors.map(e => `<li>${fmt(e)}</li>`).join('')}</ul></div>`;
                 }
                 if (warnings.length > 0) {
-                    html += `<div class="static-notification warning"><strong>${warnings.length} ${warnings.length === 1 ? 'Warnung' : 'Warnungen'}:</strong><ul>${warnings.map(w => `<li>${fmt(w)}</li>`).join('')}</ul></div>`;
+                    const label = warnings.length === 1
+                        ? lang.t('validation.warning', 'Warning')
+                        : lang.t('validation.warnings', 'Warnings');
+                    html += `<div class="static-notification warning"><strong>${warnings.length} ${label}:</strong><ul>${warnings.map(w => `<li>${fmt(w)}</li>`).join('')}</ul></div>`;
                 }
             }
             validationDiv.innerHTML = html;

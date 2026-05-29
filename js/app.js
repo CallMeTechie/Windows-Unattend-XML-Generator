@@ -721,9 +721,10 @@ const App = {
      * Vergleich erfolgt nach SemVer (numerisch); kein eval, kein Markup-Inject.
      */
     async checkUpdates() {
+        const lang = (typeof LanguageManager !== 'undefined' && LanguageManager) || { t: (k, fb) => fb || k };
         const current = this.getAppVersion();
         if (typeof UIHelpers !== 'undefined' && UIHelpers.showNotification) {
-            UIHelpers.showNotification('Prüfe auf Updates …', 'info');
+            UIHelpers.showNotification(lang.t('updates.checking', 'Checking for updates …'), 'info');
         }
         try {
             const res = await fetch(
@@ -735,7 +736,8 @@ const App = {
             // konkrete Meldung anzeigen.
             if (res.status === 403 || res.status === 429) {
                 UIHelpers.showNotification(
-                    'GitHub-API-Limit erreicht (60 Anfragen/Stunde für anonyme Aufrufe). Bitte später erneut versuchen.',
+                    lang.t('updates.rateLimit',
+                        'GitHub API rate limit reached (60 requests/hour for anonymous calls). Please try again later.'),
                     'warning'
                 );
                 return;
@@ -746,16 +748,17 @@ const App = {
             if (!latest) throw new Error('Keine Version gefunden');
             const cmp = this._compareSemver(latest, current);
             if (cmp > 0) {
-                if (confirm(`Eine neue Version ist verfügbar:\n\nAktuell: v${current}\nNeu:     v${latest}\n\nMöchtest du die Release-Seite öffnen?`)) {
+                const msg = lang.t('updates.newVersionAvailable', { current, latest });
+                if (confirm(msg)) {
                     window.open(data.html_url || 'https://github.com/CallMeTechie/Windows-Unattend-XML-Generator/releases/latest', '_blank', 'noopener');
                 }
             } else if (cmp === 0) {
-                UIHelpers.showNotification(`Du nutzt die aktuelle Version (v${current}).`, 'success');
+                UIHelpers.showNotification(lang.t('updates.upToDate', { version: current }), 'success');
             } else {
-                UIHelpers.showNotification(`Du nutzt eine Vorschau-Version (v${current}, veröffentlicht: v${latest}).`, 'info');
+                UIHelpers.showNotification(lang.t('updates.preview', { current, latest }), 'info');
             }
         } catch (e) {
-            UIHelpers.showNotification('Update-Prüfung fehlgeschlagen: ' + e.message, 'error');
+            UIHelpers.showNotification(lang.t('updates.failed', { error: e.message }), 'error');
         }
     },
 

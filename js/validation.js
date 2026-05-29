@@ -60,18 +60,20 @@ export const ValidationUtils = {
      * Konfigurationen, die zu pausierten oder unsicheren Installationen führen.
      */
     validateOOBEAndDefaults(config, errors, warnings) {
+        const lang = LanguageManager;
         // 1) Standardmäßige Computername-Defaults erkennen (Nutzer hat nichts
         //    geändert) – häufige Vorlagen in Wizard und Pro-Modus.
         const defaultNames = ['PC-001', 'DESKTOP-XXX', 'COMPUTER', 'WIN-PC', 'CHANGE-ME'];
         if (config.computerNameStrategy === 'fixed'
             && config.computerName
             && defaultNames.includes(String(config.computerName).toUpperCase())) {
-            warnings.push(`Computername „${config.computerName}" ist ein unangepasster Standardwert – setze einen aussagekräftigen Namen.`);
+            warnings.push(lang.t('validation.defaultComputerName', { name: config.computerName }));
         }
 
         // 2) EULA-Akzeptanz – ohne wird die Installation pausiert.
         if (config.skipEula === false || config.skipEula === undefined) {
-            warnings.push('EULA wird nicht automatisch akzeptiert – die Installation pausiert beim Lizenzbildschirm.');
+            warnings.push(lang.t('validation.eulaNotAccepted',
+                'EULA is not auto-accepted – the installation will pause at the license screen.'));
         }
 
         // 3) Zeitzone explizit gesetzt? Anders als das alte „not set" prüfen
@@ -80,14 +82,15 @@ export const ValidationUtils = {
         if (config.timezone) {
             const tz = String(config.timezone).trim();
             if (tz && tz !== 'UTC' && !/Standard Time$|Daylight Time$/i.test(tz)) {
-                warnings.push(`Zeitzone „${tz}" entspricht nicht dem Windows-Format (z. B. „W. Europe Standard Time").`);
+                warnings.push(lang.t('validation.timezoneFormat', { tz }));
             }
         }
 
         // 4) Produktschlüssel und Skip-Strategie konsistent? Wenn weder Key noch
         //    skipProductKey gesetzt, pausiert die Installation am Key-Bildschirm.
         if (!config.productKey && !config.skipProductKey) {
-            warnings.push('Kein Produktschlüssel gesetzt und „Eingabe überspringen" deaktiviert – die Installation fragt den Schlüssel ab.');
+            warnings.push(lang.t('validation.productKeyMissing',
+                'No product key set – the installer will prompt for one.'));
         }
 
         // 5) Online-/Lokales-Konto-Skip Konsistenz: wenn beide übersprungen
@@ -96,17 +99,20 @@ export const ValidationUtils = {
         const hasAdmin = config.enableAdminAccount && config.adminPassword;
         const hasLocalUser = Array.isArray(config.users) && config.users.some(u => u && u.username && u.password);
         if (config.skipOnlineAccount && config.skipLocalAccount && !hasAdmin && !hasLocalUser) {
-            errors.push('Online- und Lokales-Konto-Setup werden übersprungen, aber es ist kein Administrator- oder lokaler Benutzer mit Passwort definiert – nach der Installation gibt es keinen Login.');
+            errors.push(lang.t('validation.allAccountSetupSkipped',
+                'Both online and local account setup are skipped, but no administrator or local user is configured – there would be no way to log in after installation.'));
         }
 
         // 6) Auto-Logon ohne Benutzer/Passwort.
         if (config.autoLogon && !hasAdmin && !hasLocalUser) {
-            warnings.push('Auto-Logon aktiviert, aber kein Konto mit Passwort konfiguriert.');
+            warnings.push(lang.t('validation.autoLogonNoAccount',
+                'Auto-logon is enabled, but no account is configured.'));
         }
 
         // 7) Telemetrie-Stufe „Full" warnen.
         if (config.telemetryLevel === '3' || config.telemetryLevel === 'full') {
-            warnings.push('Telemetrie-Stufe „Full" sendet die meisten Diagnosedaten – ggf. herabsetzen.');
+            warnings.push(lang.t('validation.telemetryFull',
+                'Telemetry level "Full" sends the most data to Microsoft – review privacy implications.'));
         }
     },
 
@@ -121,11 +127,13 @@ export const ValidationUtils = {
         }
         
         if (!config.timezone) {
-            warnings.push('Zeitzone nicht gesetzt – Windows-Standard wird verwendet.');
+            warnings.push(lang.t('validation.timezoneNotSetDE',
+                'Time zone not set – Windows default will be used.'));
         }
 
         if (!config.uilanguage) {
-            warnings.push('Anzeigesprache nicht gesetzt – en-US wird verwendet.');
+            warnings.push(lang.t('validation.uiLanguageNotSetDE',
+                'UI language not set – en-US will be used.'));
         }
         
         // Validate locale formats
@@ -282,9 +290,11 @@ export const ValidationUtils = {
             // Passwort Pflicht. Ohne wird das Built-in-Admin-Konto ohne Passwort
             // ausgerollt – ein klares Sicherheitsrisiko.
             if (config.enableAdminAccount !== false) {
-                errors.push('Kein Administrator-Passwort gesetzt – das Built-in-Konto wäre ohne Passwort exponiert.');
+                errors.push(lang.t('validation.adminPwExposed',
+                    'No administrator password set – the built-in account would be exposed without a password.'));
             } else {
-                warnings.push('Kein Administrator-Passwort gesetzt.');
+                warnings.push(lang.t('validation.adminPwMissing',
+                    'No administrator password set.'));
             }
         }
         

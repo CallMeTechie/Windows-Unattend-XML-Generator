@@ -129,7 +129,7 @@ export const DynamicElements = {
         const userHTML = `
             <div class="user-item card-item" data-id="${userId}">
                 <div class="item-header">
-                    <h4>${lang.t('fields.user') || 'Benutzer'} ${userNumber}</h4>
+                    <h4>${lang.t('users.user', 'User')} ${userNumber}</h4>
                     <button class="icon-btn icon-btn-danger remove-btn" data-type="user" title="${lang.t('buttons.remove')}" aria-label="${lang.t('buttons.remove')}">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg>
                     </button>
@@ -158,18 +158,18 @@ export const DynamicElements = {
                             <option value="administrators">${lang.t('options.userGroups.administrators')}</option>
                             <option value="powerusers">${lang.t('options.userGroups.powerusers')}</option>
                             <option value="remotedesktop">${lang.t('options.userGroups.remotedesktop')}</option>
-                            <option value="guests">Guests</option>
-                            <option value="backup">Backup Operators</option>
+                            <option value="guests">${lang.t('options.userGroups.guests', 'Guests')}</option>
+                            <option value="backup">${lang.t('options.userGroups.backup', 'Backup Operators')}</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="autologon-${userId}"><input type="checkbox" id="autologon-${userId}" name="autologon-${userId}" data-field="autologon"> Auto-Logon für diesen Benutzer</label>
+                        <label for="autologon-${userId}"><input type="checkbox" id="autologon-${userId}" name="autologon-${userId}" data-field="autologon"> ${lang.t('fields.autologon', 'Auto-logon for this user')}</label>
                     </div>
                     <div class="form-group">
-                        <label for="passwordNeverExpires-${userId}"><input type="checkbox" id="passwordNeverExpires-${userId}" name="passwordNeverExpires-${userId}" data-field="passwordNeverExpires" checked> Passwort läuft nie ab</label>
+                        <label for="passwordNeverExpires-${userId}"><input type="checkbox" id="passwordNeverExpires-${userId}" name="passwordNeverExpires-${userId}" data-field="passwordNeverExpires" checked> ${lang.t('fields.passwordNeverExpires', 'Password never expires')}</label>
                     </div>
                     <div class="form-group">
-                        <label for="disableAccount-${userId}"><input type="checkbox" id="disableAccount-${userId}" name="disableAccount-${userId}" data-field="disableAccount"> Konto initial deaktiviert</label>
+                        <label for="disableAccount-${userId}"><input type="checkbox" id="disableAccount-${userId}" name="disableAccount-${userId}" data-field="disableAccount"> ${lang.t('fields.disableAccount', 'Account initially disabled')}</label>
                     </div>
                 </div>
             </div>
@@ -197,7 +197,7 @@ export const DynamicElements = {
         const softwareHTML = `
             <div class="software-item card-item" data-id="${softwareId}">
                 <div class="software-item-header">
-                    <h4>${lang.t('software.package') || 'Software-Paket'} ${itemNumber}</h4>
+                    <h4>${lang.t('software.package', 'Software package')} ${itemNumber}</h4>
                     <button class="icon-btn icon-btn-danger remove-btn" data-type="software" title="${lang.t('buttons.remove')}" aria-label="${lang.t('buttons.remove')}">
                         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6"/></svg>
                     </button>
@@ -208,13 +208,13 @@ export const DynamicElements = {
                         <input type="text" class="form-control" id="name-${softwareId}" name="name-${softwareId}" data-field="name" placeholder="${lang.t('placeholders.softwareName')}" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="type-${softwareId}">${lang.t('fields.packageType') || 'Paket-Typ'}</label>
+                        <label class="form-label" for="type-${softwareId}">${lang.t('fields.packageType', 'Package type')}</label>
                         <select class="form-control" id="type-${softwareId}" name="type-${softwareId}" data-field="type">
-                            <option value="msi">MSI-Paket</option>
-                            <option value="exe">EXE-Installer</option>
-                            <option value="appx">AppX/MSIX-Paket</option>
-                            <option value="script">Skript/Batch</option>
-                            <option value="zip">ZIP-Archiv</option>
+                            <option value="msi">${lang.t('options.packageTypes.msi', 'MSI package')}</option>
+                            <option value="exe">${lang.t('options.packageTypes.exe', 'EXE installer')}</option>
+                            <option value="appx">${lang.t('options.packageTypes.appx', 'AppX/MSIX package')}</option>
+                            <option value="script">${lang.t('options.packageTypes.script', 'Script/Batch')}</option>
+                            <option value="zip">${lang.t('options.packageTypes.zip', 'ZIP archive')}</option>
                         </select>
                     </div>
                     <div class="form-group full">
@@ -223,7 +223,7 @@ export const DynamicElements = {
                     </div>
                     <div class="form-group full">
                         <label class="form-label" for="arguments-${softwareId}">${lang.t('fields.arguments')}</label>
-                        <input type="text" class="form-control" id="arguments-${softwareId}" name="arguments-${softwareId}" data-field="arguments" placeholder="z. B. /quiet /norestart">
+                        <input type="text" class="form-control" id="arguments-${softwareId}" name="arguments-${softwareId}" data-field="arguments" placeholder="${lang.t('placeholders.softwareArgs', 'e.g. /quiet /norestart')}">
                         <div class="arg-chips" data-arg-target="arguments-${softwareId}">
                             <button type="button" class="arg-chip" data-value="/quiet /norestart" title="MSI – stiller Standardmodus, kein Neustart">MSI · /quiet /norestart</button>
                             <button type="button" class="arg-chip" data-value="/qn" title="MSI – komplett ohne UI">MSI · /qn</button>
@@ -240,19 +240,19 @@ export const DynamicElements = {
                         <input type="number" class="form-control" id="order-${softwareId}" name="order-${softwareId}" data-field="order" value="1" min="1">
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="phase-${softwareId}">Phase</label>
+                        <label class="form-label" for="phase-${softwareId}">${lang.t('fields.phase', 'Phase')}</label>
                         <select class="form-control" id="phase-${softwareId}" name="phase-${softwareId}" data-field="phase">
-                            <option value="firstlogon">First Logon</option>
-                            <option value="specialize">Specialize</option>
-                            <option value="audit">Audit Mode</option>
-                            <option value="oobe">OOBE</option>
+                            <option value="firstlogon">${lang.t('options.installPhases.firstlogon', 'First Logon')}</option>
+                            <option value="specialize">${lang.t('options.installPhases.specialize', 'Specialize')}</option>
+                            <option value="audit">${lang.t('options.installPhases.auditmode', 'Audit Mode')}</option>
+                            <option value="oobe">${lang.t('options.installPhases.oobe', 'OOBE')}</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="rebootAfter-${softwareId}"><input type="checkbox" id="rebootAfter-${softwareId}" name="rebootAfter-${softwareId}" data-field="rebootAfter"> Neustart nach Installation</label>
+                        <label for="rebootAfter-${softwareId}"><input type="checkbox" id="rebootAfter-${softwareId}" name="rebootAfter-${softwareId}" data-field="rebootAfter"> ${lang.t('fields.rebootAfter', 'Reboot after installation')}</label>
                     </div>
                     <div class="form-group">
-                        <label for="continueOnError-${softwareId}"><input type="checkbox" id="continueOnError-${softwareId}" name="continueOnError-${softwareId}" data-field="continueOnError" checked> Bei Fehler weiter</label>
+                        <label for="continueOnError-${softwareId}"><input type="checkbox" id="continueOnError-${softwareId}" name="continueOnError-${softwareId}" data-field="continueOnError" checked> ${lang.t('fields.continueOnError', 'Continue on error')}</label>
                     </div>
                 </div>
             </div>

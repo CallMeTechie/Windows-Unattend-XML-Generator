@@ -261,7 +261,12 @@
     "disableOneDrive": "Wyłącz OneDrive",
     "enableAutoLogon": "Włącz automatyczne logowanie",
     "packageDriveLetter": "Litera dysku dla pakietów",
-    "customFeatures": "Niestandardowe funkcje (Nazwy pakietów DISM)"
+    "customFeatures": "Niestandardowe funkcje (Nazwy pakietów DISM)",
+    "packageType": "Typ pakietu",
+    "rebootAfter": "Uruchom ponownie po instalacji",
+    "continueOnError": "Kontynuuj w razie błędu",
+    "autologon": "Automatyczne logowanie tego użytkownika",
+    "disableAccount": "Konto początkowo wyłączone"
   },
   "defaults": {
     "administratorName": "Administrator",
@@ -306,7 +311,21 @@
     "fileServer": "Serwer plików",
     "printServer": "Serwer wydruku",
     "remoteDesktopServices": "Usługi pulpitu zdalnego",
-    "deploymentServices": "Usługi wdrażania systemu Windows"
+    "deploymentServices": "Usługi wdrażania systemu Windows",
+    "vmPlatform": "Platforma maszyny wirtualnej (dla WSL2)",
+    "hypervisorPlatform": "Platforma hipernadzorcy",
+    "opensshClient": "Klient OpenSSH",
+    "opensshServer": "Serwer OpenSSH",
+    "printToPdf": "Microsoft Print to PDF",
+    "xpsServices": "Usługi XPS",
+    "powerShellV2": "PowerShell 2.0 (starsza wersja)",
+    "snmpService": "Usługa SNMP",
+    "msmq": "Microsoft Message Queue (MSMQ)",
+    "nfsClient": "Klient NFS",
+    "mediaFeatures": "Funkcje multimedialne",
+    "workFoldersClient": "Klient folderów roboczych",
+    "defenderAppGuard": "Defender Application Guard",
+    "legacyComponents": "Składniki starszej wersji"
   },
   "options": {
     "windowsVersions": {
@@ -449,6 +468,19 @@
       "X": "X:",
       "Y": "Y:",
       "Z": "Z:"
+    },
+    "packageTypes": {
+      "msi": "Pakiet MSI",
+      "exe": "Instalator EXE",
+      "appx": "Pakiet AppX/MSIX",
+      "script": "Skrypt/Batch",
+      "zip": "Archiwum ZIP"
+    },
+    "installPhases": {
+      "firstlogon": "First Logon",
+      "specialize": "Specialize",
+      "auditmode": "Audit Mode",
+      "oobe": "OOBE"
     }
   },
   "placeholders": {
@@ -625,5 +657,52 @@
   },
   "preview": {
     "clickValidate": "Kliknij 'Waliduj' aby wygenerować podgląd"
+  },
+  "software": {
+    "package": "Pakiet oprogramowania",
+    "argsHint": "Przykłady argumentów"
+  },
+  "users": {
+    "user": "Użytkownik",
+    "additionalUsers": "Dodatkowi użytkownicy"
+  },
+  "about": {
+    "title": "O tej aplikacji",
+    "tagline": "Instalacje nienadzorowane dla Windows 11 i Server 2022",
+    "version": "Wersja",
+    "license": "Licencja",
+    "copyright": "Copyright",
+    "source": "Kod źródłowy",
+    "close": "Zamknij"
+  },
+  "menu": {
+    "infoTitle": "O aplikacji i pomoc",
+    "about": "O tej aplikacji",
+    "checkUpdates": "Sprawdź aktualizacje",
+    "vendor": "Strona producenta"
+  },
+  "updates": {
+    "checking": "Sprawdzanie aktualizacji …",
+    "rateLimit": "Osiągnięto limit API GitHub (60 zapytań/godz. dla wywołań anonimowych). Spróbuj ponownie później.",
+    "upToDate": "Używasz najnowszej wersji (v{{version}}).",
+    "preview": "Używasz wersji zapoznawczej (v{{current}}, ostatnio opublikowana: v{{latest}}).",
+    "failed": "Sprawdzanie aktualizacji nie powiodło się: {{error}}",
+    "newVersionAvailable": "Dostępna jest nowa wersja:\n\nObecna: v{{current}}\nNowa:   v{{latest}}\n\nOtworzyć stronę wydania?"
+  },
+  "validation": {
+    "error": "Błąd",
+    "warning": "Ostrzeżenie",
+    "warnings": "Ostrzeżenia",
+    "adminPwExposed": "Nie ustawiono hasła administratora – wbudowane konto byłoby narażone bez hasła.",
+    "adminPwMissing": "Nie ustawiono hasła administratora.",
+    "defaultComputerName": "Nazwa komputera \"{{name}}\" jest niezmienioną wartością domyślną – ustaw znaczącą nazwę.",
+    "eulaNotAccepted": "Umowa EULA nie jest automatycznie akceptowana – instalacja zatrzyma się na ekranie licencji.",
+    "timezoneFormat": "Strefa czasowa \"{{tz}}\" nie pasuje do formatu Windows (np. \"W. Europe Standard Time\").",
+    "productKeyMissing": "Nie ustawiono klucza produktu – instalator o niego zapyta.",
+    "allAccountSetupSkipped": "Pominięto zarówno konfigurację konta online jak i lokalnego, ale nie skonfigurowano administratora ani użytkownika lokalnego – po instalacji nie będzie sposobu na zalogowanie.",
+    "autoLogonNoAccount": "Włączono logowanie automatyczne, ale nie skonfigurowano konta.",
+    "telemetryFull": "Poziom telemetrii \"Full\" wysyła najwięcej danych do Microsoft – sprawdź konsekwencje dla prywatności.",
+    "timezoneNotSetDE": "Strefa czasowa nieustawiona – zostanie użyta wartość domyślna Windows.",
+    "uiLanguageNotSetDE": "Język interfejsu nieustawiony – zostanie użyty en-US."
   }
 }

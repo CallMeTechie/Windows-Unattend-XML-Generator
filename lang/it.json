@@ -261,7 +261,12 @@
     "disableOneDrive": "Disabilita OneDrive",
     "enableAutoLogon": "Abilita accesso automatico",
     "packageDriveLetter": "Lettera unità per pacchetti",
-    "customFeatures": "Funzionalità personalizzate (Nomi pacchetti DISM)"
+    "customFeatures": "Funzionalità personalizzate (Nomi pacchetti DISM)",
+    "packageType": "Tipo di pacchetto",
+    "rebootAfter": "Riavvia dopo l’installazione",
+    "continueOnError": "Continua in caso di errore",
+    "autologon": "Accesso automatico per questo utente",
+    "disableAccount": "Account inizialmente disattivato"
   },
   "defaults": {
     "administratorName": "Administrator",
@@ -306,7 +311,21 @@
     "fileServer": "File server",
     "printServer": "Server di stampa",
     "remoteDesktopServices": "Servizi Desktop remoto",
-    "deploymentServices": "Servizi di distribuzione Windows"
+    "deploymentServices": "Servizi di distribuzione Windows",
+    "vmPlatform": "Virtual Machine Platform (per WSL2)",
+    "hypervisorPlatform": "Piattaforma hypervisor",
+    "opensshClient": "Client OpenSSH",
+    "opensshServer": "Server OpenSSH",
+    "printToPdf": "Microsoft Print to PDF",
+    "xpsServices": "Servizi XPS",
+    "powerShellV2": "PowerShell 2.0 (legacy)",
+    "snmpService": "Servizio SNMP",
+    "msmq": "Microsoft Message Queue (MSMQ)",
+    "nfsClient": "Client NFS",
+    "mediaFeatures": "Funzionalità multimediali",
+    "workFoldersClient": "Client Cartelle di lavoro",
+    "defenderAppGuard": "Defender Application Guard",
+    "legacyComponents": "Componenti legacy"
   },
   "options": {
     "windowsVersions": {
@@ -449,6 +468,19 @@
       "X": "X:",
       "Y": "Y:",
       "Z": "Z:"
+    },
+    "packageTypes": {
+      "msi": "Pacchetto MSI",
+      "exe": "Installer EXE",
+      "appx": "Pacchetto AppX/MSIX",
+      "script": "Script/Batch",
+      "zip": "Archivio ZIP"
+    },
+    "installPhases": {
+      "firstlogon": "First Logon",
+      "specialize": "Specialize",
+      "auditmode": "Audit Mode",
+      "oobe": "OOBE"
     }
   },
   "placeholders": {
@@ -625,5 +657,52 @@
   },
   "preview": {
     "clickValidate": "Clicca 'Valida' per generare anteprima"
+  },
+  "software": {
+    "package": "Pacchetto software",
+    "argsHint": "Esempi di argomenti"
+  },
+  "users": {
+    "user": "Utente",
+    "additionalUsers": "Utenti aggiuntivi"
+  },
+  "about": {
+    "title": "Informazioni su questa applicazione",
+    "tagline": "Installazioni non presidiate per Windows 11 e Server 2022",
+    "version": "Versione",
+    "license": "Licenza",
+    "copyright": "Copyright",
+    "source": "Codice sorgente",
+    "close": "Chiudi"
+  },
+  "menu": {
+    "infoTitle": "Informazioni e aiuto",
+    "about": "Informazioni su questa applicazione",
+    "checkUpdates": "Cerca aggiornamenti",
+    "vendor": "Sito del produttore"
+  },
+  "updates": {
+    "checking": "Ricerca aggiornamenti …",
+    "rateLimit": "Limite API GitHub raggiunto (60 richieste/ora per chiamate anonime). Riprova più tardi.",
+    "upToDate": "Stai usando la versione più recente (v{{version}}).",
+    "preview": "Stai usando una versione di anteprima (v{{current}}, ultima pubblicata: v{{latest}}).",
+    "failed": "Controllo aggiornamenti non riuscito: {{error}}",
+    "newVersionAvailable": "È disponibile una nuova versione:\n\nAttuale: v{{current}}\nNuova:   v{{latest}}\n\nAprire la pagina della release?"
+  },
+  "validation": {
+    "error": "Errore",
+    "warning": "Avviso",
+    "warnings": "Avvisi",
+    "adminPwExposed": "Nessuna password amministratore impostata – l’account integrato sarebbe esposto senza password.",
+    "adminPwMissing": "Nessuna password amministratore impostata.",
+    "defaultComputerName": "Il nome del computer \"{{name}}\" è un valore predefinito – imposta un nome significativo.",
+    "eulaNotAccepted": "EULA non accettato automaticamente – l’installazione si fermerà alla schermata della licenza.",
+    "timezoneFormat": "Il fuso orario \"{{tz}}\" non corrisponde al formato Windows (es. \"W. Europe Standard Time\").",
+    "productKeyMissing": "Nessun product key impostato – l’installer lo richiederà.",
+    "allAccountSetupSkipped": "Configurazione account online e locale ignorate, ma nessun amministratore o utente locale configurato – nessun accesso possibile dopo l’installazione.",
+    "autoLogonNoAccount": "Accesso automatico abilitato ma nessun account configurato.",
+    "telemetryFull": "Il livello di telemetria \"Full\" invia la maggior quantità di dati a Microsoft – verifica le implicazioni sulla privacy.",
+    "timezoneNotSetDE": "Fuso orario non impostato – verrà usato il valore predefinito di Windows.",
+    "uiLanguageNotSetDE": "Lingua dell’interfaccia non impostata – verrà usato en-US."
   }
 }

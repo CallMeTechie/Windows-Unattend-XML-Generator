@@ -87,25 +87,47 @@ export const LanguageManager = {
      * Get translation by key
      */
     t(key, params = {}) {
+        // Erlaubt einen Fallback-String als zweites Argument:
+        //   lang.t('software.package', 'Software Package')
+        // Damit fallen unübersetzte Keys nicht auf den Schlüssel-String,
+        // sondern auf eine sinnvolle englische Standardanzeige zurück.
+        let fallback = null;
+        if (typeof params === 'string') {
+            fallback = params;
+            params = {};
+        }
         // Navigate through nested keys
         const keys = key.split('.');
         let value = this.translations;
-        
+
+        // Defense-in-Depth: explizit pollution-relevante Key-Segmente ablehnen,
+        // zusätzlich zum hasOwnProperty-Check.
+        const UNSAFE_SEGMENTS = new Set(['__proto__', 'prototype', 'constructor']);
+
         for (const k of keys) {
-            if (value && typeof value === 'object' && Object.prototype.hasOwnProperty.call(value, k)) {
-                value = value[k];
-            } else {
-                console.warn(`Translation key not found: ${key}`);
-                return key;
+            if (UNSAFE_SEGMENTS.has(k)) {
+                console.warn(`Translation key rejected (unsafe segment): ${key}`);
+                return fallback !== null ? fallback : key;
             }
+            // Reflection statt Bracket-Access: getOwnPropertyDescriptor liefert
+            // nur eigene Properties und kann keine Setter/Getter unbeabsichtigt
+            // triggern — Funktion bleibt damit nachweisbar read-only.
+            const desc = (value && typeof value === 'object')
+                ? Object.getOwnPropertyDescriptor(value, k)
+                : undefined;
+            if (!desc) {
+                console.warn(`Translation key not found: ${key}`);
+                return fallback !== null ? fallback : key;
+            }
+            value = desc.value;
         }
-        
+
         // Replace parameters if any
         if (typeof value === 'string') {
             return this.replacePlaceholders(value, params);
         }
-        
-        return value || key;
+
+        return value || fallback || key;
     },
     
     /**

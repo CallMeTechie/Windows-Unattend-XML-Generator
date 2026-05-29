@@ -261,7 +261,12 @@
     "disableOneDrive": "禁用OneDrive",
     "enableAutoLogon": "启用自动登录",
     "packageDriveLetter": "包的驱动器号",
-    "customFeatures": "自定义功能（DISM包名称）"
+    "customFeatures": "自定义功能（DISM包名称）",
+    "packageType": "包类型",
+    "rebootAfter": "安装后重启",
+    "continueOnError": "出错时继续",
+    "autologon": "为此用户启用自动登录",
+    "disableAccount": "账户初始为禁用"
   },
   "defaults": {
     "administratorName": "Administrator",
@@ -306,7 +311,21 @@
     "fileServer": "文件服务器",
     "printServer": "打印服务器",
     "remoteDesktopServices": "远程桌面服务",
-    "deploymentServices": "Windows部署服务"
+    "deploymentServices": "Windows部署服务",
+    "vmPlatform": "虚拟机平台（用于 WSL2）",
+    "hypervisorPlatform": "虚拟机监控程序平台",
+    "opensshClient": "OpenSSH 客户端",
+    "opensshServer": "OpenSSH 服务器",
+    "printToPdf": "Microsoft Print to PDF",
+    "xpsServices": "XPS 服务",
+    "powerShellV2": "PowerShell 2.0（旧版）",
+    "snmpService": "SNMP 服务",
+    "msmq": "Microsoft Message Queue (MSMQ)",
+    "nfsClient": "NFS 客户端",
+    "mediaFeatures": "媒体功能",
+    "workFoldersClient": "工作文件夹客户端",
+    "defenderAppGuard": "Defender Application Guard",
+    "legacyComponents": "旧版组件"
   },
   "options": {
     "windowsVersions": {
@@ -450,6 +469,19 @@
       "X": "X:",
       "Y": "Y:",
       "Z": "Z:"
+    },
+    "packageTypes": {
+      "msi": "MSI 包",
+      "exe": "EXE 安装程序",
+      "appx": "AppX/MSIX 包",
+      "script": "脚本/批处理",
+      "zip": "ZIP 归档"
+    },
+    "installPhases": {
+      "firstlogon": "First Logon",
+      "specialize": "Specialize",
+      "auditmode": "Audit Mode",
+      "oobe": "OOBE"
     }
   },
   "placeholders": {
@@ -626,5 +658,52 @@
   },
   "preview": {
     "clickValidate": "点击\"验证\"生成预览"
+  },
+  "software": {
+    "package": "软件包",
+    "argsHint": "参数示例"
+  },
+  "users": {
+    "user": "用户",
+    "additionalUsers": "其他用户"
+  },
+  "about": {
+    "title": "关于本应用",
+    "tagline": "适用于 Windows 11 和 Server 2022 的无人值守安装",
+    "version": "版本",
+    "license": "许可证",
+    "copyright": "Copyright",
+    "source": "源代码",
+    "close": "关闭"
+  },
+  "menu": {
+    "infoTitle": "关于与帮助",
+    "about": "关于本应用",
+    "checkUpdates": "检查更新",
+    "vendor": "供应商网站"
+  },
+  "updates": {
+    "checking": "正在检查更新 …",
+    "rateLimit": "已达到 GitHub API 限制（匿名调用每小时 60 次）。请稍后重试。",
+    "upToDate": "您正在使用最新版本 (v{{version}})。",
+    "preview": "您正在使用预览版本 (v{{current}}，最新发布版本：v{{latest}})。",
+    "failed": "检查更新失败：{{error}}",
+    "newVersionAvailable": "有新版本可用：\n\n当前版本：v{{current}}\n新版本：  v{{latest}}\n\n打开发布页面？"
+  },
+  "validation": {
+    "error": "错误",
+    "warning": "警告",
+    "warnings": "警告",
+    "adminPwExposed": "未设置管理员密码 – 内置账户将无密码暴露。",
+    "adminPwMissing": "未设置管理员密码。",
+    "defaultComputerName": "计算机名 \"{{name}}\" 为未更改的默认值 – 请设置有意义的名称。",
+    "eulaNotAccepted": "未自动接受 EULA – 安装将在许可证屏幕暂停。",
+    "timezoneFormat": "时区 \"{{tz}}\" 不符合 Windows 格式（例如 \"W. Europe Standard Time\"）。",
+    "productKeyMissing": "未设置产品密钥 – 安装程序将提示输入。",
+    "allAccountSetupSkipped": "同时跳过了在线和本地账户设置，但未配置管理员或本地用户 – 安装后将无法登录。",
+    "autoLogonNoAccount": "已启用自动登录，但未配置账户。",
+    "telemetryFull": "遥测级别 \"Full\" 向 Microsoft 发送最多数据 – 请审查隐私影响。",
+    "timezoneNotSetDE": "未设置时区 – 将使用 Windows 默认值。",
+    "uiLanguageNotSetDE": "未设置界面语言 – 将使用 en-US。"
   }
 }

@@ -261,7 +261,12 @@
     "disableOneDrive": "OneDrive deaktivieren",
     "enableAutoLogon": "Automatische Anmeldung aktivieren",
     "packageDriveLetter": "Laufwerksbuchstabe für Pakete",
-    "customFeatures": "Benutzerdefinierte Features (DISM-Paketnamen)"
+    "customFeatures": "Benutzerdefinierte Features (DISM-Paketnamen)",
+    "packageType": "Paket-Typ",
+    "rebootAfter": "Neustart nach Installation",
+    "continueOnError": "Bei Fehler weiter",
+    "autologon": "Auto-Logon für diesen Benutzer",
+    "disableAccount": "Konto initial deaktiviert"
   },
   "features": {
     "netfx3": ".NET Framework 3.5",
@@ -300,7 +305,21 @@
     "fileServer": "Dateiserver",
     "printServer": "Druckserver",
     "remoteDesktopServices": "Remotedesktopdienste",
-    "deploymentServices": "Windows-Bereitstellungsdienste"
+    "deploymentServices": "Windows-Bereitstellungsdienste",
+    "vmPlatform": "Virtual Machine Platform (für WSL2)",
+    "hypervisorPlatform": "Hypervisor-Plattform",
+    "opensshClient": "OpenSSH-Client",
+    "opensshServer": "OpenSSH-Server",
+    "printToPdf": "Microsoft Print to PDF",
+    "xpsServices": "XPS-Dienste",
+    "powerShellV2": "PowerShell 2.0 (Legacy)",
+    "snmpService": "SNMP-Dienst",
+    "msmq": "Microsoft Message Queue (MSMQ)",
+    "nfsClient": "NFS-Client",
+    "mediaFeatures": "Medienfunktionen",
+    "workFoldersClient": "Arbeitsordner-Client",
+    "defenderAppGuard": "Defender Application Guard",
+    "legacyComponents": "Legacy-Komponenten"
   },
   "options": {
     "windowsVersions": {
@@ -443,6 +462,19 @@
       "X": "X:",
       "Y": "Y:",
       "Z": "Z:"
+    },
+    "packageTypes": {
+      "msi": "MSI-Paket",
+      "exe": "EXE-Installer",
+      "appx": "AppX/MSIX-Paket",
+      "script": "Skript/Batch",
+      "zip": "ZIP-Archiv"
+    },
+    "installPhases": {
+      "firstlogon": "First Logon",
+      "specialize": "Specialize",
+      "auditmode": "Audit Mode",
+      "oobe": "OOBE"
     }
   },
   "buttons": {
@@ -625,5 +657,52 @@
     "workgroupName": "ARBEITSGRUPPE",
     "wmiQuery": "SELECT SerialNumber FROM Win32_BIOS",
     "modelMapping": "{\n  \"Dell OptiPlex*\": \"\\\\server\\\\drivers\\\\Dell\\\\OptiPlex\",\n  \"HP EliteBook*\": \"\\\\server\\\\drivers\\\\HP\\\\EliteBook\",\n  \"Lenovo ThinkPad*\": \"\\\\server\\\\drivers\\\\Lenovo\\\\ThinkPad\",\n  \"Virtual Machine\": \"\\\\server\\\\drivers\\\\VMware\"\n}"
+  },
+  "software": {
+    "package": "Software-Paket",
+    "argsHint": "Beispiele für Argumente"
+  },
+  "users": {
+    "user": "Benutzer",
+    "additionalUsers": "Weitere Benutzer"
+  },
+  "about": {
+    "title": "Über die Anwendung",
+    "tagline": "Unbeaufsichtigte Installationen für Windows 11 und Server 2022",
+    "version": "Version",
+    "license": "Lizenz",
+    "copyright": "Copyright",
+    "source": "Quellcode",
+    "close": "Schließen"
+  },
+  "menu": {
+    "infoTitle": "Über & Hilfe",
+    "about": "Über die Anwendung",
+    "checkUpdates": "Auf Updates prüfen",
+    "vendor": "Hersteller-Website"
+  },
+  "updates": {
+    "checking": "Prüfe auf Updates …",
+    "rateLimit": "GitHub-API-Limit erreicht (60 Anfragen/Stunde für anonyme Aufrufe). Bitte später erneut versuchen.",
+    "upToDate": "Du nutzt die aktuelle Version (v{{version}}).",
+    "preview": "Du nutzt eine Vorschau-Version (v{{current}}, veröffentlicht: v{{latest}}).",
+    "failed": "Update-Prüfung fehlgeschlagen: {{error}}",
+    "newVersionAvailable": "Eine neue Version ist verfügbar:\n\nAktuell: v{{current}}\nNeu:     v{{latest}}\n\nMöchtest du die Release-Seite öffnen?"
+  },
+  "validation": {
+    "error": "Fehler",
+    "warning": "Warnung",
+    "warnings": "Warnungen",
+    "adminPwExposed": "Kein Administrator-Passwort gesetzt – das Built-in-Konto wäre ohne Passwort exponiert.",
+    "adminPwMissing": "Kein Administrator-Passwort gesetzt.",
+    "defaultComputerName": "Computername „{{name}}\" ist ein unangepasster Standardwert – setze einen aussagekräftigen Namen.",
+    "eulaNotAccepted": "EULA wird nicht automatisch akzeptiert – die Installation pausiert beim Lizenzbildschirm.",
+    "timezoneFormat": "Zeitzone „{{tz}}\" entspricht nicht dem Windows-Format (z. B. „W. Europe Standard Time\").",
+    "productKeyMissing": "Kein Produktschlüssel gesetzt – die Installation fragt den Schlüssel ab.",
+    "allAccountSetupSkipped": "Sowohl Online- als auch lokales Konto-Setup übersprungen, aber kein Administrator und kein lokaler Benutzer konfiguriert – nach der Installation gäbe es keinen Login.",
+    "autoLogonNoAccount": "Auto-Logon aktiviert, aber kein Konto konfiguriert.",
+    "telemetryFull": "Telemetrie-Stufe „Full\" sendet die meisten Daten an Microsoft – Datenschutz prüfen.",
+    "timezoneNotSetDE": "Zeitzone nicht gesetzt – Windows-Standard wird verwendet.",
+    "uiLanguageNotSetDE": "Anzeigesprache nicht gesetzt – en-US wird verwendet."
   }
 }

@@ -261,7 +261,12 @@
     "disableOneDrive": "Disable OneDrive",
     "enableAutoLogon": "Enable Auto-Logon",
     "packageDriveLetter": "Drive Letter for Packages",
-    "customFeatures": "Custom Features (DISM Package Names)"
+    "customFeatures": "Custom Features (DISM Package Names)",
+    "packageType": "Package type",
+    "rebootAfter": "Reboot after installation",
+    "continueOnError": "Continue on error",
+    "autologon": "Auto-logon for this user",
+    "disableAccount": "Account initially disabled"
   },
   "defaults": {
     "administratorName": "Administrator",
@@ -306,7 +311,21 @@
     "fileServer": "File Server",
     "printServer": "Print Server",
     "remoteDesktopServices": "Remote Desktop Services",
-    "deploymentServices": "Windows Deployment Services"
+    "deploymentServices": "Windows Deployment Services",
+    "vmPlatform": "Virtual Machine Platform (for WSL2)",
+    "hypervisorPlatform": "Hypervisor Platform",
+    "opensshClient": "OpenSSH Client",
+    "opensshServer": "OpenSSH Server",
+    "printToPdf": "Microsoft Print to PDF",
+    "xpsServices": "XPS Services",
+    "powerShellV2": "PowerShell 2.0 (Legacy)",
+    "snmpService": "SNMP Service",
+    "msmq": "Microsoft Message Queue (MSMQ)",
+    "nfsClient": "NFS Client",
+    "mediaFeatures": "Media Features",
+    "workFoldersClient": "Work Folders Client",
+    "defenderAppGuard": "Defender Application Guard",
+    "legacyComponents": "Legacy Components"
   },
   "options": {
     "windowsVersions": {
@@ -449,6 +468,19 @@
       "X": "X:",
       "Y": "Y:",
       "Z": "Z:"
+    },
+    "packageTypes": {
+      "msi": "MSI package",
+      "exe": "EXE installer",
+      "appx": "AppX/MSIX package",
+      "script": "Script/Batch",
+      "zip": "ZIP archive"
+    },
+    "installPhases": {
+      "firstlogon": "First Logon",
+      "specialize": "Specialize",
+      "auditmode": "Audit Mode",
+      "oobe": "OOBE"
     }
   },
   "buttons": {
@@ -625,5 +657,52 @@
   },
   "preview": {
     "clickValidate": "Click 'Validate' to generate preview"
+  },
+  "software": {
+    "package": "Software package",
+    "argsHint": "Argument examples"
+  },
+  "users": {
+    "user": "User",
+    "additionalUsers": "Additional users"
+  },
+  "about": {
+    "title": "About this application",
+    "tagline": "Unattended installations for Windows 11 and Server 2022",
+    "version": "Version",
+    "license": "License",
+    "copyright": "Copyright",
+    "source": "Source code",
+    "close": "Close"
+  },
+  "menu": {
+    "infoTitle": "About & Help",
+    "about": "About this application",
+    "checkUpdates": "Check for updates",
+    "vendor": "Vendor website"
+  },
+  "updates": {
+    "checking": "Checking for updates …",
+    "rateLimit": "GitHub API rate limit reached (60 requests/hour for anonymous calls). Please try again later.",
+    "upToDate": "You are running the latest version (v{{version}}).",
+    "preview": "You are running a preview build (v{{current}}, latest released: v{{latest}}).",
+    "failed": "Update check failed: {{error}}",
+    "newVersionAvailable": "A new version is available:\n\nCurrent: v{{current}}\nNew:     v{{latest}}\n\nOpen the release page?"
+  },
+  "validation": {
+    "error": "Error",
+    "warning": "Warning",
+    "warnings": "Warnings",
+    "adminPwExposed": "No administrator password set – the built-in account would be exposed without a password.",
+    "adminPwMissing": "No administrator password set.",
+    "defaultComputerName": "Computer name \"{{name}}\" is an unchanged default value – set a meaningful name.",
+    "eulaNotAccepted": "EULA is not auto-accepted – the installation will pause at the license screen.",
+    "timezoneFormat": "Time zone \"{{tz}}\" does not match the Windows format (e.g. \"W. Europe Standard Time\").",
+    "productKeyMissing": "No product key set – the installer will prompt for one.",
+    "allAccountSetupSkipped": "Both online and local account setup are skipped, but no administrator or local user is configured – there would be no way to log in after installation.",
+    "autoLogonNoAccount": "Auto-logon is enabled, but no account is configured.",
+    "telemetryFull": "Telemetry level \"Full\" sends the most data to Microsoft – review privacy implications.",
+    "timezoneNotSetDE": "Time zone not set – Windows default will be used.",
+    "uiLanguageNotSetDE": "UI language not set – en-US will be used."
   }
 }

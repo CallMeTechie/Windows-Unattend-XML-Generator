@@ -261,7 +261,12 @@
     "disableOneDrive": "Désactiver OneDrive",
     "enableAutoLogon": "Activer la connexion automatique",
     "packageDriveLetter": "Lettre de lecteur pour les paquets",
-    "customFeatures": "Fonctionnalités personnalisées (Noms de paquets DISM)"
+    "customFeatures": "Fonctionnalités personnalisées (Noms de paquets DISM)",
+    "packageType": "Type de paquet",
+    "rebootAfter": "Redémarrer après l’installation",
+    "continueOnError": "Continuer en cas d’erreur",
+    "autologon": "Connexion automatique pour cet utilisateur",
+    "disableAccount": "Compte initialement désactivé"
   },
   "defaults": {
     "administratorName": "Administrateur",
@@ -306,7 +311,21 @@
     "fileServer": "Serveur de fichiers",
     "printServer": "Serveur d'impression",
     "remoteDesktopServices": "Services de bureau à distance",
-    "deploymentServices": "Services de déploiement Windows"
+    "deploymentServices": "Services de déploiement Windows",
+    "vmPlatform": "Plateforme de machine virtuelle (pour WSL2)",
+    "hypervisorPlatform": "Plateforme de l’hyperviseur",
+    "opensshClient": "Client OpenSSH",
+    "opensshServer": "Serveur OpenSSH",
+    "printToPdf": "Microsoft Print to PDF",
+    "xpsServices": "Services XPS",
+    "powerShellV2": "PowerShell 2.0 (hérité)",
+    "snmpService": "Service SNMP",
+    "msmq": "Microsoft Message Queue (MSMQ)",
+    "nfsClient": "Client NFS",
+    "mediaFeatures": "Fonctionnalités multimédias",
+    "workFoldersClient": "Client Dossiers de travail",
+    "defenderAppGuard": "Defender Application Guard",
+    "legacyComponents": "Composants hérités"
   },
   "options": {
     "windowsVersions": {
@@ -449,6 +468,19 @@
       "X": "X:",
       "Y": "Y:",
       "Z": "Z:"
+    },
+    "packageTypes": {
+      "msi": "Paquet MSI",
+      "exe": "Installateur EXE",
+      "appx": "Paquet AppX/MSIX",
+      "script": "Script/Batch",
+      "zip": "Archive ZIP"
+    },
+    "installPhases": {
+      "firstlogon": "First Logon",
+      "specialize": "Specialize",
+      "auditmode": "Audit Mode",
+      "oobe": "OOBE"
     }
   },
   "placeholders": {
@@ -625,5 +657,52 @@
   },
   "preview": {
     "clickValidate": "Cliquez sur 'Valider' pour générer l'aperçu"
+  },
+  "software": {
+    "package": "Paquet logiciel",
+    "argsHint": "Exemples d’arguments"
+  },
+  "users": {
+    "user": "Utilisateur",
+    "additionalUsers": "Utilisateurs supplémentaires"
+  },
+  "about": {
+    "title": "À propos de cette application",
+    "tagline": "Installations sans surveillance pour Windows 11 et Server 2022",
+    "version": "Version",
+    "license": "Licence",
+    "copyright": "Copyright",
+    "source": "Code source",
+    "close": "Fermer"
+  },
+  "menu": {
+    "infoTitle": "À propos & aide",
+    "about": "À propos de cette application",
+    "checkUpdates": "Rechercher des mises à jour",
+    "vendor": "Site du fournisseur"
+  },
+  "updates": {
+    "checking": "Recherche de mises à jour …",
+    "rateLimit": "Limite de l’API GitHub atteinte (60 requêtes/heure pour les appels anonymes). Réessayez plus tard.",
+    "upToDate": "Vous utilisez la dernière version (v{{version}}).",
+    "preview": "Vous utilisez une version préliminaire (v{{current}}, dernière publiée : v{{latest}}).",
+    "failed": "Échec de la vérification des mises à jour : {{error}}",
+    "newVersionAvailable": "Une nouvelle version est disponible :\n\nActuelle : v{{current}}\nNouvelle : v{{latest}}\n\nOuvrir la page de la version ?"
+  },
+  "validation": {
+    "error": "Erreur",
+    "warning": "Avertissement",
+    "warnings": "Avertissements",
+    "adminPwExposed": "Aucun mot de passe administrateur défini – le compte intégré serait exposé sans mot de passe.",
+    "adminPwMissing": "Aucun mot de passe administrateur défini.",
+    "defaultComputerName": "Le nom d’ordinateur \"{{name}}\" est une valeur par défaut – définissez un nom significatif.",
+    "eulaNotAccepted": "L’EULA n’est pas accepté automatiquement – l’installation s’arrêtera à l’écran de licence.",
+    "timezoneFormat": "Le fuseau horaire \"{{tz}}\" ne correspond pas au format Windows (par ex. « W. Europe Standard Time »).",
+    "productKeyMissing": "Aucune clé de produit définie – l’installateur la demandera.",
+    "allAccountSetupSkipped": "Configuration de compte en ligne et locale ignorée, mais aucun administrateur ou utilisateur local configuré – impossible de se connecter après l’installation.",
+    "autoLogonNoAccount": "Connexion automatique activée, mais aucun compte configuré.",
+    "telemetryFull": "Le niveau de télémétrie « Full » envoie le plus de données à Microsoft – vérifiez les implications pour la confidentialité.",
+    "timezoneNotSetDE": "Fuseau horaire non défini – la valeur par défaut de Windows sera utilisée.",
+    "uiLanguageNotSetDE": "Langue de l’interface non définie – en-US sera utilisée."
   }
 }
